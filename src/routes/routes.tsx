@@ -5,6 +5,8 @@ import AuthPage from "../pages/AuthPage/AuthPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ErrorPage from "../pages/error/Error";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import BaseLayout from "../components/BaseLayout/BaseLayout";
+import ProductPage from "../pages/ProductPage/ProductPage";
 
 export type Route = {
     [key: string]: {
@@ -28,6 +30,30 @@ export const ROUTES: Route = {
     },
     ORDERS: {
         path: "/orders",
-        element: <OrderPage />
+        element: <BaseLayout content={<OrderPage />} />
+    },
+    PRODUCTS: {
+        path: "/products",
+        element: <BaseLayout content={<ProductPage />} />
+    },
+    ROUTES: {
+        path: "/routes",
+        element: <BaseLayout content={<OrderPage />} />
+    },
+    LOCATIONS: {
+        path: "/locations",
+        element: <BaseLayout content={<OrderPage />} />
+    },
+    TRUCKS: {
+        path: "/trucks",
+        element: <BaseLayout content={<OrderPage />} />
+    },
+    CUSTOMERS: {
+        path: "/customers",
+        element: <BaseLayout content={<OrderPage />} />
+    },
+    DRIVERS: {
+        path: "/drivers",
+        element: <BaseLayout content={<OrderPage />} />
     }
 }
