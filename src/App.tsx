@@ -18,7 +18,9 @@ function App() {
   );
 
   return (
-    <RouterProvider router={router} />
+    <div className='font-poppins'>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 

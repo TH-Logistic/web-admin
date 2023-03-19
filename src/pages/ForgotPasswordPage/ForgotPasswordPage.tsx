@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
     }
 
     return (
-        <form className='flex flex-col items-center justify-center w-full h-full ' onSubmit={handleSubmit}>
+        <form className='flex flex-col items-center justify-center w-full h-full' onSubmit={handleSubmit}>
             <h1 className='mt-8 text-3xl font-medium text-center text-primary-color'>FORGOT PASSWORD</h1>
             <br />
             <p className="w-2/3 text-center text-l">{isSubmittedEmail ? `Please check your email` : `Please enter yout email to request a password reset.`} </p>

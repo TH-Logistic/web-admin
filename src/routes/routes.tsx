@@ -1,6 +1,6 @@
 import { JsxElement } from "typescript";
 import App from "../App";
-import AuthFrame from "../components/AuthFrame/AuthFrame";
+import AuthLayout from "../components/AuthFrame/AuthLayout";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ErrorPage from "../pages/error/Error";
@@ -15,11 +15,11 @@ export type Route = {
 
 export const ROUTES: Route = {
     AUTH: {
-        element: <AuthFrame child={<AuthPage />} />,
+        element: <AuthLayout child={<AuthPage />} />,
         path: '/auth'
     },
     FORGOT_PASSWORD: {
-        element: <AuthFrame child={<ForgotPasswordPage />} />,
+        element: <AuthLayout child={<ForgotPasswordPage />} />,
         path: '/forgot-password'
     },
     ERROR: {
