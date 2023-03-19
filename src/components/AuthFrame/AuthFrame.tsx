@@ -9,9 +9,9 @@ export interface AuthFrameArg {
 
 export default function AuthFrame({ child }: AuthFrameArg) {
     return (
-        <div className='flex w-screen h-screen bg-gradient-to-r from-secondary-color/25 to-primary-color'>
+        <div className='flex w-screen h-screen '>
             <div className='relative flex w-screen h-screen max-w-full max-h-full'>
-                <div className='absolute flex items-center justify-center w-screen h-screen max-w-full max-h-full bg-primary-color'>
+                <div className='absolute flex items-center justify-center w-screen h-screen max-w-full max-h-full bg-gradient-to-br from-secondary-color/80 to-primary-color'>
                     <div className='absolute flex w-5/6 bg-white rounded-md h-5/6 ' id='auth-background-white'>
                         <div className='flex flex-col items-center w-2/5 px-16 py-1/12' >
                             <img src={Logo} alt="Logo" className='w-3/4' />
