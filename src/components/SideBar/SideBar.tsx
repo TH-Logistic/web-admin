@@ -81,11 +81,13 @@ export default function SideBar() {
                         />)
                 }
             </div>
-            <Link className='flex flex-row justify-center' to={ROUTES.AUTH.path}>
-                <img src={LogoutIcon} alt='Logout icon' />
-                <div className='w-8' />
-                <button>Log out</button>
-            </Link>
+
+            <SideBarItem
+                onClick={() => navigate(ROUTES.AUTH.path)}
+                name='Log out'
+                icon={LogoutIcon}
+                isChose={false}
+            />
         </div>
     )
 }

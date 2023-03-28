@@ -13,10 +13,10 @@ export default function BaseLayout(props: { content: React.ReactElement }) {
                         <img src={NotificationIcon} alt='Notification Icon' />
                     </div>
                 </div>
-                <hr className='border-[0.5px] border-slate-400/25' />
+                <div className='border-[0.5px] border-border-color' />
                 <div className='flex flex-1'>
                     <SideBar />
-                    <div className='border-l-[1px] border-slate-400/25 flex-1'>
+                    <div className='border-l-[1px] border-border-color border-t-[0px] flex-1'>
                         {props.content}
                     </div>
                 </div>
