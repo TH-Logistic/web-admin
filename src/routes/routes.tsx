@@ -8,6 +8,7 @@ import OrderPage from "../pages/OrderPage/OrderPage";
 import BaseLayout from "../components/BaseLayout/BaseLayout";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import RoutePage from "../pages/RoutePage/RoutePage";
+import LocationPage from "../pages/LocationPage/LocationPage";
 
 export type Route = {
     [key: string]: {
@@ -43,7 +44,7 @@ export const ROUTES: Route = {
     },
     LOCATIONS: {
         path: "/locations",
-        element: <BaseLayout content={<OrderPage />} />
+        element: <BaseLayout content={<LocationPage />} />
     },
     TRUCKS: {
         path: "/trucks",
