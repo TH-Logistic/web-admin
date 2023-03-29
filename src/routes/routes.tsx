@@ -7,6 +7,7 @@ import ErrorPage from "../pages/error/Error";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import BaseLayout from "../components/BaseLayout/BaseLayout";
 import ProductPage from "../pages/ProductPage/ProductPage";
+import RoutePage from "../pages/RoutePage/RoutePage";
 
 export type Route = {
     [key: string]: {
@@ -38,7 +39,7 @@ export const ROUTES: Route = {
     },
     ROUTES: {
         path: "/routes",
-        element: <BaseLayout content={<OrderPage />} />
+        element: <BaseLayout content={<RoutePage />} />
     },
     LOCATIONS: {
         path: "/locations",
