@@ -2,12 +2,10 @@ import * as React from 'react';
 import AuthImage from '../../assets/auth-image.svg';
 import './AuthLayout.css'
 import Logo from '../../assets/logo.svg';
+import { Outlet } from 'react-router-dom';
 
-export interface AuthLayoutArgs {
-    child: JSX.Element
-}
 
-export default function AuthLayout({ child }: AuthLayoutArgs) {
+export default function AuthLayout() {
     return (
         <div className='flex items-center justify-center w-screen h-screen bg-gradient-to-br from-secondary-color/80 to-primary-color'>
             <div className='flex flex-col items-center w-5/6 bg-white rounded-md h-5/6' id='auth-background-white'>
@@ -18,7 +16,7 @@ export default function AuthLayout({ child }: AuthLayoutArgs) {
 
                 <div className='flex flex-col justify-center w-full'>
                     <div className='w-1/3 mt-8 ml-8'>
-                        {child}
+                        <Outlet />
                     </div>
                 </div>
 
@@ -41,11 +39,3 @@ export default function AuthLayout({ child }: AuthLayoutArgs) {
         </div>
     )
 }
-
-{/* <div>
-    <div className='flex flex-col items-center w-2/5 px-16 py-1/12' >
-        <img src={Logo} alt="Logo" className='w-3/4' />
-        {child}
-    </div>
-
-</div> */}

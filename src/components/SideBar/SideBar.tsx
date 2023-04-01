@@ -17,67 +17,149 @@ import LocationChoseIcon from './../../assets/location-chose.svg';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
+import { Menu, MenuItem, Sidebar, SubMenu, menuClasses } from 'react-pro-sidebar';
+
+export type MenuItem = {
+    name: string,
+    icon?: string,
+    choseIcon?: string,
+    path?: string,
+    submenu?: { [key: string]: MenuItem }
+}
 export default function SideBar() {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const menus = {
+    const menus: {
+        [key: string]: MenuItem
+    } = {
         order: {
             name: 'Order',
             icon: OrderIcon,
             choseIcon: OrderChoseIcon,
-            path: ROUTES.ORDERS.path
+            path: ROUTES.HOME.subroutes?.ORDERS.path
         },
         product: {
             name: 'Product',
             icon: ProductIcon,
             choseIcon: ProductChoseIcon,
-            path: ROUTES.PRODUCTS.path
+            path: ROUTES.HOME.subroutes?.PRODUCTS.path
         },
         route: {
             name: 'Route',
             icon: RouteIcon,
             choseIcon: RouteChoseIcon,
-            path: ROUTES.ROUTES.path
+            path: ROUTES.HOME.subroutes?.ROUTES.path
         },
         location: {
             name: 'Location',
             icon: LocationIcon,
             choseIcon: LocationChoseIcon,
-            path: ROUTES.LOCATIONS.path
+            path: ROUTES.HOME.subroutes?.LOCATIONS.path,
+            submenu: {
+                delivery: {
+                    name: 'Delivery',
+                    path: ROUTES.HOME.subroutes?.DELIVERY.path,
+                },
+                garage: {
+                    name: 'Garage',
+                    path: ROUTES.HOME.subroutes?.GARAGE.path,
+                },
+            }
         },
         truck: {
             name: 'Truck',
             icon: TruckIcon,
             choseIcon: TruckChoseIcon,
-            path: ROUTES.TRUCKS.path
+            path: ROUTES.HOME.subroutes?.TRUCKS.path,
         },
         customer: {
             name: 'Customer',
             icon: CustomerIcon,
             choseIcon: CustomerChoseIcon,
-            path: ROUTES.CUSTOMERS.path
+            path: ROUTES.HOME.subroutes?.CUSTOMERS.path
         },
         driver: {
             name: 'Driver',
             icon: DriverIcon,
             choseIcon: DriverChoseIcon,
-            path: ROUTES.DRIVERS.path
+            path: ROUTES.HOME.subroutes?.DRIVERS.path,
         }
     }
 
     return (
-        <div className='flex flex-col py-8 basis-1/5'>
+        // <Sidebar breakPoint='sm' className='flex flex-col py-4 basis-1/5'>
+        //     <Menu className='h-full bg-transparent' menuItemStyles={{
+        //         'button': {
+        //             '&:hover': {
+        //                 backgroundColor: 'rgb(0, 173, 181, 0)',
+        //             },
+        //         },
+        //     }}>
+        //         {Object.entries(menus).map((menu) => {
+        //             return menu[1].submenu ? (
+        //                 <SubMenu
+        //                     className='duration-500 rounded-sm hover:bg-primary-color/20'
+        //                     component={<Link to={menu[1].path} />}
+        //                     icon={
+        //                         <div className='flex items-center'>
+        //                             <div className={`${location.pathname === menu[1].path ? 'visible' : 'invisible'} h-10 mr-2 border-2 border-primary-color`} />
+        //                             <img src={menu[1].icon} className='w-5 h-5' alt='icon' />
+        //                         </div>
+        //                     }
+        //                     label={menu[1].name}>
+        //                     {
+        //                         Object
+        //                             .entries(menu[1].submenu)
+        //                             .map(submenu => (
+        //                                 <MenuItem
+        //                                     className='ml-6'
+        //                                     component={<Link to={submenu[1].path} />}
+        //                                 >
+        //                                     {submenu[1].name}
+        //                                 </MenuItem>
+        //                             ))
+        //                     }
+        //                 </SubMenu >
+        //             ) :
+        //                 <MenuItem icon={
+        //                     <div className='flex items-center'>
+        //                         <div className={`${location.pathname === menu[1].path ? 'visible' : 'invisible'} h-10 mr-2 border-2 border-primary-color`} />
+        //                         <img src={menu[1].icon} className='w-5 h-5' alt='icon' />
+        //                     </div>
+        //                 }
+        //                     className='duration-500 rounded-sm hover:bg-primary-color/20'
+        //                     component={<Link to={menu[1].path} />}>
+        //                     {menu[1].name}
+        //                 </MenuItem>
+        //         })}
+        //     </Menu>
+        //     <Menu className='flex-1'>
+
+        //         <MenuItem icon={
+        //             <div className='flex items-center'>
+        //                 <img src={LogoutIcon} className='w-5 h-5' alt='icon' />
+        //             </div>
+        //         } component={<Link to={'/auth'} />}>
+        //             Logout
+        //         </MenuItem>
+        //     </Menu>
+        // </Sidebar>
+
+
+        <div className='flex flex-col py-8 basis-1/5' >
             <div className='flex-1 space-y-1/12'>
                 {
                     Object
                         .values(menus)
                         .map((menu) => <
                             SideBarItem
-                            onClick={() => navigate(menu.path)}
+                            onClick={() => navigate(menu.path ?? '/')}
                             name={menu.name}
-                            icon={location.pathname === menu.path ? menu.choseIcon : menu.icon}
-                            isChose={location.pathname === menu.path}
+                            submenu={menu.submenu}
+                            icon={`/${location.pathname.split('/')[1]}` === menu.path ? menu.choseIcon : menu.icon}
+                            isSubItem={false}
+                            isChose={`/${location.pathname.split('/')[1]}` === menu.path}
                         />)
                 }
             </div>
@@ -85,9 +167,10 @@ export default function SideBar() {
             <SideBarItem
                 onClick={() => navigate(ROUTES.AUTH.path)}
                 name='Log out'
+                isSubItem={false}
                 icon={LogoutIcon}
                 isChose={false}
             />
-        </div>
+        </div >
     )
 }

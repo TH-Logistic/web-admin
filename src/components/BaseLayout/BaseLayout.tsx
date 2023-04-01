@@ -1,6 +1,8 @@
 import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
-export default function BaseLayout(props: { content: React.ReactElement }) {
+import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
+import { Outlet } from 'react-router-dom';
+export default function BaseLayout() {
     return (
         <div>
             <div className="flex flex-col h-screen">
@@ -14,10 +16,10 @@ export default function BaseLayout(props: { content: React.ReactElement }) {
                     </div>
                 </div>
                 <div className='border-[0.5px] border-border-color' />
-                <div className='flex flex-1'>
+                <div className='flex flex-row flex-wrap flex-1'>
                     <SideBar />
                     <div className='border-l-[1px] border-border-color border-t-[0px] flex-1'>
-                        {props.content}
+                        <Outlet />
                     </div>
                 </div>
             </div>

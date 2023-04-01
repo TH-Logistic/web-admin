@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import Filter from "../../components/Filter/Filter";
 import Search from "../../components/Search/Search";
@@ -9,6 +10,7 @@ export default function LocationPage() {
             <div className="flex flex-row items-center">
                 <Search />
                 <Filter />
+                <Outlet />
                 <div className="flex-auto" />
                 <ActionButton />
             </div>
