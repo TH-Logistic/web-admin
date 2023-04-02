@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Route, ROUTES } from './routes/routes';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import ErrorPage from './pages/error/Error';
 
 function App() {
@@ -32,9 +31,7 @@ function App() {
 
   return (
     <div className='font-poppins'>
-      <ProSidebarProvider>
-        <RouterProvider router={router} />
-      </ProSidebarProvider>
+      <RouterProvider router={router} />
     </div>
   );
 }

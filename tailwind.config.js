@@ -18,6 +18,10 @@ module.exports = {
         "cosmetic": "#91C483",
         "medicine": "#524A4E",
         "others": "#FF5C8D"
+      },
+      "truck-color": {
+        "idle": "#32DC17",
+        "delivery": "#EDCB3C"
       }
     },
     extend: {

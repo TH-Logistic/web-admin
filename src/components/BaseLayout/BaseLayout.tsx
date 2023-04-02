@@ -5,8 +5,8 @@ import { Outlet } from 'react-router-dom';
 export default function BaseLayout() {
     return (
         <div>
-            <div className="flex flex-col h-screen">
-                <div className="flex items-center px-8 py-4 fle-ro">
+            <div className="flex flex-col h-screen max-h-screen overflow-hidden">
+                <div className="flex flex-row items-center px-8 py-4">
                     <p className='text-lg font-bold basis-1/5'>Logo</p>
                     <p className='flex-1 text-lg font-bold'>Dashboard</p>
                     <div className='flex flex-row'>
@@ -16,9 +16,9 @@ export default function BaseLayout() {
                     </div>
                 </div>
                 <div className='border-[0.5px] border-border-color' />
-                <div className='flex flex-row flex-wrap flex-1'>
+                <div className='flex flex-row flex-1 overflow-auto'>
                     <SideBar />
-                    <div className='border-l-[1px] border-border-color border-t-[0px] flex-1'>
+                    <div className='overflow-auto border-l-[1px] border-border-color border-t-[0px] flex-1'>
                         <Outlet />
                     </div>
                 </div>

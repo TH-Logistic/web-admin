@@ -73,11 +73,11 @@ export default function SideBar() {
             choseIcon: TruckChoseIcon,
             path: ROUTES.HOME.subroutes?.TRUCKS.path,
         },
-        customer: {
-            name: 'Customer',
+        orgranization: {
+            name: 'Organization',
             icon: CustomerIcon,
             choseIcon: CustomerChoseIcon,
-            path: ROUTES.HOME.subroutes?.CUSTOMERS.path
+            path: ROUTES.HOME.subroutes?.ORGARNIZATION.path
         },
         driver: {
             name: 'Driver',
@@ -147,15 +147,16 @@ export default function SideBar() {
         // </Sidebar>
 
 
-        <div className='flex flex-col py-8 basis-1/5' >
-            <div className='flex-1 space-y-1/12'>
+        <div className='flex flex-col justify-between py-4 overflow-auto' >
+            <div className='space-y-1/12'>
                 {
                     Object
                         .values(menus)
                         .map((menu) => <
                             SideBarItem
-                            onClick={() => navigate(menu.path ?? '/')}
+                            key={menu.name}
                             name={menu.name}
+                            path={menu.path ?? '/'}
                             submenu={menu.submenu}
                             icon={`/${location.pathname.split('/')[1]}` === menu.path ? menu.choseIcon : menu.icon}
                             isSubItem={false}
@@ -165,7 +166,7 @@ export default function SideBar() {
             </div>
 
             <SideBarItem
-                onClick={() => navigate(ROUTES.AUTH.path)}
+                path={ROUTES.AUTH.path}
                 name='Log out'
                 isSubItem={false}
                 icon={LogoutIcon}
