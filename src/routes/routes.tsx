@@ -14,6 +14,7 @@ import DeliveryPage from "../pages/DeliveryPage/DeliveryPage";
 import GaragePage from "../pages/GaragePage/GaragePage";
 import TruckPage from "../pages/TruckPage/TruckPage";
 import OrganizationPage from "../pages/OrganizationPage/OrganizationPage";
+import CreatePage from "../pages/CreatePage/CreatePage";
 
 export type Route = {
   element: ReactNode,
@@ -80,6 +81,10 @@ export const ROUTES: {
         path: "/drivers",
         element: <OrderPage />
       },
+      CREATE_PRODUCT: {
+        path: '/products/create',
+        element: <CreatePage />
+      }
 
     }
   },
