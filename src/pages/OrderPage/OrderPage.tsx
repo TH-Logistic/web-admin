@@ -1,23 +1,27 @@
-import NotificationIcon from './../../assets/notification.svg';
-import LogoutIcon from './../../assets/logout.svg';
-import SideBarItem from '../../components/SideBar/SideBarItem';
-import OrderIcon from './../../assets/order.svg';
-import OrderChoseIcon from './../../assets/order-chose.svg';
-import ProductIcon from './../../assets/product.svg';
-import ProductChoseIcon from './../../assets/product-chose.svg';
-import RouteIcon from './../../assets/route.svg';
-import RouteChoseIcon from './../../assets/route-choose.svg';
-import TruckIcon from './../../assets/truck.svg';
-import TruckChoseIcon from './../../assets/truck-choose.svg';
-import CustomerIcon from './../../assets/customer.svg';
-import CustomerChoseIcon from './../../assets/customer-chose.svg';
-import DriverIcon from './../../assets/driver.svg';
-import DriverChoseIcon from './../../assets/driver.svg';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../../routes/routes';
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import Orders from "../common/Orders/Orders";
+import Filter from "../../components/Filter/Filter";
+import ActionButton from "../../components/ActionButton/ActionButton";
+import Search from "../../components/Search/Search";
+
 export default function OrderPage() {
+    const navigate = useNavigate()
     return (
-        <p>Hello</p>
+        <div className="flex flex-col gap-8 m-8">
+            <div className="flex flex-row items-center">
+                <Search />
+                <Filter />
+                <div className="flex-auto" />
+                <ActionButton title="+ Create" onClick={() => navigate('/products/create')} />
+            </div>
+            <div className="flex items-center gap-4">
+                <p className="text-xl font-bold">Orders</p>
+            </div>
+
+            <div className="h-[50vh]">
+                <Orders />
+            </div>
+        </div>
+
     )
 }

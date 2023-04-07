@@ -18,6 +18,21 @@ export default function ProductItem() {
             </div >
             <div className="border " />
             <div className="flex items-center gap-2 px-2 py-4 overflow-auto">
+
+
+                {/* I don't know why but when I remove these p tag with classes names (these are comments, the color of these tags just disapeared). Placing them here will resolve? */}
+
+
+                {/* <p className="p-2 border rounded-full text-product-color-dangerous">Dangerous</p>
+                <p className="p-2 border rounded-full text-product-color-fragile">Fragile</p>
+                <p className="p-2 border rounded-full text-product-color-machine">Machine</p>
+                <p className="p-2 border rounded-full text-product-color-electronic">Electronic</p>
+                <p className="p-2 border rounded-full text-product-color-agricultural">Agricultural</p>
+                <p className="p-2 border rounded-full text-product-color-food">Food</p>
+                <p className="p-2 border rounded-full text-product-color-cosmetic">Cosmetic</p>
+                <p className="p-2 border rounded-full text-product-color-medicine">Medicine</p>
+                <p className="p-2 border rounded-full text-product-color-others">Others</p> */}
+
                 <ProductType title="Dangerous" />
                 <ProductType title="Fragile" />
                 <ProductType title="Machine" />
@@ -28,7 +43,6 @@ export default function ProductItem() {
                 <ProductType title="Medicine" />
                 <ProductType title="Others" />
             </div>
-
         </div >
     )
 }
