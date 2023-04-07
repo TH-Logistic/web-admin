@@ -3,7 +3,7 @@ import App from "../App";
 import AuthLayout from "../components/AuthFrame/AuthLayout";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
-import ErrorPage from "../pages/error/Error";
+import ErrorPage from "../pages/Error/Error";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import BaseLayout from "../components/BaseLayout/BaseLayout";
 import ProductPage from "../pages/ProductPage/ProductPage";
@@ -15,10 +15,12 @@ import GaragePage from "../pages/GaragePage/GaragePage";
 import TruckPage from "../pages/TruckPage/TruckPage";
 import OrganizationPage from "../pages/OrganizationPage/OrganizationPage";
 import CreateProductPage from "../pages/CreateProductPage/CreateProductPage";
+import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
 
 export type Route = {
   element: ReactNode,
   path: string,
+  index?: boolean,
   subroutes?: { [key: string]: Route },
 }
 
@@ -31,7 +33,7 @@ export const ROUTES: {
     subroutes: {
       LOGIN: {
         element: <AuthPage />,
-        path: 'login'
+        path: 'login',
       },
 
       FOTGOT_PASSWORD: {
@@ -44,6 +46,7 @@ export const ROUTES: {
   HOME: {
     element: <BaseLayout />,
     path: '/',
+    index: true,
     subroutes: {
       ORDERS: {
         path: "/orders",
@@ -84,13 +87,15 @@ export const ROUTES: {
       CREATE_PRODUCT: {
         path: '/products/create',
         element: <CreateProductPage />
+      },
+      PRODUCT_DETAIL: {
+        path: '/products/:productId',
+        element: <ProductDetailPage />
       }
-
     }
   },
   ERROR: {
     path: "*",
     element: <ErrorPage />,
   },
-
 }

@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Route, ROUTES } from './routes/routes';
-import ErrorPage from './pages/error/Error';
+import ErrorPage from './pages/Error/Error';
 
 function App() {
 
@@ -22,6 +22,7 @@ function App() {
           {
             element: ROUTES[key].element,
             path: ROUTES[key].path,
+            // index: ROUTES[key].index,
             children: mapSubRouteToRoute(ROUTES[key].subroutes),
             errorElement: <ErrorPage />
           }
