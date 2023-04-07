@@ -11,7 +11,7 @@ export default function LocationPage() {
         <Search />
         <Filter />
         <div className="flex-auto" />
-        <ActionButton />
+        <ActionButton title="+ Create" />
       </div>
       <h1 className="my-8 text-xl font-medium">Delivery</h1>
       <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

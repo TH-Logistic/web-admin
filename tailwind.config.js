@@ -4,10 +4,12 @@ module.exports = {
   theme: {
     textColor: {
       "primary-color": "#00ADB5",
+      "hint": "#B2B2B2",
       "disabled": "#7B7C7D",
       "secondary-dark": "#333333",
       "secondary-light": "#666666",
       "on-primary": "#FFFFFF",
+      "on-secondary": "#000000",
       "product-color": {
         "dangerous": "#DD4A48",
         "fragile": "#00B4D8",
@@ -30,7 +32,8 @@ module.exports = {
         "secondary-color": "#0053B5",
         "disabled-color": "#A1D6D9",
         "border-color": "#B2B2B2",
-        "button-color": "#75CCD0"
+        "button-color": "#75CCD0",
+        "button-color-secondary": "#B2B2B3",
       },
       fontWeight: {
         medium: 800

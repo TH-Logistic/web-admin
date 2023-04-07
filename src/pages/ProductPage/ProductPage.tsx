@@ -10,7 +10,7 @@ export default function ProductPage() {
                 <Search />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton />
+                <ActionButton title="+ Create" />
             </div>
             <h1 className="my-8 text-xl font-medium">Products</h1>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1">
