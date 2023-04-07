@@ -16,6 +16,7 @@ import TruckPage from "../pages/TruckPage/TruckPage";
 import OrganizationPage from "../pages/OrganizationPage/OrganizationPage";
 import CreateProductPage from "../pages/CreateProductPage/CreateProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
+import CreateRoutePage from "../pages/CreateRoutePage/CreateRoutePage";
 
 export type Route = {
   element: ReactNode,
@@ -59,6 +60,10 @@ export const ROUTES: {
       ROUTES: {
         path: "/routes",
         element: <RoutePage />
+      },
+      CREATE_ROUTE: {
+        path: '/routes/create',
+        element: <CreateRoutePage />
       },
       LOCATIONS: {
         path: "/locations",

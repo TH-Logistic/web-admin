@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom"
+
 export default function RouteItem() {
+    const navigate = useNavigate();
     return (
-        <div className="flex-1 border rounded-md ">
+        <div className="flex-1 border rounded-md" onClick={() => navigate('/routes/create')}>
             <div className="p-4">
                 <div className="flex justify-between">
                     <p className="underline decoration-primary-color text-primary-color underline-offset-2">R01</p>
