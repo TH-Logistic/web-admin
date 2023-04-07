@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     textColor: {
       "primary-color": "#00ADB5",
+      "primary-table-color": "#75CCD0",
       "hint": "#B2B2B2",
       "disabled": "#7B7C7D",
       "secondary-dark": "#333333",

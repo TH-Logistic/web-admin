@@ -1,11 +1,23 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, LegendItem } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useNavigate, useParams } from "react-router-dom"
 import ArrowLeftIcon from '../../assets/arrow-left.svg';
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import ProductType from "../ProductPage/Product/ProductType";
 import Filter from "../../components/Filter/Filter";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+const headers: string[] = [
+    'Order number',
+    'Driver in charge',
+    'Truck license plate',
+    'Product type',
+    'Date created',
+    'Pickup at',
+    'Unload at',
+    'Order fee',
+    'Status'
+]
 
 export default function ProductDetailPage() {
     const { productId } = useParams();
@@ -143,35 +155,36 @@ export default function ProductDetailPage() {
                     <p className="font-bold">Orders</p>
                     <Filter />
                 </div>
-                <div className="overflow-auto table-auto">
-                    <table className="w-full">
+                <div className="overflow-auto border rounded-md border-border-color">
+                    <table className="w-full m-4 table-auto ">
                         <thead>
                             <tr>
-                                <th className="whitespace-nowrap">Order number</th>
-                                <th className="whitespace-nowrap">Driver in charge</th>
-                                <th className="whitespace-nowrap">Truck license plate</th>
-                                <th className="whitespace-nowrap">Product type</th>
-                                <th className="whitespace-nowrap">Date created</th>
-                                <th className="whitespace-nowrap">Pickup at</th>
-                                <th className="whitespace-nowrap">Unload at</th>
-                                <th className="whitespace-nowrap">Order fee</th>
-                                <th className="whitespace-nowrap">Status</th>
+                                {
+                                    headers
+                                        .map(
+                                            (header) =>
+                                                <th className="pr-16 font-semibold whitespace-nowrap text-primary-table-color">
+                                                    {header}
+                                                </th>
+                                        )
+                                }
                             </tr>
                         </thead>
+                        <div className="h-4" />
                         <tbody>
                             {Array(50).fill(
                                 <tr>
-                                    <td>3abs</td>
-                                    <td>59A - 9999</td>
-                                    <td>Hoang Thinh</td>
-                                    <td>
+                                    <td className="pt-2 underline text-primary-table-color">{'ab' + productId}</td>
+                                    <td className="pt-2">59A - 9999</td>
+                                    <td className="pt-2">Hoang Thinh</td>
+                                    <td className="pt-2">
                                         <ProductType title="Dangerous" />
                                     </td>
-                                    <td>21/12/2021</td>
-                                    <td>Tan Binh</td>
-                                    <td>Linh Trung</td>
-                                    <td>5,000,000</td>
-                                    <td>Completed</td>
+                                    <td className="pt-2">21/12/2021</td>
+                                    <td className="pt-2">Tan Binh</td>
+                                    <td className="pt-2">Linh Trung</td>
+                                    <td className="pt-2">5,000,000</td>
+                                    <td className="pt-2">Completed</td>
                                 </tr>
                             )}
                         </tbody>
