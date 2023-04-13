@@ -166,7 +166,7 @@ export default function SideBar() {
             </div>
 
             <SideBarItem
-                path={ROUTES.AUTH.path}
+                path={'/auth/login'}
                 name='Log out'
                 isSubItem={false}
                 icon={LogoutIcon}

@@ -1,4 +1,3 @@
-import Filter from "../../../components/Filter/Filter";
 import ProductType from "../../ProductPage/Product/ProductType";
 
 export default function Orders() {

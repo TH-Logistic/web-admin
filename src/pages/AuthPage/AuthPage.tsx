@@ -8,7 +8,7 @@ export default function AuthPage() {
 
     const onLoginClicked = (e: any) => {
         e.preventDefault()
-        navigate(ROUTES.ORDERS.path)
+        navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
     }
 
     return (

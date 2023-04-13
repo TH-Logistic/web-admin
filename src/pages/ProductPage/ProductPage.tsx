@@ -3,9 +3,12 @@ import ActionButton from "../../components/ActionButton/ActionButton";
 import Filter from "../../components/Filter/Filter";
 import Search from "../../components/Search/Search";
 import ProductItem from "./Product/ProductItem";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "../../services/ProductService";
 
 export default function ProductPage() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     return (
         <div className="flex flex-col m-8">
             <div className="flex flex-row items-center">

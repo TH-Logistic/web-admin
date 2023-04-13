@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Route, ROUTES } from './routes/routes';
 import ErrorPage from './pages/Error/Error';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 
@@ -30,9 +31,13 @@ function App() {
       )
   );
 
+  const queryClient = new QueryClient();
+
   return (
     <div className='font-poppins'>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }
