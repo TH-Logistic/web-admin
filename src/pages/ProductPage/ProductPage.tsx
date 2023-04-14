@@ -8,9 +8,15 @@ import { getProducts } from "../../services/ProductService";
 
 export default function ProductPage() {
     const navigate = useNavigate();
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['getProducts'],
+        queryFn: async () => await getProducts(),
+        // select: (response) => response.data,
+    });
 
     return (
         <div className="flex flex-col m-8">
+            <p>{data}</p>
             <div className="flex flex-row items-center">
                 <Search />
                 <Filter />

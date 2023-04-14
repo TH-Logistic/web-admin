@@ -15,7 +15,7 @@ const getProducts = (page: number = 0,
             maxPrice,
             types
         }
-    })
+    }).then((response) => response.data)
 }
 
 export { getProducts }
