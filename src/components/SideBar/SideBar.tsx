@@ -166,6 +166,7 @@ export default function SideBar() {
             </div>
 
             <SideBarItem
+                key='Log out'
                 path={'/auth/login'}
                 name='Log out'
                 isSubItem={false}

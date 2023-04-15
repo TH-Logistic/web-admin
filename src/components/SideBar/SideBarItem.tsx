@@ -44,6 +44,7 @@ export default function SideBarItem(props: {
                     {
                         props.submenu
                             ? Object.entries(props.submenu).map(subitem => <SideBarItem
+                                key={subitem[1].name}
                                 name={subitem[1].name}
                                 isChose={location.pathname === subitem[1].path}
                                 isSubItem={true}

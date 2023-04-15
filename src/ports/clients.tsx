@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ApiError } from "../errors/ApiError"
-import { ACCESS_TOKEN } from "../ports/local-storage-key"
+import { ACCESS_TOKEN } from "./local-storage-key"
 
 axios.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -15,6 +15,7 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use((response) => {
     if (response.data.success === true) {
+        console.log(response.data.data)
         return response.data.data
     } else {
         return Promise.reject(new ApiError(response.status, response.data.message))

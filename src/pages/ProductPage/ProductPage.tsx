@@ -4,19 +4,18 @@ import Filter from "../../components/Filter/Filter";
 import Search from "../../components/Search/Search";
 import ProductItem from "./Product/ProductItem";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../services/ProductService";
+import { getProducts } from "../../services/product/product-service";
 
 export default function ProductPage() {
     const navigate = useNavigate();
     const { data, error, isLoading } = useQuery({
         queryKey: ['getProducts'],
         queryFn: async () => await getProducts(),
-        // select: (response) => response.data,
     });
 
     return (
         <div className="flex flex-col m-8">
-            <p>{data}</p>
+            <p>{`${data?.total}`}</p>
             <div className="flex flex-row items-center">
                 <Search />
                 <Filter />

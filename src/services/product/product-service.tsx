@@ -1,13 +1,14 @@
 import axios from "axios"
-import { productClient } from "./clients"
+import { productClient } from "../../ports/clients"
+import Product from "../../entities/product"
 
-const getProducts = (page: number = 0,
+const getProducts = async (page: number = 0,
     size: number = 5,
     minPrice: number = 0,
     maxPrice: number = 0,
     types: number[] = []
 ) => {
-    return productClient.get('/product/list', {
+    const response = await productClient.get('/product/list', {
         params: {
             page,
             size,
@@ -15,7 +16,9 @@ const getProducts = (page: number = 0,
             maxPrice,
             types
         }
-    }).then((response) => response.data)
+    })
+
+    return response.data.data
 }
 
 export { getProducts }
