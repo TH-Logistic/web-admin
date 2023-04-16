@@ -1,3 +1,5 @@
+import ProductType, { getProductTypeFromNumber } from "../pages/ProductPage/Product/ProductType";
+
 export enum ProductStatus {
     OPEN = 'Open',
     ASSIGNED = 'Assigned',
@@ -8,4 +10,16 @@ export enum ProductStatus {
     DISCHARGED = 'Discharged',
     COMPLETED = 'Completed'
 }
-export default class Product { }
+export default class Product {
+    name: string
+    unit: string
+    types: ProductType[]
+    basePrice: number
+
+    constructor(name: string, unit: string, types: number[], base_price: number) {
+        this.name = name;
+        this.unit = unit;
+        this.types = types.map((type) => getProductTypeFromNumber(type));
+        this.basePrice = base_price
+    }
+}

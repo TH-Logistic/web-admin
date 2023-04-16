@@ -1,4 +1,5 @@
 import ProductType from "../../ProductPage/Product/ProductType";
+import ProductTypeItem from "../../ProductPage/Product/ProductTypeItem";
 
 export default function Orders() {
     const headers: string[] = [
@@ -36,7 +37,7 @@ export default function Orders() {
                             <td className="pt-2">59A - 9999</td>
                             <td className="pt-2">Hoang Thinh</td>
                             <td className="pt-2">
-                                <ProductType title="Dangerous" />
+                                <ProductTypeItem type={ProductType.Dangerous} />
                             </td>
                             <td className="pt-2">21/12/2021</td>
                             <td className="pt-2">Tan Binh</td>

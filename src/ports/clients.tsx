@@ -5,6 +5,7 @@ import { ACCESS_TOKEN } from "./local-storage-key"
 axios.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
     const headers = config.headers;
+
     headers['Authorization'] = accessToken ? `Bearer ${accessToken}` : null
 
     return ({

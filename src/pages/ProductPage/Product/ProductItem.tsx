@@ -1,19 +1,23 @@
 import { useNavigate } from "react-router-dom"
+import ProductTypeItem from "./ProductTypeItem";
+import Product from "../../../entities/product";
 import ProductType from "./ProductType";
 
-export default function ProductItem() {
+export type ProductItemProps = React.PropsWithChildren<{ item: Product }>;
+
+export default function ProductItem({ item }: ProductItemProps) {
     const navigate = useNavigate();
     return (
         <div className="flex-1 max-w-sm border rounded-md">
             <div className="p-4" onClick={() => navigate(`/products/${1}`)}>
                 <p className="underline decoration-primary-color text-primary-color underline-offset-2" > FR01</p>
                 <div className="flex justify-between my-2">
-                    <p className="text-lg">Product Name</p>
-                    <p className="text-lg text-end">My Product</p>
+                    <p className="text-lg">{item.name}</p>
+                    <p className="text-lg text-end">{item.basePrice}</p>
                 </div>
                 <div className="flex justify-between">
                     <p>unit type</p>
-                    <p className="text-end">vnd/kg/km</p>
+                    <p className="text-end">{item.unit}</p>
                 </div>
             </div >
             <div className="border " />
@@ -33,15 +37,16 @@ export default function ProductItem() {
                 <p className="p-2 border rounded-full text-product-color-medicine">Medicine</p>
                 <p className="p-2 border rounded-full text-product-color-others">Others</p> */}
 
-                <ProductType title="Dangerous" />
-                <ProductType title="Fragile" />
-                <ProductType title="Machine" />
-                <ProductType title="Electronic" />
-                <ProductType title="Agricultural" />
-                <ProductType title="Food" />
-                <ProductType title="Cosmetic" />
-                <ProductType title="Medicine" />
-                <ProductType title="Others" />
+                {item.types.map((type) => <ProductTypeItem type={type} />)}
+                {/* <ProductTypeItem type={ProductType.Dangerous} />
+                <ProductTypeItem type={ProductType.Fragile} />
+                <ProductTypeItem type={ProductType.Machine} />
+                <ProductTypeItem type={ProductType.Electronic} />
+                <ProductTypeItem type={ProductType.Agricultural} />
+                <ProductTypeItem type={ProductType.Food} />
+                <ProductTypeItem type={ProductType.Cosmetic} />
+                <ProductTypeItem type={ProductType.Medicine} />
+                <ProductTypeItem type={ProductType.Others} /> */}
             </div>
         </div >
     )

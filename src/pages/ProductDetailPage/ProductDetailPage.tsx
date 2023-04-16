@@ -2,10 +2,11 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useNavigate, useParams } from "react-router-dom"
 import ArrowLeftIcon from '../../assets/arrow-left.svg';
 import { Doughnut } from "react-chartjs-2";
-import ProductType from "../ProductPage/Product/ProductType";
+import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
 import OrderPage from "../OrderPage/OrderPage";
 import Orders from "../common/Orders/Orders";
+import ProductType from "../ProductPage/Product/ProductType";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -112,7 +113,7 @@ export default function ProductDetailPage() {
 
                                 <div className="flex justify-between">
                                     <p>Product type</p>
-                                    <ProductType title="Fragile" />
+                                    <ProductTypeItem type={ProductType.Fragile} />
                                 </div>
                             </div>
                         </div>

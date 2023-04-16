@@ -1,5 +1,16 @@
-export default function ProductType(props: { title: string }) {
-    return (
-        <p className={`text-product-color-${props.title.toLowerCase()} py-1 px-2 border rounded-full w-fit`}>{props.title}</p>
-    )
+enum ProductType {
+    Dangerous = 1,
+    Fragile = 2,
+    Machine = 3,
+    Electronic = 4,
+    Agricultural = 5,
+    Food = 6,
+    Cosmetic = 7,
+    Medicine = 8,
+    Others = 9
 }
+export function getProductTypeFromNumber(value: number): ProductType {
+    return value as ProductType
+}
+
+export default ProductType;

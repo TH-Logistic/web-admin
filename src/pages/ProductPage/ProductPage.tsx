@@ -10,12 +10,12 @@ export default function ProductPage() {
     const navigate = useNavigate();
     const { data, error, isLoading } = useQuery({
         queryKey: ['getProducts'],
-        queryFn: async () => await getProducts(),
+        queryFn: async () => await getProducts([1]),
     });
 
+    console.log(data)
     return (
         <div className="flex flex-col m-8">
-            <p>{`${data?.total}`}</p>
             <div className="flex flex-row items-center">
                 <Search />
                 <Filter />
@@ -24,7 +24,7 @@ export default function ProductPage() {
             </div>
             <h1 className="my-8 text-xl font-medium">Products</h1>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1">
-                {Array(10).fill(<ProductItem />)}
+                {(data?.content ?? []).map((item) => <ProductItem item={item} />)}
             </div>
         </div>
     )
