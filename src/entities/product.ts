@@ -11,12 +11,14 @@ export enum ProductStatus {
     COMPLETED = 'Completed'
 }
 export default class Product {
+    id: string
     name: string
     unit: string
     types: ProductType[]
     basePrice: number
 
-    constructor(name: string, unit: string, types: number[], base_price: number) {
+    constructor(id: string, name: string, unit: string, types: number[], base_price: number) {
+        this.id = id;
         this.name = name;
         this.unit = unit;
         this.types = types.map((type) => getProductTypeFromNumber(type));

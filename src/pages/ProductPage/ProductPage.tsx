@@ -13,7 +13,6 @@ export default function ProductPage() {
         queryFn: async () => await getProducts([1]),
     });
 
-    console.log(data)
     return (
         <div className="flex flex-col m-8">
             <div className="flex flex-row items-center">
@@ -24,7 +23,7 @@ export default function ProductPage() {
             </div>
             <h1 className="my-8 text-xl font-medium">Products</h1>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1">
-                {(data?.content ?? []).map((item) => <ProductItem item={item} />)}
+                {(data?.content ?? []).map((item) => <ProductItem item={item} key={item.id} />)}
             </div>
         </div>
     )

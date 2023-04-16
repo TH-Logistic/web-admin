@@ -21,8 +21,6 @@ const getProducts = async (
         }
     })
 
-    console.log(response.request)
-
     return response.data.data!
 }
 
