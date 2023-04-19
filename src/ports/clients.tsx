@@ -1,34 +1,22 @@
-import axios from "axios"
-import { ApiError } from "../errors/ApiError"
-import { ACCESS_TOKEN } from "./local-storage-key"
+import axios, { AxiosInstance } from "axios";
+import withInterceptors from "./with-interceptors";
 
-axios.interceptors.request.use((config) => {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN);
-    const headers = config.headers;
-
-    headers['Authorization'] = accessToken ? `Bearer ${accessToken}` : null
-
-    return ({
-        ...config,
-        headers: headers
+const productClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_PRODUCT_URL + '/api/v1',
     })
-})
+);
 
-axios.interceptors.response.use((response) => {
-    if (response.data.success === true) {
-        console.log(response.data.data)
-        return response.data.data
-    } else {
-        return Promise.reject(new ApiError(response.status, response.data.message))
-    }
-})
+const transportationClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_TRANSPORTATION_URL + '/api/v1',
+    })
+);
 
-const productClient = axios.create({
-    baseURL: process.env.REACT_APP_PRODUCT_URL + '/api/v1',
-})
+const routeClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_ROUTE_URL + '/api/v1',
+    })
+);
 
-const transportationClient = axios.create({
-    baseURL: process.env.REACT_APP_TRANSPORTATION_URL + '/api/v1',
-})
-
-export { productClient, transportationClient }
+export { productClient, transportationClient, routeClient }

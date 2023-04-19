@@ -12,7 +12,7 @@ import LocationPage from "../pages/LocationPage/LocationPage";
 import { ReactNode } from "react";
 import DeliveryPage from "../pages/DeliveryPage/DeliveryPage";
 import GaragePage from "../pages/GaragePage/GaragePage";
-import TruckPage from "../pages/TruckPage/TruckPage";
+import TransportationPage from "../pages/TransportationPage/TransportationPage";
 import OrganizationPage from "../pages/OrganizationPage/OrganizationPage";
 import CreateProductPage from "../pages/CreateProductPage/CreateProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
@@ -79,7 +79,7 @@ export const ROUTES: {
       },
       TRUCKS: {
         path: "/trucks",
-        element: <TruckPage />
+        element: <TransportationPage />
       },
       ORGARNIZATION: {
         path: "/organizations",

@@ -8,7 +8,7 @@ const getGarages = async (
     size: number = 5,
     keyword: string | undefined = undefined,
 ): Promise<Pagination<Garage>> => {
-    const response = await transportationClient.get<BaseResponse<Pagination<Garage>>>('/garage/list', {
+    const response = await transportationClient.get<Pagination<Garage>>('/garage/list', {
         params: {
             page,
             size,
@@ -16,7 +16,7 @@ const getGarages = async (
         }
     })
 
-    return response.data.data!
+    return response.data
 }
 
 export { getGarages }

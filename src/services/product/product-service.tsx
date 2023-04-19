@@ -11,7 +11,7 @@ const getProducts = async (
     minPrice: number = 0,
     maxPrice: number = 100000,
 ): Promise<Pagination<Product>> => {
-    const response = await productClient.get<BaseResponse<Pagination<Product>>>('/product/list', {
+    const response = await productClient.get<Pagination<Product>>('/product/list', {
         params: {
             page,
             size,
@@ -21,7 +21,7 @@ const getProducts = async (
         }
     })
 
-    return response.data.data!
+    return response.data
 }
 
 export { getProducts }

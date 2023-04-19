@@ -1,12 +1,12 @@
 import React from "react"
 import { Transportation } from "../../../entities/transportation"
 
-export type TruckItemProps = React.PropsWithChildren<{ item: Transportation }>
-export default function TruckItem({ item }: TruckItemProps) {
+export type TransportationItemProps = React.PropsWithChildren<{ item: Transportation }>
+export default function TransportationItem({ item }: TransportationItemProps) {
   return (
     <div className="flex-1 p-4 border rounded-md">
-      <div className="flex items-center justify-between ">
-        <p className="underline decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
         <p className="px-6 text-sm font-semibold rounded-full text-truck-color-idle outline outline-border-color">Idle</p>
       </div>
 
