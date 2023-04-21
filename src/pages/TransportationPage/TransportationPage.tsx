@@ -13,12 +13,12 @@ export default function TransportationPage() {
   return (
     <div className="flex flex-col m-8">
       <div className="flex flex-row items-center">
-        <Search />
+        <Search placeholder="Search by license plate, ..." />
         <Filter />
         <div className="flex-auto" />
         <ActionButton title="+ Create" />
       </div>
-      <h1 className="my-8 text-xl font-medium">Trucks</h1>
+      <h1 className="my-8 text-xl font-medium">Transportation</h1>
       <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
         {(data?.content ?? []).map((transportation) => <TransportationItem item={transportation} key={transportation.id} />)}
       </div>

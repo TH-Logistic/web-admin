@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
                 <p className='text-[#ffffff] font-semibold text-l'>RESET PASSWORD</p>
             </button>
             <br />
-            <p>Back to <Link to="/auth"><span className='font-semibold text-primary-color'>Login</span></Link></p>
+            <p>Back to <Link to="/auth/login"><span className='font-semibold text-primary-color'>Login</span></Link></p>
         </form>
     );
 }

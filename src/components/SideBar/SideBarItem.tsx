@@ -27,7 +27,7 @@ export default function SideBarItem(props: {
                 <div className={`${!props.isSubItem && props.isChose ? 'visible' : 'invisible'} h-10 border-2 border-primary-color`} />
                 <div className='flex items-center w-full px-2 py-2 ml-2 rounded-md hover:bg-primary-color/20'>
                     {props.icon ? < img src={props.icon} alt='Order Icon' className='object-contain w-5 h-5 ' /> : <></>}
-                    <p className={`mx-2 text-sm lg:text-lg font-semibold break-words ${props.isChose ?
+                    <p className={`mx-2 text-sm font-semibold break-words ${props.isChose ?
                         `font-semibold ${props.isSubItem
                             ? 'text-primary-color' :
                             'text-secondary-dark'}`

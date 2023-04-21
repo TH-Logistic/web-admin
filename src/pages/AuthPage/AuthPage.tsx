@@ -24,7 +24,7 @@ export default function AuthPage() {
                 <p className='text-[#ffffff] font-semibold text-xl'>LOG IN</p>
             </button>
             <br />
-            <p>Forgot password? <Link to="/forgot-password"><b className='font-bold text-primary-color'>Click here</b></Link></p>
+            <p>Forgot password? <Link to="/auth/forgot-password"><b className='font-bold text-primary-color'>Click here</b></Link></p>
         </form>
     );
 }

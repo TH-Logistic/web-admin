@@ -14,7 +14,7 @@ export default function DeliveryPage() {
   return (
     <div className="flex flex-col m-8">
       <div className="flex flex-row items-center">
-        <Search />
+        <Search placeholder="Search by location name, address,..." />
         <Filter />
         <div className="flex-auto" />
         <ActionButton title="+ Create" />

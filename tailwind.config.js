@@ -26,6 +26,13 @@ module.exports = {
         "truck-color": {
           "idle": "#32DC17",
           "delivery": "#EDCB3C"
+        },
+        "user-status": {
+          'new': '#105CCD',
+          'active': '#056803',
+          'suspended': '#BA8500',
+          'resigned': '#6100C7',
+          'deleted': '#2F2F2F'
         }
       },
       colors: {
@@ -35,6 +42,13 @@ module.exports = {
         "border-color": "#B2B2B2",
         "button-color": "#75CCD0",
         "button-color-secondary": "#B2B2B3",
+        "user-status": {
+          'new': '#C6DCF0',
+          'active': '#C7F0C6',
+          'suspended': '#F0E4C6',
+          'resigned': '#DEC9F4',
+          'deleted': '#AAAAAA'
+        }
       },
       fontWeight: {
         medium: 800
@@ -45,7 +59,7 @@ module.exports = {
       },
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']
-      }
+      },
     },
   },
   plugins: [

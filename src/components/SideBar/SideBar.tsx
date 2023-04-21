@@ -8,12 +8,14 @@ import RouteIcon from './../../assets/route.svg';
 import RouteChoseIcon from './../../assets/route-choose.svg';
 import TruckIcon from './../../assets/truck.svg';
 import TruckChoseIcon from './../../assets/truck-choose.svg';
-import CustomerIcon from './../../assets/customer.svg';
-import CustomerChoseIcon from './../../assets/customer-chose.svg';
+import StaffIcon from './../../assets/customer.svg';
+import StaffChoseIcon from './../../assets/customer-chose.svg';
 import DriverIcon from './../../assets/driver.svg';
 import DriverChoseIcon from './../../assets/driver.svg';
 import LocationIcon from './../../assets/location.svg';
 import LocationChoseIcon from './../../assets/location-chose.svg';
+import OrganizationIcon from './../../assets/organization.svg';
+import OrganizationChoseIcon from './../../assets/organization-choose.svg';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
@@ -75,8 +77,8 @@ export default function SideBar() {
         },
         orgranization: {
             name: 'Organization',
-            icon: CustomerIcon,
-            choseIcon: CustomerChoseIcon,
+            icon: OrganizationIcon,
+            choseIcon: OrganizationChoseIcon,
             path: ROUTES.HOME.subroutes?.ORGARNIZATION.path
         },
         driver: {
@@ -84,7 +86,13 @@ export default function SideBar() {
             icon: DriverIcon,
             choseIcon: DriverChoseIcon,
             path: ROUTES.HOME.subroutes?.DRIVERS.path,
-        }
+        },
+        staff: {
+            name: 'Staff',
+            icon: StaffIcon,
+            choseIcon: StaffChoseIcon,
+            path: ROUTES.HOME.subroutes?.STAFFS.path
+        },
     }
 
     return (
@@ -147,8 +155,8 @@ export default function SideBar() {
         // </Sidebar>
 
 
-        <div className='flex flex-col justify-between py-4 overflow-auto' >
-            <div className='space-y-1/12'>
+        <div className='flex flex-col justify-between h-full pt-4' >
+            <div className='flex flex-col gap-2 overflow-auto'>
                 {
                     Object
                         .values(menus)

@@ -17,7 +17,7 @@ export default function GaragePage() {
   return (
     <div className="flex flex-col m-8">
       <div className="flex flex-row items-center">
-        <Search />
+        <Search placeholder="Search by garage name, address,..." />
         <Filter />
         <div className="flex-auto" />
         <ActionButton title="+ Create" />

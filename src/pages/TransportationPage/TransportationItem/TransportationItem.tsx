@@ -7,7 +7,7 @@ export default function TransportationItem({ item }: TransportationItemProps) {
     <div className="flex-1 p-4 border rounded-md">
       <div className="flex items-center justify-between gap-2">
         <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
-        <p className="px-6 text-sm font-semibold rounded-full text-truck-color-idle outline outline-border-color">Idle</p>
+        <p className="px-6 text-sm font-semibold border rounded-full text-truck-color-idle border-border-color">Idle</p>
       </div>
 
       <p className="my-4 font-semibold text-secondary-dark">{item.licensePlate}</p>

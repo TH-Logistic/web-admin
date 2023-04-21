@@ -22,7 +22,7 @@ export default function Orders() {
                             headers
                                 .map(
                                     (header) =>
-                                        <th className="pr-16 font-semibold whitespace-nowrap text-primary-table-color">
+                                        <th className="pr-16 font-semibold text-start whitespace-nowrap text-primary-table-color">
                                             {header}
                                         </th>
                                 )
@@ -32,11 +32,11 @@ export default function Orders() {
                 <div className="h-4" />
                 <tbody>
                     {Array(50).fill(
-                        <tr>
+                        <tr >
                             <td className="pt-2 underline text-primary-table-color">{'abc'}</td>
-                            <td className="pt-2">59A - 9999</td>
+                            < td className="pt-2" > 59A - 9999</td>
                             <td className="pt-2">Hoang Thinh</td>
-                            <td className="pt-2">
+                            <td className="flex justify-start pt-2">
                                 <ProductTypeItem type={ProductType.Dangerous} />
                             </td>
                             <td className="pt-2">21/12/2021</td>
@@ -47,7 +47,7 @@ export default function Orders() {
                         </tr>
                     )}
                 </tbody>
-            </table>
-        </div>
+            </table >
+        </div >
     )
 }

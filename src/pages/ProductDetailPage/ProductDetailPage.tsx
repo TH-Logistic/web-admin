@@ -28,12 +28,6 @@ export default function ProductDetailPage() {
                         <Doughnut options={{
                             plugins: {
                                 legend: {
-                                    // labels: {
-                                    //     pointStyle: 'rectRounded',
-                                    //     usePointStyle: true,
-                                    //     boxHeight: 30,
-                                    //     boxWidth: 30,
-                                    // },
                                     display: false,
                                     position: 'bottom',
                                 }
