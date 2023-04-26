@@ -1,17 +1,10 @@
-import { BrowserRouter, createBrowserRouter, Router, RouterProvider, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Route, ROUTES } from './routes/routes';
 import ErrorPage from './pages/Error/Error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import AuthPage from './pages/AuthPage/AuthPage';
-import AuthLayout from './components/AuthFrame/AuthLayout';
-import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
-import OrderPage from './pages/OrderPage/OrderPage';
-import ProductPage from './pages/ProductPage/ProductPage';
-import withBaseLayout from './components/BaseLayout/BaseLayout';
-import BaseLayout from './components/BaseLayout/BaseLayout';
+import { ACCESS_TOKEN } from './ports/local-storage-key';
 
 function App() {
-
   const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
     if (!route || route?.subroutes) return undefined
     return Object.entries(route).map(subroute => ({

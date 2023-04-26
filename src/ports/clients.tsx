@@ -32,11 +32,17 @@ const staffClient = withInterceptors(
     })
 )
 
+const authClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_AUTH_URL,
+    })
+)
+
 export {
     productClient,
     transportationClient,
     organizationClient,
     routeClient,
     staffClient,
-
+    authClient,
 }

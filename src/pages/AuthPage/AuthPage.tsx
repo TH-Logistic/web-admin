@@ -1,13 +1,16 @@
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/routes";
 import React from "react";
+import { login } from "../../services/auth/auth-service";
 
 export default function AuthPage() {
 
     const navigate = useNavigate()
 
-    const onLoginClicked = (e: any) => {
+    const onLoginClicked = async (e: any) => {
         e.preventDefault()
+        const response = await login('thinhlh0812@gmail.com', 'thinhlh0812@gmail.com')
+
         navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
     }
 

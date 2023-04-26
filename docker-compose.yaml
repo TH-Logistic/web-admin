@@ -1,12 +1,15 @@
 version: '3'
 services:
   web_admin:
-    image: wwww.thinhlh.com/web_admin
+    image: www.thinhlh.com/web_admin
     container_name: web_admin_container
     environment:
-      - PRODUCT_URL
-      - TRANSPORTATION_URL
-      - ROUTE_URL
+      - REACT_APP_PRODUCT_URL
+      - REACT_APP_TRANSPORTATION_URL
+      - REACT_APP_ORGARNIZATION_URL
+      - REACT_APP_ROUTE_URL
+      - REACT_APP_AUTH_URL
+      - REACT_APP_USER_URL
     ports:
       - 3000:3000
     restart: always

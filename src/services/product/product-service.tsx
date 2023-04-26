@@ -3,7 +3,8 @@ import Product from "../../entities/product"
 import { Pagination } from "../../entities/pagination"
 import { QueryParams } from "../common/query-params"
 
-const getProducts = async ({ page = 0,
+const getProducts = async ({
+    page = 0,
     size = 5,
     minPrice = 0,
     maxPrice = 100000,
