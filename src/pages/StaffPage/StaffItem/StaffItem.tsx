@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { Staff } from "../../../entities/staff";
+import { Staff, StaffStatus } from "../../../entities/staff";
+import StaffStatusItem from "../StaffStatus/StaffStatus";
 
 export type StaffItemProps = {
     item: Staff
@@ -8,9 +9,9 @@ export type StaffItemProps = {
 export default function StaffItem({ item }: StaffItemProps) {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate('/routes/create')}>
+        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate(`/staffs/${item.id}`)}>
             <div className="flex justify-between">
-                <p className="underline decoration-primary-color text-primary-color underline-offset-2">S01</p>
+                <p className="underline decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
 
                 {/* <p className={`text-user-status-new font-bold rounded-full bg-user-status-new py-1 px-4`}>New</p>
                 <p className={`text-user-status-active font-bold rounded-full bg-user-status-active py-1 px-4`}>Active</p>
@@ -18,7 +19,7 @@ export default function StaffItem({ item }: StaffItemProps) {
                 <p className={`text-user-status-resigned font-bold rounded-full bg-user-status-resigned py-1 px-4`}>Resigned</p>
                 <p className={`text-user-status-deleted font-bold rounded-full bg-user-status-deleted py-1 px-4`}>Deleted</p> */}
 
-                <p className={`text-user-status-${`new`} rounded-full bg-user-status-${'new'} py-1 px-4`}>New</p>
+                <StaffStatusItem status={StaffStatus.New} />
             </div>
             <p className="text-lg text-secondary-dark">{item.name}</p>
             <div className="h-2" />

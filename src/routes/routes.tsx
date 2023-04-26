@@ -20,6 +20,7 @@ import CreateRoutePage from "../pages/CreateRoutePage/CreateRoutePage";
 import StaffPage from "../pages/StaffPage/StaffPage";
 import BaseLayout from "../components/BaseLayout/BaseLayout";
 import DriverPage from "../pages/DriverPage/DriverPage";
+import StaffDetailPage from "../pages/StaffDetail/StaffDetailPage";
 
 export type Route = {
   element: ReactNode,
@@ -112,6 +113,10 @@ export const ROUTES: {
       PRODUCT_DETAIL: {
         path: '/products/:productId',
         element: <ProductDetailPage />
+      },
+      STAFF_DETAIL: {
+        path: '/staffs/:staffId',
+        element: <StaffDetailPage />
       }
     }
   },

@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Route, ROUTES } from './routes/routes';
 import ErrorPage from './pages/Error/Error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ACCESS_TOKEN } from './ports/local-storage-key';
 
 function App() {
   const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {

@@ -1,10 +1,9 @@
 import './SideBarItem.css'
-import ArrowDown from '../../assets/arrow-down.svg'
+import ArrowDown from '../../assets/arrow-down.svg';
 import ArrowUp from '../../assets/arrow-up.svg'
 import { MenuItem } from './SideBar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { ROUTES } from '../../routes/routes';
 
 /**
  * isChose: Indicate that this menu is current chose

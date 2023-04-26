@@ -1,7 +1,6 @@
 import AuthResponse from "../../entities/auth-response";
-import { BaseResponse } from "../../entities/base-response";
+import { setAuth } from "../../hooks/use-auth";
 import { authClient } from "../../ports/clients";
-import { ACCESS_TOKEN } from "../../ports/local-storage-key";
 
 const login = async (
     email: string,
@@ -15,7 +14,7 @@ const login = async (
     const data = response.data;
 
     if (data?.accessToken) {
-        localStorage.setItem(ACCESS_TOKEN, data.accessToken)
+        setAuth(data.accessToken)
     }
 
     return data

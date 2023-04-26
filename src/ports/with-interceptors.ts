@@ -1,14 +1,14 @@
 import { AxiosInstance } from "axios";
-import { ACCESS_TOKEN } from "./local-storage-key";
 import { ApiError } from "../errors/ApiError";
 import { camelizeKeys } from "humps";
+import useAuth from "../hooks/use-auth";
 
 const withInterceptors = (client: AxiosInstance): AxiosInstance => {
     client.interceptors.request.use((config) => {
-        const accessToken = localStorage.getItem(ACCESS_TOKEN);
+        const { token } = useAuth();
         const headers = config.headers;
 
-        headers['Authorization'] = accessToken ? `Bearer ${accessToken}` : null
+        headers['Authorization'] = token ? `Bearer ${token}` : null
 
         return ({
             ...config,

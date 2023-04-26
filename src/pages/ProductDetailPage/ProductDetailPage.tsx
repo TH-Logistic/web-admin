@@ -1,12 +1,12 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useNavigate, useParams } from "react-router-dom"
-import ArrowLeftIcon from '../../assets/arrow-left.svg';
 import { Doughnut } from "react-chartjs-2";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
-import OrderPage from "../OrderPage/OrderPage";
 import Orders from "../common/Orders/Orders";
 import ProductType from "../ProductPage/Product/ProductType";
+import DetailHeader from "../../components/DetailHeader/DetailHeader";
+import Divider from "../../components/Divider/Divider";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,12 +15,8 @@ export default function ProductDetailPage() {
     const navigate = useNavigate();
     return (
         <div>
-            <div className='flex items-center p-8'>
-                <img src={ArrowLeftIcon} alt="close" className='w-2 mr-6' onClick={() => navigate(-1)} />
-                <p className='text-lg font-semibold'>Product</p>
-                <p className='ml-4 text-lg font-bold text-primary-color'>PR01</p>
-            </div>
-            <div className='border-t-[1px] border-border-color' />
+            <DetailHeader header="Product" id="P01" />
+            <Divider />
 
             <div className="flex flex-row px-8 mt-16">
                 <div className="flex flex-col items-center flex-1">

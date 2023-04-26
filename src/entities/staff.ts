@@ -1,4 +1,4 @@
-const enum StaffStatus {
+enum StaffStatus {
     New = 1,
     Active = 2,
     Suspended = 3,
@@ -17,6 +17,7 @@ const enum StaffRole {
 
 
 class Staff {
+    id: string;
     username: string;
     gender: Gender;
     phoneNumber: string;
@@ -29,6 +30,7 @@ class Staff {
     birthday: number;
 
     constructor(
+        id: string,
         username: string,
         gender: Gender,
         phoneNumber: string,
@@ -40,6 +42,7 @@ class Staff {
         avatar: string,
         birthday: number
     ) {
+        this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
