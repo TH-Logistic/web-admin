@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { Staff } from "../../../entities/staff";
 
-export type StaffItemProps = {
+export type DriverItemProps = {
     item: Staff
 };
 
-export default function StaffItem({ item }: StaffItemProps) {
+export default function DriverItem({ item }: DriverItemProps) {
     const navigate = useNavigate();
     return (
         <div className="flex-1 p-4 border rounded-md" onClick={() => navigate('/routes/create')}>
@@ -23,8 +23,8 @@ export default function StaffItem({ item }: StaffItemProps) {
             <p className="text-lg text-secondary-dark">{item.name}</p>
             <div className="h-2" />
             <div className="flex justify-between">
-                <p className="text-secondary-light">Email</p>
-                <p className="break-words text-end">{item.email}</p>
+                <p className="text-secondary-light">DOB</p>
+                <p className="break-words text-end">{new Date(item.birthday).toUTCString()}</p>
             </div>
             <div className="flex flex-row justify-between">
                 <p className="text-secondary-light">Gener</p>

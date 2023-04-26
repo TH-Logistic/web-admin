@@ -5,7 +5,7 @@ import AuthPage from "../pages/AuthPage/AuthPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ErrorPage from "../pages/Error/Error";
 import OrderPage from "../pages/OrderPage/OrderPage";
-import BaseLayout from "../components/BaseLayout/BaseLayout";
+import withBaseLayout from "../components/BaseLayout/BaseLayout";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import RoutePage from "../pages/RoutePage/RoutePage";
 import LocationPage from "../pages/LocationPage/LocationPage";
@@ -18,6 +18,8 @@ import CreateProductPage from "../pages/CreateProductPage/CreateProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage/ProductDetailPage";
 import CreateRoutePage from "../pages/CreateRoutePage/CreateRoutePage";
 import StaffPage from "../pages/StaffPage/StaffPage";
+import BaseLayout from "../components/BaseLayout/BaseLayout";
+import DriverPage from "../pages/DriverPage/DriverPage";
 
 export type Route = {
   element: ReactNode,
@@ -33,14 +35,19 @@ export const ROUTES: {
     element: <AuthLayout />,
     path: '/auth',
     subroutes: {
+      LOGIN_INDEX: {
+        element: <AuthPage />,
+        path: '/auth/login',
+        index: true,
+      },
       LOGIN: {
         element: <AuthPage />,
-        path: 'login',
+        path: '/auth/login',
       },
 
       FOTGOT_PASSWORD: {
         element: <ForgotPasswordPage />,
-        path: 'forgot-password'
+        path: '/auth/forgot-password'
       }
     }
   },
@@ -48,15 +55,19 @@ export const ROUTES: {
   HOME: {
     element: <BaseLayout />,
     path: '/',
-    index: true,
     subroutes: {
       ORDERS: {
         path: "/orders",
-        element: <OrderPage />
+        element: <OrderPage />,
+      },
+      ORDERS_INDEX: {
+        path: "/orders",
+        element: <OrderPage />,
+        index: true,
       },
       PRODUCTS: {
         path: "/products",
-        element: <ProductPage />
+        element: <ProductPage />,
       },
       ROUTES: {
         path: "/routes",
@@ -88,7 +99,7 @@ export const ROUTES: {
       },
       DRIVERS: {
         path: "/drivers",
-        element: <OrderPage />
+        element: <DriverPage />
       },
       STAFFS: {
         path: "/staffs",

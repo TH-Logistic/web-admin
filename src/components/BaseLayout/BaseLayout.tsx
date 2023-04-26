@@ -1,6 +1,5 @@
 import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
-import { Menu, MenuItem, Sidebar } from 'react-pro-sidebar';
 import { Outlet } from 'react-router-dom';
 export default function BaseLayout() {
     return (

@@ -10,7 +10,7 @@ export default function ProductPage() {
     const navigate = useNavigate();
     const { data, error, isLoading } = useQuery({
         queryKey: ['getProducts'],
-        queryFn: async () => await getProducts([1]),
+        queryFn: async () => await getProducts({ types: [1] }),
     });
 
     return (

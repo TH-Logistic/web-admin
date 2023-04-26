@@ -160,16 +160,27 @@ export default function SideBar() {
                 {
                     Object
                         .values(menus)
-                        .map((menu) => <
-                            SideBarItem
-                            key={menu.name}
-                            name={menu.name}
-                            path={menu.path ?? '/'}
-                            submenu={menu.submenu}
-                            icon={`/${location.pathname.split('/')[1]}` === menu.path ? menu.choseIcon : menu.icon}
-                            isSubItem={false}
-                            isChose={`/${location.pathname.split('/')[1]}` === menu.path}
-                        />)
+                        .map((menu) => {
+                            const indexRoute = Object.values(ROUTES.HOME.subroutes!).filter((route) => route.index === true)[0]
+                            const isChose =
+                                // Sublocation is chose
+                                `/${location.pathname.split('/')[1]}` === menu.path ||
+
+                                // This is index route
+                                (location.pathname === '/' && menu.path === indexRoute.path);
+                            return (
+                                <
+                                    SideBarItem
+                                    key={menu.name}
+                                    name={menu.name}
+                                    path={menu.path ?? '/'}
+                                    submenu={menu.submenu}
+                                    icon={isChose ? menu.choseIcon : menu.icon}
+                                    isSubItem={false}
+                                    isChose={isChose}
+                                />
+                            )
+                        })
                 }
             </div>
 

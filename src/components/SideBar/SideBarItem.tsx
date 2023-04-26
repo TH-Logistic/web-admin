@@ -4,6 +4,7 @@ import ArrowUp from '../../assets/arrow-up.svg'
 import { MenuItem } from './SideBar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { ROUTES } from '../../routes/routes';
 
 /**
  * isChose: Indicate that this menu is current chose
@@ -18,6 +19,7 @@ export default function SideBarItem(props: {
     submenu?: { [key: string]: MenuItem },
     isSubItem: boolean,
 }) {
+
     const [isShowingSubMenu, setIsShowingSubMenu] = useState(false)
     const navigate = useNavigate()
     const location = useLocation()

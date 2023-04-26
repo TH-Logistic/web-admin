@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import withInterceptors from "./with-interceptors";
+import { within } from "@testing-library/react";
 
 const productClient = withInterceptors(
     axios.create({
@@ -19,4 +20,23 @@ const routeClient = withInterceptors(
     })
 );
 
-export { productClient, transportationClient, routeClient }
+const organizationClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_ORGARNIZATION_URL + '/api/v1',
+    })
+);
+
+const staffClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_USER_URL + '/api',
+    })
+)
+
+export {
+    productClient,
+    transportationClient,
+    organizationClient,
+    routeClient,
+    staffClient,
+
+}

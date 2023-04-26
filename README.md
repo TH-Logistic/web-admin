@@ -1,3 +1,11 @@
+# How to deploy app
+```
+docker build -t www.thinhlh.com/web_admin:latest . # Build image
+docker push www.thinhlh.com/web_admin:latest
+
+# On Server
+docker compose --env-file .env up -d
+```
 # Getting Started with TH Logistic
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

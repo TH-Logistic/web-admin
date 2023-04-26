@@ -8,7 +8,7 @@ import { getTransportations } from "../../services/transportation/transportation
 export default function TransportationPage() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['getTransportations'],
-    queryFn: async () => await getTransportations(),
+    queryFn: async () => await getTransportations({}),
   });
   return (
     <div className="flex flex-col m-8">

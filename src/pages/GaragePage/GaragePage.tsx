@@ -10,7 +10,7 @@ export default function GaragePage() {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['getGarages'],
-    queryFn: async () => getGarages(),
+    queryFn: async () => getGarages({}),
   });
 
 

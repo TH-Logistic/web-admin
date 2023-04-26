@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function DeliveryPage() {
   const { data, error, isLoading } = useQuery({
     queryKey: ['getLocations'],
-    queryFn: async () => getLocations(),
+    queryFn: async () => getLocations({}),
   });
   return (
     <div className="flex flex-col m-8">
