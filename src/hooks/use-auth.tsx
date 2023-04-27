@@ -11,9 +11,9 @@ const setAuth = (token: string, user?: object, expires = 7) => {
 export { setAuth };
 
 export default function useAuth() {
-    const token = localStorage.getItem(ACCESS_TOKEN);
+    const token = Cookies.get(ACCESS_TOKEN);
 
-    const user = localStorage.getItem(USER);
+    const user = Cookies.get(USER);
 
 
     const removeToken = () => {
