@@ -5,7 +5,7 @@ type ActionButtonProps = {
 }
 export default function ActionButton({ title, onClick = () => { }, primary = true }: ActionButtonProps) {
     return (
-        <button className={`px-6 py-2 mx-4 rounded-md shadow-sm ${primary ? 'bg-button-color' : 'bg-button-color-secondary'} ${primary ? 'text-on-primary' : 'text-on-secondary'} `} onClick={onClick} >
+        <button className={`px-6 py-2 rounded-md shadow-sm ${primary ? 'bg-button-color' : 'bg-button-color-secondary'} ${primary ? 'text-on-primary' : 'text-on-secondary'} `} onClick={onClick} >
             {title}
         </button >
     )

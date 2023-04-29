@@ -3,7 +3,7 @@ import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
 import Orders from "../common/Orders/Orders";
 import ProductType from "../ProductPage/Product/ProductType";
-import DetailHeader from "../../components/DetailHeader/DetailHeader";
+import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Divider from "../../components/Divider/Divider";
 import StaffStatusItem from "../StaffPage/StaffStatus/StaffStatus";
 import { StaffStatus } from "../../entities/staff";

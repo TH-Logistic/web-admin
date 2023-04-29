@@ -1,16 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import CloseIcon from '../../assets/close.svg';
 import ActionButton from '../../components/ActionButton/ActionButton';
+import CreateHeader from '../../components/Headers/CreateHeader/CreateHeader';
 
 export default function CreateProductPage() {
-    const navigate = useNavigate()
     return (
         <div>
-            <div className='flex items-center p-6'>
-                <img src={CloseIcon} alt="close" className='w-4 mr-4' onClick={() => navigate(-1)} />
-                <p className='text-lg font-semibold'>Create new product</p>
-            </div>
-            <div className='border-t-[1px] border-border-color' />
+            <CreateHeader header='Create new product' />
+
             <div className='my-4 mx-14'>
                 <p className='font-semibold'>Add product's information</p>
 

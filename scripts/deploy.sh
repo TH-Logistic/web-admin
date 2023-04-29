@@ -5,7 +5,7 @@ docker push www.thinhlh.com/web_admin:${VERSION}
 
 # Perform remote deploy with docker context
 # 1. Create a context |
-    # docker create context context-name --docker "host=ssh://user@server-address"
+    # docker context create context-name --docker "host=ssh://user@server-address"
     # You can config ssh key by setting the ssh inside ssh key config file ~/.ssh/config
 
 # 2. Then run all commands with --context context-name like normally

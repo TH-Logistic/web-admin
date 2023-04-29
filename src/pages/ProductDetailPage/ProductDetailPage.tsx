@@ -5,8 +5,7 @@ import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
 import Orders from "../common/Orders/Orders";
 import ProductType from "../ProductPage/Product/ProductType";
-import DetailHeader from "../../components/DetailHeader/DetailHeader";
-import Divider from "../../components/Divider/Divider";
+import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,9 +14,7 @@ export default function ProductDetailPage() {
     const navigate = useNavigate();
     return (
         <div>
-            <DetailHeader header="Product" id="P01" />
-            <Divider />
-
+            <DetailHeader header="Product" id={productId!} />
             <div className="flex flex-row px-8 mt-16">
                 <div className="flex flex-col items-center flex-1">
                     <div className="w-[60%]">

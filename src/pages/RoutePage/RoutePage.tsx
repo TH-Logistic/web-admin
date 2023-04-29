@@ -18,7 +18,7 @@ export default function RoutePage() {
                 <Search placeholder="Search by route code, location name, ..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" />
+                <ActionButton title="+ Create" onClick={() => navigate('/routes/create')} />
             </div>
             <h1 className="my-8 text-xl font-medium">Routes</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
