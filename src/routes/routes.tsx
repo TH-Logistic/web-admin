@@ -21,6 +21,11 @@ import StaffPage from "../pages/StaffPage/StaffPage";
 import BaseLayout from "../components/BaseLayout/BaseLayout";
 import DriverPage from "../pages/DriverPage/DriverPage";
 import StaffDetailPage from "../pages/StaffDetail/StaffDetailPage";
+import CreateLocationPage from "../pages/\bCreateLocationPage/CreateLocationPage";
+import CreateTransportationPage from "../pages/CreateTruckPage/CreateProductPage";
+import CreateOrganizationPage from "../pages/CreateOrganizationPage/CreateOrganizationPage";
+import CreateDriverPage from "../pages/CreateDriverPage/CreateDriverPage";
+import CreateStaffPage from "../pages/CreateStaffPage/CreateStaffPage";
 
 export type Route = {
   element: ReactNode,
@@ -29,8 +34,9 @@ export type Route = {
   subroutes?: { [key: string]: Route },
 }
 
+export type BaseRoutes = "AUTH" | "HOME" | "ERROR"
 export const ROUTES: {
-  [key: string]: Route
+  [key in BaseRoutes]: Route
 } = {
   AUTH: {
     element: <AuthLayout />,
@@ -70,6 +76,14 @@ export const ROUTES: {
         path: "/products",
         element: <ProductPage />,
       },
+      CREATE_PRODUCT: {
+        path: '/products/create',
+        element: <CreateProductPage />
+      },
+      PRODUCT_DETAIL: {
+        path: '/products/:productId',
+        element: <ProductDetailPage />
+      },
       ROUTES: {
         path: "/routes",
         element: <RoutePage />
@@ -86,34 +100,51 @@ export const ROUTES: {
         path: '/locations/delivery',
         element: <DeliveryPage />
       },
+      CREATE_DELIVERY: {
+        path: "/locations/delivery/create",
+        element: <CreateLocationPage />,
+      },
       GARAGE: {
         path: '/locations/garage',
         element: <GaragePage />
+      },
+      CREATE_GARAGE: {
+        path: '/locations/garage/create',
+        element: <CreateLocationPage />
       },
       TRUCKS: {
         path: "/trucks",
         element: <TransportationPage />
       },
+      CREATE_TRUCK: {
+        path: "/trucks/create",
+        element: <CreateTransportationPage />,
+      },
       ORGARNIZATION: {
         path: "/organizations",
         element: <OrganizationPage />
+      },
+      CREATE_ORGARNIZATION: {
+        path: "/organizations/create",
+        element: <CreateOrganizationPage />
       },
       DRIVERS: {
         path: "/drivers",
         element: <DriverPage />
       },
+      CREATE_DRIVER: {
+        path: "/drivers/create",
+        element: <CreateDriverPage />
+      },
       STAFFS: {
         path: "/staffs",
         element: <StaffPage />
       },
-      CREATE_PRODUCT: {
-        path: '/products/create',
-        element: <CreateProductPage />
+      CREATE_STAFF: {
+        path: "/staffs/create",
+        element: <CreateStaffPage />
       },
-      PRODUCT_DETAIL: {
-        path: '/products/:productId',
-        element: <ProductDetailPage />
-      },
+
       STAFF_DETAIL: {
         path: '/staffs/:staffId',
         element: <StaffDetailPage />

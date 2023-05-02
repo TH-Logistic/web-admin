@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import OrganizationItem from "./OrganizationItem/OrganizationItem";
 import { useQuery } from "@tanstack/react-query";
 import { getOrganizations } from "../../services/organization/organization-service";
+import { ROUTES } from "../../routes/routes";
 
 export default function OrganizationPage() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function OrganizationPage() {
                 <Search placeholder="Search by organization name, contact, ..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ORGARNIZATION.path ?? '')} />
             </div>
             <h1 className="my-8 text-xl font-medium">Organization</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

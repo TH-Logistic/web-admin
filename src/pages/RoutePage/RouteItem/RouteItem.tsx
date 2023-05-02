@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom"
+import { ROUTES } from "../../../routes/routes";
 
 export default function RouteItem() {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 border rounded-md" onClick={() => navigate('/routes/create')}>
+        <div className="flex-1 border rounded-md" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ROUTE.path ?? '')}>
             <div className="p-4">
                 <div className="flex justify-between">
                     <p className="underline decoration-primary-color text-primary-color underline-offset-2">R01</p>
@@ -31,6 +32,6 @@ export default function RouteItem() {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }

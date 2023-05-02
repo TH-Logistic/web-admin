@@ -3,6 +3,7 @@ import Orders from "../common/Orders/Orders";
 import Filter from "../../components/Filter/Filter";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import Search from "../../components/Search/Search";
+import { ROUTES } from "../../routes/routes";
 
 export default function OrderPage() {
     const navigate = useNavigate()
@@ -12,7 +13,7 @@ export default function OrderPage() {
                 <Search placeholder="Search by order number, license plates,..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/products/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_PRODUCT.path ?? '')} />
             </div>
             <div className="flex items-center gap-4">
                 <p className="text-xl font-bold">Orders</p>

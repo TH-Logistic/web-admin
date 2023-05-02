@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Route, ROUTES } from './routes/routes';
+import { BaseRoutes, Route, ROUTES } from './routes/routes';
 import ErrorPage from './pages/Error/Error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -21,10 +21,10 @@ function App() {
       .map(
         (key) => (
           {
-            element: ROUTES[key].element,
-            path: ROUTES[key].path,
-            index: ROUTES[key].index,
-            children: mapSubRouteToRoute(ROUTES[key].subroutes),
+            element: ROUTES[key as BaseRoutes].element,
+            path: ROUTES[key as BaseRoutes].path,
+            index: ROUTES[key as BaseRoutes].index,
+            children: mapSubRouteToRoute(ROUTES[key as BaseRoutes].subroutes),
             errorElement: <ErrorPage />
           }
         )

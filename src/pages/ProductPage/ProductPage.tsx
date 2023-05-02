@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import ProductItem from "./Product/ProductItem";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../services/product/product-service";
+import { ROUTES } from "../../routes/routes";
 
 export default function ProductPage() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function ProductPage() {
                 <Search placeholder="Search by product name, product types,..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/products/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_PRODUCT.path ?? '/')} />
             </div>
             <h1 className="my-8 text-xl font-medium">Products</h1>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1">
