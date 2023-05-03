@@ -1,11 +1,8 @@
-import { JsxElement } from "typescript";
-import App from "../App";
 import AuthLayout from "../components/AuthFrame/AuthLayout";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ErrorPage from "../pages/Error/Error";
 import OrderPage from "../pages/OrderPage/OrderPage";
-import withBaseLayout from "../components/BaseLayout/BaseLayout";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import RoutePage from "../pages/RoutePage/RoutePage";
 import LocationPage from "../pages/LocationPage/LocationPage";

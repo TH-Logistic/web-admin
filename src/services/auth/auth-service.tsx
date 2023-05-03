@@ -3,12 +3,12 @@ import { setAuth } from "../../hooks/use-auth";
 import { authClient } from "../../ports/clients";
 
 const login = async (
-    email: string,
+    phoneNumber: string,
     password: string
 ): Promise<AuthResponse | undefined> => {
     const response = await authClient.post<AuthResponse>('/login', {
-        email: email,
-        password: password,
+        phoneNumber,
+        password,
     })
 
     const data = response.data;

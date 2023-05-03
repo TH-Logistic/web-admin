@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
 import Orders from "../common/Orders/Orders";
@@ -6,10 +6,13 @@ import ProductType from "../ProductPage/Product/ProductType";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Divider from "../../components/Divider/Divider";
 import StaffStatusItem from "../StaffPage/StaffStatus/StaffStatus";
-import { StaffStatus } from "../../entities/staff";
+import { Staff, StaffStatus } from "../../entities/staff";
 
 export default function StaffDetailPage() {
     const { staffId } = useParams();
+    const { state } = useLocation();
+
+    const item = state as Staff;
     return (
         <div>
             <DetailHeader header="Staff" id="S01" />
@@ -22,12 +25,12 @@ export default function StaffDetailPage() {
                         <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Phone number</p>
-                                <p>0902514621</p>
+                                <p>{item.phoneNumber}</p>
                             </div>
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Date of birth</p>
-                                <p>08/12/2001</p>
+                                <p>{item.birthday}</p>
                             </div>
 
                             <div className="flex justify-between">
@@ -42,17 +45,17 @@ export default function StaffDetailPage() {
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Bank name</p>
-                                <p>MB Bank</p>
+                                <p>{item.bankName}</p>
                             </div>
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Bank account</p>
-                                <p>3686856868</p>
+                                <p>{item.bankAccount}</p>
                             </div>
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Status</p>
-                                <StaffStatusItem status={StaffStatus.New} />
+                                <StaffStatusItem status={item.status} />
                             </div>
 
                         </div>
@@ -67,15 +70,13 @@ export default function StaffDetailPage() {
                             <ul className="flex flex-col px-4 list-disc list-inside">
                                 <li className=" text-secondary-light">
                                     <div className="inline-flex flex-row justify-between ">
-                                        <p>Base salary</p>
-                                        <p>14,000,000</p>
+                                        <p>{`Base salary: 14,000,000`}</p>
                                     </div>
                                 </li>
 
                                 <li className="text-secondary-light">
                                     <div className="inline-flex flex-row justify-between">
-                                        <p>Additional Salary</p>
-                                        <p>6,000,000</p>
+                                        <p>{`Additional Salary: 6,000,000`}</p>
                                     </div>
                                 </li>
                             </ul>

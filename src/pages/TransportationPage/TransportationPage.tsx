@@ -19,7 +19,7 @@ export default function TransportationPage() {
         <Search placeholder="Search by license plate, ..." />
         <Filter />
         <div className="flex-auto" />
-        <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ROUTE.path ?? '')} />
+        <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_TRUCK.path ?? '')} />
       </div>
       <h1 className="my-8 text-xl font-medium">Transportation</h1>
       <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

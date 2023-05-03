@@ -5,6 +5,7 @@
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.3",
+    "@radix-ui/react-form": "^0.0.2",
     "@radix-ui/react-popover": "^1.0.5",
     "@radix-ui/react-slider": "^1.1.1",
     "@tailwindcss/line-clamp": "^0.4.2",

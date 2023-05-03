@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Staff, StaffStatus } from "../../../entities/staff";
+import { Staff } from "../../../entities/staff";
 import StaffStatusItem from "../StaffStatus/StaffStatus";
 
 export type StaffItemProps = {
@@ -9,7 +9,7 @@ export type StaffItemProps = {
 export default function StaffItem({ item }: StaffItemProps) {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate(`/staffs/${item.id}`)}>
+        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate(`/staffs/${item.id}`, { state: item })}>
             <div className="flex items-center justify-between gap-4">
                 <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
 
@@ -19,7 +19,7 @@ export default function StaffItem({ item }: StaffItemProps) {
                 <p className={`text-user-status-resigned font-bold rounded-full bg-user-status-resigned py-1 px-4`}>Resigned</p>
                 <p className={`text-user-status-deleted font-bold rounded-full bg-user-status-deleted py-1 px-4`}>Deleted</p> */}
 
-                <StaffStatusItem status={StaffStatus.New} />
+                <StaffStatusItem status={item.status} />
             </div>
             <p className="text-lg text-secondary-dark">{item.name}</p>
             <div className="h-2" />

@@ -28,6 +28,7 @@ class Staff {
     role: Staff;
     avatar: string;
     birthday: number;
+    status: StaffStatus;
 
     constructor(
         id: string,
@@ -40,7 +41,8 @@ class Staff {
         email: string,
         role: Staff,
         avatar: string,
-        birthday: number
+        birthday: number,
+        status: string,
     ) {
         this.id = id;
         this.username = username;
@@ -52,7 +54,28 @@ class Staff {
         this.bankName = bankName;
         this.role = role;
         this.avatar = avatar;
-        this.birthday = birthday
+        this.birthday = birthday;
+
+        switch (status.toLowerCase()) {
+            case "new":
+                this.status = StaffStatus.New
+                break;
+            case "active":
+                this.status = StaffStatus.Active
+                break;
+            case "suspended":
+                this.status = StaffStatus.Suspended
+                break;
+            case "resigned":
+                this.status = StaffStatus.Resigned
+                break;
+            case "deleted":
+                this.status = StaffStatus.Deleted
+                break;
+            default:
+                this.status = StaffStatus.Active
+                break;
+        }
     }
 }
 

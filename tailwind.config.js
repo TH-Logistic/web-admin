@@ -39,9 +39,11 @@ module.exports = {
         "primary-color": "#00ADB5",
         "secondary-color": "#0053B5",
         "disabled-color": "#A1D6D9",
+        "error-color": "#F33030",
         "border-color": "#B2B2B2",
         "button-color": "#75CCD0",
         "button-color-secondary": "#B2B2B3",
+        "input-border": "#E3E5E5",
         "user-status": {
           'new': '#C6DCF0',
           'active': '#C7F0C6',
