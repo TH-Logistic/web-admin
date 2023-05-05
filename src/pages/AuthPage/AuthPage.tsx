@@ -1,23 +1,33 @@
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/routes";
 import React from "react";
-import { login } from "../../services/auth/auth-service";
+import * as AuthService from "../../services/auth/auth-service";
 import * as Form from "@radix-ui/react-form";
 import { Input } from "../../components/Input/Input";
+import { useMutation } from "@tanstack/react-query";
 
 export default function AuthPage() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const onLoginClicked = async (e: any) => {
+    const { mutate: login, data, isLoading } = useMutation({
+        mutationFn: AuthService.login,
+    });
+
+    const onLoginClicked = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const response = await login('902514621', 'jamie@gmail.com')
 
-        navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
+        const request = Object.fromEntries(new FormData(e.currentTarget));
+        const response = login({
+            phoneNumber: request.phoneNumber.toString(),
+            password: request.password.toString()
+        });
+
+        // navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
     }
 
     return (
-        <Form.Root className='flex flex-col items-center w-full h-full justify-evenly'>
+        <Form.Root className='flex flex-col items-center w-full h-full justify-evenly' onSubmit={(e) => onLoginClicked(e)}>
             <h1 className='mt-8 text-2xl font-bold lg:text-4xl text-primary-color'>LOGIN</h1>
             <br />
             <div className="flex flex-col items-center w-full gap-4">
@@ -36,9 +46,9 @@ export default function AuthPage() {
                     type="password"
                     required
                 />
-                <button className='w-full px-4 py-2 rounded-md bg-primary-color' onClick={onLoginClicked}>
+                <Form.Submit className='w-full px-4 py-2 rounded-md bg-primary-color'>
                     <p className='text-[#ffffff] font-semibold text-xl'>LOG IN</p>
-                </button>
+                </Form.Submit>
                 <p>Forgot password? <Link to="/auth/forgot-password"><b className='font-bold text-primary-color'>Click here</b></Link></p>
 
             </div>
