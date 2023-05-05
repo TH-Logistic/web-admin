@@ -38,24 +38,24 @@ export const Input = ({
     ...props
 }: InputProps) => {
     return (
-        <Form.Field name={name} className="flex flex-col w-full gap-4">
-            <Form.Control {...props} className={`px-4 py-2 outline-none border border-border-color rounded-md [&:data-invalid]:border-error-color ${className}`}  {...props} />
-
-            {matchers && (
-                <div data-testid="matcher-message">
-                    {matchers.map((matcher) => (
-                        <Form.Message
-                            key={matcher.match.toString()}
-                            match={matcher.match}
-                            className="m-0 text-error-color"
-                        >
-                            {matcher.message}
-                        </Form.Message>
-                    ))}
-                </div>
-            )}
-
+        <Form.Field name={name} className={`flex flex-row items-center w-full  ${className}`}>
             {children}
+            <div className="flex flex-col w-full gap-4">
+                <Form.Control {...props} className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md [&:data-invalid]:border-error-color ${className}`}  {...props} />
+                {matchers && (
+                    <div data-testid="matcher-message">
+                        {matchers.map((matcher) => (
+                            <Form.Message
+                                key={matcher.match.toString()}
+                                match={matcher.match}
+                                className="m-0 text-error-color"
+                            >
+                                {matcher.message}
+                            </Form.Message>
+                        ))}
+                    </div>
+                )}
+            </div>
         </Form.Field>
     );
 };

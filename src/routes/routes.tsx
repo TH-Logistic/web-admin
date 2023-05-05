@@ -19,7 +19,7 @@ import BaseLayout from "../components/BaseLayout/BaseLayout";
 import DriverPage from "../pages/DriverPage/DriverPage";
 import StaffDetailPage from "../pages/StaffDetail/StaffDetailPage";
 import CreateLocationPage from "../pages/\bCreateLocationPage/CreateLocationPage";
-import CreateTransportationPage from "../pages/CreateTruckPage/CreateProductPage";
+import CreateTransportationPage from "../pages/CreateTruckPage/CreateTransportationPage";
 import CreateOrganizationPage from "../pages/CreateOrganizationPage/CreateOrganizationPage";
 import CreateDriverPage from "../pages/CreateDriverPage/CreateDriverPage";
 import CreateStaffPage from "../pages/CreateStaffPage/CreateStaffPage";

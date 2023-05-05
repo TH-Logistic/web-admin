@@ -12,6 +12,7 @@ module.exports = {
         "secondary-light": "#666666",
         "on-primary": "#FFFFFF",
         "on-secondary": "#000000",
+        "caption": "#72777A",
         "product-color": {
           "dangerous": "#DD4A48",
           "fragile": "#00B4D8",

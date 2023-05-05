@@ -23,8 +23,7 @@ export default function RoutePage() {
             </div>
             <h1 className="my-8 text-xl font-medium">Routes</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
-                {data?.toString()}
-                {data?.map((item) => <RouteItem />)}
+                {data?.content.map(item => <RouteItem item={item} />)}
             </div>
         </div>
     )

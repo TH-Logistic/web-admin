@@ -1,3 +1,4 @@
+import { Location } from "./location";
 
 export interface Route {
     id: string;
@@ -5,6 +6,6 @@ export interface Route {
     toLocation: Location;
     length: number;
     tripBasedCost: number;
-    tonBasedCLimit: number;
+    tonBasedLimit: number;
     isEnable: boolean;
 }
