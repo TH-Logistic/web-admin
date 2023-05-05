@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { BaseRoutes, Route, ROUTES } from './routes/routes';
 import ErrorPage from './pages/Error/Error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import store from './stores';
 
 function App() {
   const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -35,9 +37,11 @@ function App() {
 
   return (
     <div className='font-poppins'>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </Provider>
     </div>
   );
 }

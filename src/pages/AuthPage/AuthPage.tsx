@@ -1,16 +1,19 @@
-import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { ROUTES } from "../../routes/routes";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
-import * as AuthService from "../../services/auth/auth-service";
 import * as Form from "@radix-ui/react-form";
 import { Input } from "../../components/Input/Input";
 import { useMutation } from "@tanstack/react-query";
+import * as AuthService from '../../services/auth/auth-service';
+import { useAppDispatch } from "../../hooks/redux-hook";
+import { idle, loading, success } from "../../stores/api-state";
+import { ROUTES } from "../../routes/routes";
 
 export default function AuthPage() {
 
     const navigate = useNavigate();
+    const apiDispatch = useAppDispatch();
 
-    const { mutate: login, data, isLoading } = useMutation({
+    const loginMutation = useMutation({
         mutationFn: AuthService.login,
     });
 
@@ -18,12 +21,21 @@ export default function AuthPage() {
         e.preventDefault()
 
         const request = Object.fromEntries(new FormData(e.currentTarget));
-        const response = login({
+
+        apiDispatch(loading())
+
+        loginMutation.mutate({
             phoneNumber: request.phoneNumber.toString(),
             password: request.password.toString()
+        }, {
+            onSuccess: () => {
+                navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
+            },
+            onSettled: () => {
+                apiDispatch(idle())
+            }
         });
 
-        // navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
     }
 
     return (
