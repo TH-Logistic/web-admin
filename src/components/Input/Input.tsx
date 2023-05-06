@@ -1,61 +1,33 @@
+import { FieldError, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
 import * as Form from "@radix-ui/react-form";
-
-interface InputMatchers {
-    /**
-     * Input matcher
-     */
-    match: Form.ValidityMatcher | Form.CustomMatcher;
-
-    /**
-     * Message to show when input does not match
-     */
-    message: string;
-}
+import React from "react";
+import { error } from 'console';
 
 interface InputPropsInterface {
-    /**
-     * Input name
-     */
-    name: string;
-
-    /**
-     * Matchers, include match & message for validation
-     */
-    matchers?: InputMatchers[];
+    error?: FieldError;
+    register?: UseFormRegisterReturn;
 }
 
-export type InputProps = InputPropsInterface &
-    React.ComponentPropsWithoutRef<"input">;
+export type InputProps = InputPropsInterface & React.ComponentProps<'input'>;
 
 /**
  * Component for taking user input
  */
-export const Input = ({
-    matchers = undefined,
+export const Input = React.forwardRef(({
     children = undefined,
-    name,
     className,
+    register,
+    error,
     ...props
-}: InputProps) => {
+}: InputProps, ref) => {
     return (
-        <Form.Field name={name} className={`flex flex-row items-center w-full  ${className}`}>
-            {children}
-            <div className="flex flex-col w-full gap-4">
-                <Form.Control {...props} className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md [&:data-invalid]:border-error-color ${className}`}  {...props} />
-                {matchers && (
-                    <div data-testid="matcher-message">
-                        {matchers.map((matcher) => (
-                            <Form.Message
-                                key={matcher.match.toString()}
-                                match={matcher.match}
-                                className="m-0 text-error-color"
-                            >
-                                {matcher.message}
-                            </Form.Message>
-                        ))}
-                    </div>
-                )}
-            </div>
-        </Form.Field>
+        <div className="flex flex-col w-full gap-4">
+            <input {...props}
+                {...register}
+                className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md ${error ? 'border-error-color' : 'border-border-color'} ${className}`}
+                {...props}
+            />
+            {error?.message && <p className='text-sm text-error-color'>{error.message}</p>}
+        </div>
     );
-};
+});

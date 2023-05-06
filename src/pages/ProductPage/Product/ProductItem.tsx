@@ -8,7 +8,7 @@ export default function ProductItem({ item }: ProductItemProps) {
     const navigate = useNavigate();
     return (
         <div className="flex-1 max-w-sm border rounded-md">
-            <div className="p-4" onClick={() => navigate(`/products/${1}`)}>
+            <div className="p-4" onClick={() => navigate(`/products/${item.id}`)}>
                 <p className="underline decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
                 <div className="flex justify-between my-2">
                     <p className="text-lg">{item.name}</p>
@@ -36,7 +36,7 @@ export default function ProductItem({ item }: ProductItemProps) {
                 <p className="p-2 border rounded-full text-product-color-medicine">Medicine</p>
                 <p className="p-2 border rounded-full text-product-color-others">Others</p> */}
 
-                {item.types.map((type) => <ProductTypeItem type={type} />)}
+                {item.types.map((type) => <ProductTypeItem type={type} key={type} />)}
                 {/* <ProductTypeItem type={ProductType.Dangerous} />
                 <ProductTypeItem type={ProductType.Fragile} />
                 <ProductTypeItem type={ProductType.Machine} />

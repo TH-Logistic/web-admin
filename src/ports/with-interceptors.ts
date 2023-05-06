@@ -31,6 +31,7 @@ const withInterceptors = (client: AxiosInstance): AxiosInstance => {
         if (response.data.success === true) {
             return response.data
         } else {
+            console.log(response)
             return Promise.reject(new ApiError(response.status, response.data.message))
         }
     })

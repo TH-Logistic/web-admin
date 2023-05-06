@@ -1,9 +1,9 @@
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input } from '../../components/Input/Input';
 import CreatePage from '../common/CreatePage/CreatePage';
 import * as Form from '@radix-ui/react-form';
 import * as RadixSelect from "@radix-ui/react-select";
 import ArrowDown from '../../assets/arrow-down.svg';
-import ArrowUp from '../../assets/arrow-up.svg';
 import ProductType from '../ProductPage/Product/ProductType';
 
 export default function CreateProductPage() {
@@ -13,100 +13,120 @@ export default function CreateProductPage() {
             title="Add product' s information"
         >
             <CreateProductForm />
-            <form className='flex flex-col gap-4'>
-                <div className='flex items-center'>
-                    <label htmlFor='product-type' className='basis-1/5'>Product Type</label>
-
-                    <select name="product-type" id='create-product-page-product-type' className='py-1 px-4 outline-border-color rounded-md border-[1px] flex-1' placeholder='Product type'>
-                        <option value="" disabled selected>Product Type</option>
-                        <option value="type1">Type 1</option>
-                        <option value="type2">Type 2</option>
-                        <option value="type3">Type 3</option>
-                        <option value="type4">Type 4</option>
-                    </select>
-                </div>
-
-            </form>
         </CreatePage>
     )
 }
 
-const CreateProductForm = () => {
+type CreateProductPageInputs = {
+    productName: string;
+    productUnit: string;
+    productType: ProductType;
+    productBasePrice: string;
+}
+const CreateProductForm = (props: object) => {
+    const { handleSubmit, register, formState: { errors }, setValue } = useForm<CreateProductPageInputs>();
+
+    const onSubmit: SubmitHandler<CreateProductPageInputs> = (data) => {
+        console.log(data)
+    }
     return (
-        <Form.Root className='flex flex-col gap-4'>
-            <Input name='product-name' placeholder='Product name' className='gap-4'>
-                <Form.Label htmlFor='product-name' className='basis-1/5'>Product name</Form.Label>
+        <Form.Root className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
+            <Input
+                placeholder='Product name'
+                className='flex flex-row items-center gap-4 '
+                {...register('productName')}
+                error={errors.productName}
+            >
+                <Form.Label htmlFor='productName' className='basis-1/5'>Product name</Form.Label>
             </Input>
 
-            <Input name='product-unit' placeholder='Product unit' className='gap-4'>
-                <Form.Label htmlFor='product-unit' className='basis-1/5'>Product unit</Form.Label>
+            {/* <Input
+                placeholder='Product unit'
+                className='gap-4'
+                {...register('productUnit')}
+                matchers={[
+                    {
+                        match: 'valueMissing',
+                        message: 'Product unit must not be empty'
+                    }
+                ]}
+            >
+                <Form.Label htmlFor='productUnit' className='basis-1/5'>Product unit</Form.Label>
             </Input>
 
-            <Input name='product-base-price' placeholder='Product base price (kg/km)' type='number' className='gap-4'>
+            <Input
+                placeholder='Product base price (kg/km)' type='number'
+                className='gap-4'
+                {...register('productBasePrice')}
+                min={0}
+                matchers={[
+                    {
+                        match: 'valueMissing',
+                        message: 'Product name must not be empty'
+                    },
+                    {
+                        match: 'typeMismatch',
+                        message: 'Product base price must be number'
+                    },
+                ]}>
                 <Form.Label htmlFor='product-base-price' className='basis-1/5'>Product base price</Form.Label>
-            </Input>
+            </Input> */}
 
-            <div className='flex flex-row gap-4'>
-                <label htmlFor='product-type' className='basis-1/5'>Product type</label>
-                <RadixSelect.Root name='product-type'>
-                    <RadixSelect.Trigger className='w-full px-4 py-2 border rounded-md border-border-color' asChild>
-                        <div className='flex flex-row items-center justify-between'>
-                            <RadixSelect.Value placeholder={
+            <SelectProductType onValueChanged={(value) => setValue('productType', value)} />
+        </Form.Root >
+    )
+}
+type SelectProductTypeProps = {
+    onValueChanged: (value: ProductType) => void
+}
+const SelectProductType = ({ onValueChanged }: SelectProductTypeProps) => {
+    return (
+        <div className='flex flex-row items-center gap-4'>
+            <label htmlFor='product-type' className='basis-1/5'>Product type</label>
+            <RadixSelect.Root
+                onValueChange={(value) => onValueChanged(ProductType[value as keyof typeof ProductType])}
+                name='product-type'>
+                <RadixSelect.Trigger
+                    className='w-full px-4 py-2 border rounded-md border-border-color' asChild>
+                    <div className='flex flex-row items-center justify-between'>
+                        <RadixSelect.Value
+                            placeholder={
                                 <p className='text-base text-caption'>Product type</p>
                             } />
-                            <RadixSelect.Icon asChild>
-                                <img src={ArrowDown} alt='Product type' />
-                            </RadixSelect.Icon>
-                        </div>
+                        <RadixSelect.Icon asChild>
+                            <img src={ArrowDown} alt='Product type' />
+                        </RadixSelect.Icon>
+                    </div>
 
-                    </RadixSelect.Trigger>
+                </RadixSelect.Trigger>
 
-                    <RadixSelect.Portal>
-                        <RadixSelect.Content className='overflow-hidden bg-red-300 rounded-md' side='left'>
-                            <RadixSelect.ScrollUpButton asChild>
-                                <img src={ArrowUp} alt='above select' />
-                            </RadixSelect.ScrollUpButton>
+                <RadixSelect.Portal>
+                    <RadixSelect.Content className='overflow-hidden bg-white shadow-lg border border-border-color rounded-md w-[--radix-select-trigger-width] max-h-[30vh]' sideOffset={8} avoidCollisions={false} position='popper'>
+                        <RadixSelect.Viewport className='flex flex-col p-2'>
+                            {
+                                Object
+                                    .keys(ProductType)
+                                    .filter(key => isNaN(Number(key)))
+                                    .map(key => <SelectItem key={key} value={key} />)
+                            }
+                        </RadixSelect.Viewport>
+                    </RadixSelect.Content>
+                </RadixSelect.Portal>
+            </RadixSelect.Root>
+        </div>
+    );
+}
 
-                            <RadixSelect.Viewport className='p-6'>
-                                <RadixSelect.Item value={ProductType.Dangerous.toString()}>
-                                    <RadixSelect.ItemText >
-                                        Dangerous
-                                    </RadixSelect.ItemText>
-                                    <RadixSelect.ItemIndicator />
-                                </RadixSelect.Item>
-
-                                <RadixSelect.Item value={ProductType.Fragile.toString()}>
-                                    <RadixSelect.ItemText >
-                                        Fragile
-                                    </RadixSelect.ItemText>
-                                    <RadixSelect.ItemIndicator />
-                                </RadixSelect.Item>
-
-                                <RadixSelect.Item value={ProductType.Machine.toString()}>
-                                    <RadixSelect.ItemText >
-                                        Machine
-                                    </RadixSelect.ItemText>
-                                    <RadixSelect.ItemIndicator />
-                                </RadixSelect.Item>
-
-                                <RadixSelect.Item value={ProductType.Electronic.toString()}>
-                                    <RadixSelect.ItemText >
-                                        Electronics
-                                    </RadixSelect.ItemText>
-                                    <RadixSelect.ItemIndicator />
-                                </RadixSelect.Item>
-
-
-                            </RadixSelect.Viewport>
-
-                            <RadixSelect.ScrollDownButton />
-
-                            <RadixSelect.Arrow />
-                        </RadixSelect.Content>
-                    </RadixSelect.Portal>
-                </RadixSelect.Root>
-            </div>
-
-        </Form.Root >
+type SelectItemProps = React.ComponentProps<typeof RadixSelect.Item>;
+const SelectItem = ({ value }: SelectItemProps) => {
+    return (
+        <RadixSelect.Item
+            value={ProductType[value as keyof typeof ProductType].toString()}
+            className={`data-[highlighted]: outline-none font-semibold data-[highlighted]:bg-disabled-color py-2 px-4 rounded-md text-product-color-${value.toLowerCase()}`}
+        >
+            <RadixSelect.ItemText >
+                {value}
+            </RadixSelect.ItemText>
+        </RadixSelect.Item>
     )
 }
