@@ -4,6 +4,7 @@ import ErrorPage from './pages/Error/Error';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'react-redux';
 import store from './stores';
+import { DialogProvider } from './hooks/use-dialog';
 
 function App() {
   const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -38,9 +39,11 @@ function App() {
   return (
     <div className='font-poppins'>
       <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
+        <DialogProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </DialogProvider>
       </Provider>
     </div>
   );

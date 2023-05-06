@@ -6,4 +6,8 @@ export class ApiError extends Error {
         this.statusCode = statusCode;
         this.message = message;
     }
+
+    public toString = (): string => {
+        return `Error No.${this.statusCode}: ${this.message}`;
+    }
 }

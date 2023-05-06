@@ -21,13 +21,16 @@ export const Input = React.forwardRef(({
     ...props
 }: InputProps, ref) => {
     return (
-        <div className="flex flex-col w-full gap-4">
-            <input {...props}
-                {...register}
-                className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md ${error ? 'border-error-color' : 'border-border-color'} ${className}`}
-                {...props}
-            />
-            {error?.message && <p className='text-sm text-error-color'>{error.message}</p>}
+        <div className='flex flex-row gap-4'>
+            {children}
+            <div className="flex flex-col w-full gap-2">
+                <input {...props}
+                    {...register}
+                    className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md ${error ? 'border-error-color' : 'border-border-color'} ${className}`}
+                    {...props}
+                />
+                {error?.message && <p className='text-sm text-error-color'>{error.message}</p>}
+            </div>
         </div>
     );
 });

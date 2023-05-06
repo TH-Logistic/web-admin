@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { Axios, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import withInterceptors from "./with-interceptors";
 import { within } from "@testing-library/react";
 
@@ -37,6 +37,8 @@ const authClient = withInterceptors(
         baseURL: process.env.REACT_APP_AUTH_URL,
     })
 )
+
+
 
 export {
     productClient,

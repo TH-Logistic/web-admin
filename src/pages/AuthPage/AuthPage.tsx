@@ -3,11 +3,13 @@ import React from "react";
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import * as Form from "@radix-ui/react-form";
 import { Input } from "../../components/Input/Input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as AuthService from '../../services/auth/auth-service';
 import { useAppDispatch } from "../../hooks/redux-hook";
 import { idle, loading, success } from "../../stores/api-state";
 import { ROUTES } from "../../routes/routes";
+import { useDialog } from "../../hooks/use-dialog";
+import { ApiError } from "../../errors/ApiError";
 
 type AuthInputs = {
     phoneNumber: string;
@@ -18,6 +20,7 @@ export default function AuthPage() {
 
     const navigate = useNavigate();
     const apiDispatch = useAppDispatch();
+    const { showLoadingDialog, hideDialog, showInfoDialog } = useDialog();
     const { register, formState: { errors }, handleSubmit, setError } = useForm<AuthInputs>();
 
     const loginMutation = useMutation({
@@ -25,20 +28,21 @@ export default function AuthPage() {
     });
 
     const onSubmit: SubmitHandler<AuthInputs> = (data) => {
-        apiDispatch(loading())
+        showLoadingDialog()
 
         loginMutation.mutate({
             phoneNumber: data.phoneNumber?.toString(),
             password: data.password?.toString()
         }, {
             onSuccess: () => {
+                hideDialog()
                 navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
             },
-            onSettled: () => {
-                apiDispatch(idle())
-            },
             onError: (err) => {
-                setError('root', { type: 'server', message: 'error' });
+                showInfoDialog({
+                    message: err?.toString(),
+                    success: false,
+                })
             }
         });
     }
@@ -52,6 +56,18 @@ export default function AuthPage() {
                         required: {
                             value: true,
                             message: 'Phone number must not be empty!'
+                        },
+                        minLength: {
+                            value: 9,
+                            message: 'Phone number must have at least 9 digits'
+                        },
+                        maxLength: {
+                            value: 15,
+                            message: 'Phone number must have less than 15 digits'
+                        },
+                        pattern: {
+                            value: /^[0-9]+$/,
+                            message: 'Phone number must contains only digits'
                         }
                     })}
                     error={errors.phoneNumber}

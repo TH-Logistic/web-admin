@@ -1,18 +1,12 @@
-import * as React from 'react';
 import AuthImage from '../../assets/auth-image.svg';
 import './AuthLayout.css'
 import Logo from '../../assets/logo.svg';
 import { Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux-hook';
-import Loading from '../Loading/Loading';
-import { ApiStatus } from '../../stores/api-state';
 
 
 export default function AuthLayout() {
-    const apiState = useAppSelector((state) => state.apiState.value);
     return (
         <div>
-            <Loading open={apiState === ApiStatus.LOADING} />
             <div className='flex items-center justify-center w-screen h-screen bg-gradient-to-br from-secondary-color/80 to-primary-color'>
                 <div className='flex flex-col items-center w-5/6 bg-white rounded-md h-5/6' id='auth-background-white'>
                     <img src={Logo} alt="Logo" className='mt-12' />

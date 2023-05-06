@@ -1,9 +1,9 @@
-import { AxiosInstance } from "axios";
+import { Axios, AxiosError, AxiosInstance, isAxiosError } from "axios";
 import { ApiError } from "../errors/ApiError";
 import { camelizeKeys } from "humps";
 import useAuth from "../hooks/use-auth";
 
-const withInterceptors = (client: AxiosInstance): AxiosInstance => {
+const withInterceptors = (client: AxiosInstance): Axios => {
     client.interceptors.request.use((config) => {
         const { token } = useAuth();
         const headers = config.headers;
@@ -25,13 +25,18 @@ const withInterceptors = (client: AxiosInstance): AxiosInstance => {
         }
 
         return response
+    }, (error) => {
+        if (error instanceof AxiosError) {
+            return Promise.reject(new ApiError(error?.response?.status ?? 500, error?.response?.data?.message))
+        } else {
+            return Promise.reject(new ApiError(error?.status ?? 500, 'Internal exception! Sorry for this inconvenience'))
+        }
     })
 
     client.interceptors.response.use((response) => {
         if (response.data.success === true) {
             return response.data
         } else {
-            console.log(response)
             return Promise.reject(new ApiError(response.status, response.data.message))
         }
     })
