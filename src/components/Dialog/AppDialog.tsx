@@ -19,7 +19,7 @@ const AppDialog = ({ success = true, message = 'Message', title, onProceedClicke
                     <img src={success ? Success : Error} alt="dialog-icon" />
 
                     <div className="flex flex-col items-center gap-4">
-                        <p className="font-semibold">{message}</p>
+                        <p className="font-semibold text-center">{message}</p>
                         <RadixDialog.Close asChild>
                             <ActionButton
                                 className="bg-primary-color"

@@ -1,16 +1,17 @@
 import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
-import { Outlet } from 'react-router-dom';
-import Loading from '../Loading/Loading';
-import { ApiStatus } from '../../stores/api-state';
-import { useAppSelector } from '../../hooks/redux-hook';
+import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+import { ROUTES } from '../../routes/routes';
 export default function BaseLayout() {
-    const apiState = useAppSelector((state) => state.apiState.value);
-    const auth = useAuth();
+    const { loggedIn } = useAuth();
+
+    if (!loggedIn) {
+        return (<Navigate to={ROUTES.AUTH?.path} />)
+    }
+
     return (
         <div className="flex flex-col h-screen max-h-screen overflow-hidden">
-            <Loading open={apiState === ApiStatus.LOADING} />
             <div className="flex flex-row items-center py-4">
                 <p className='pl-8 text-lg font-bold basis-1/12'>Logo</p>
                 <div className='flex items-center justify-between flex-grow'>

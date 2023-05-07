@@ -17,6 +17,7 @@ export default function SideBarItem(props: {
     isChose: boolean,
     submenu?: { [key: string]: MenuItem },
     isSubItem: boolean,
+    onClick?: () => void,
 }) {
 
     const [isShowingSubMenu, setIsShowingSubMenu] = useState(false)
@@ -24,7 +25,10 @@ export default function SideBarItem(props: {
     const location = useLocation()
     return (
         <div className={`flex flex-col ${props.isSubItem ? 'mx-0' : 'mx-4'} mt-0`} >
-            <div className='flex items-center mr-4 sm:mr-2 ' onClick={props.submenu ? () => setIsShowingSubMenu(!isShowingSubMenu) : () => navigate(props.path)}>
+            <div className='flex items-center mr-4 sm:mr-2 ' onClick={props.submenu ? () => setIsShowingSubMenu(!isShowingSubMenu) : () => {
+                props.onClick?.();
+                navigate(props.path)
+            }}>
                 <div className={`${!props.isSubItem && props.isChose ? 'visible' : 'invisible'} h-10 border-2 border-primary-color`} />
                 <div className='flex items-center w-full px-2 py-2 ml-2 rounded-md hover:bg-primary-color/20'>
                     {props.icon ? < img src={props.icon} alt='Order Icon' className='object-contain w-5 h-5 ' /> : <></>}

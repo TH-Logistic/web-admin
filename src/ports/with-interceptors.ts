@@ -1,4 +1,4 @@
-import { Axios, AxiosError, AxiosInstance, isAxiosError } from "axios";
+import { Axios, AxiosError, AxiosInstance, HttpStatusCode, isAxiosError } from "axios";
 import { ApiError } from "../errors/ApiError";
 import { camelizeKeys } from "humps";
 import useAuth from "../hooks/use-auth";
@@ -27,6 +27,10 @@ const withInterceptors = (client: AxiosInstance): Axios => {
         return response
     }, (error) => {
         if (error instanceof AxiosError) {
+            if (error.response?.status === HttpStatusCode.Unauthorized) {
+                const { removeAuth } = useAuth();
+                removeAuth()
+            }
             return Promise.reject(new ApiError(error?.response?.status ?? 500, error?.response?.data?.message))
         } else {
             return Promise.reject(new ApiError(error?.status ?? 500, 'Internal exception! Sorry for this inconvenience'))

@@ -9,7 +9,6 @@ type RouteItemProps = {
 
 export default function RouteItem({ item }: RouteItemProps) {
     const navigate = useNavigate();
-    console.log(item)
     return (
         <div className="flex-1 border rounded-md" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ROUTE.path ?? '')}>
             <div className="p-4">

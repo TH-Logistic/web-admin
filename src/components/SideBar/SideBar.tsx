@@ -20,6 +20,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes/routes';
 import { Menu, MenuItem, Sidebar, SubMenu, menuClasses } from 'react-pro-sidebar';
+import useAuth from '../../hooks/use-auth';
 
 export type MenuItem = {
     name: string,
@@ -31,6 +32,7 @@ export type MenuItem = {
 export default function SideBar() {
     const location = useLocation()
     const navigate = useNavigate()
+    const { removeAuth } = useAuth();
 
     const menus: {
         [key: string]: MenuItem
@@ -185,6 +187,7 @@ export default function SideBar() {
             </div>
 
             <SideBarItem
+                onClick={removeAuth}
                 key='Log out'
                 path={'/auth/login'}
                 name='Log out'

@@ -41,7 +41,6 @@ export default function Filter() {
                                     onCheckedChange={(checked) => {
                                         const newStatus = { ...checkedStatus }
                                         newStatus[status] = checked
-                                        console.log(checkedStatus)
                                         setCheckedStatus(newStatus)
                                     }}
                                     checked={checkedStatus[status]} />
