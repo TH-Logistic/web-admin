@@ -1,13 +1,16 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Input } from "../../components/Input/Input";
+import { useForm } from 'react-hook-form';
+import { ROUTES } from "../../routes/routes";
 
 export default function ForgotPasswordPage() {
-
     const [isSubmittedEmail, setIsSubmittedEmail] = useState(false);
 
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault();
+    const { register, handleSubmit, formState: { errors } } = useForm<{ email: string }>();
 
+
+    function onSubmit(data: { email: string }) {
         setIsSubmittedEmail(true)
 
         setTimeout(() => {
@@ -16,18 +19,29 @@ export default function ForgotPasswordPage() {
     }
 
     return (
-        <form className='flex flex-col items-center justify-center w-full h-full' onSubmit={handleSubmit}>
-            <h1 className='mt-8 text-3xl font-medium text-center text-primary-color'>FORGOT PASSWORD</h1>
-            <br />
+        <form className='flex flex-col items-center justify-center w-full h-full gap-8' onSubmit={handleSubmit(onSubmit)}>
+            <h1 className='text-3xl font-medium text-center text-primary-color'>FORGOT PASSWORD</h1>
             <p className="w-2/3 text-center text-l">{isSubmittedEmail ? `Please check your email` : `Please enter yout email to request a password reset.`} </p>
-            <br />
-            <input className='w-full px-4 py-2 text-xl rounded-md ring-1 ring-slate-500' placeholder='Email' type="email" disabled={isSubmittedEmail} />
-            <br />
+            <Input
+                placeholder="Email"
+                register={
+                    register('email', {
+                        required: {
+                            value: true,
+                            message: 'Email must be not be empty'
+                        },
+                        pattern: {
+                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            message: 'Email must be valid'
+                        },
+                    })}
+                type="email"
+                error={errors.email}
+            />
             <button className='w-full px-4 py-2 rounded-md bg-primary-color disabled:bg-disabled-color ' type="submit" disabled={isSubmittedEmail}>
                 <p className='text-[#ffffff] font-semibold text-l'>RESET PASSWORD</p>
             </button>
-            <br />
-            <p>Back to <Link to="/auth/login"><span className='font-semibold text-primary-color'>Login</span></Link></p>
+            <p>Back to <Link to={ROUTES.AUTH.subroutes?.LOGIN.path ?? ''}><span className='font-semibold text-primary-color'>Login</span></Link></p>
         </form>
     );
 }

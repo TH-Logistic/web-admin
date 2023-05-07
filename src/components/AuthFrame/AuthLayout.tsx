@@ -11,7 +11,7 @@ export default function AuthLayout() {
                 <div className='flex flex-col items-center w-5/6 bg-white rounded-md h-5/6' id='auth-background-white'>
                     <img src={Logo} alt="Logo" className='mt-12' />
 
-                    <div className='flex flex-col items-center justify-center w-full sm:items-start'>
+                    <div className='flex flex-col items-center w-full h-full mt-1/12 sm:items-start'>
                         <div className='w-full px-16 mt-8 sm:pl-8 sm:w-1/3'>
                             <Outlet />
                         </div>

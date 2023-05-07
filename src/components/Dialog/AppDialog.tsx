@@ -15,18 +15,21 @@ const AppDialog = ({ success = true, message = 'Message', title, onProceedClicke
         <RadixDialog.Root {...props}>
             <RadixDialog.Portal>
                 <RadixDialog.Overlay className="fixed inset-0 bg-black opacity-20 data-[state=open]:animate-overlayShow" />
-                <RadixDialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-center py-4 pb-8 items-center bg-white outline-none rounded-lg max-w-[70vw] md:max-w-[50vw] lg:max-w-[30vw] w-full h-full max-h-[40vh] gap-2">
+                <RadixDialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col justify-evenly gap-8 py-4 pb-8 items-center bg-white outline-none rounded-lg max-w-[70vw] md:max-w-[50vw] lg:max-w-[30vw] w-full h-full max-h-[40vh]">
                     <img src={success ? Success : Error} alt="dialog-icon" />
-                    <div className="mt-2" />
-                    <p>{message}</p>
-                    <RadixDialog.Close asChild>
-                        <ActionButton
-                            title={title ? title : success ? 'Proceed' : 'Go Back'}
-                            onClick={() => {
-                                onProceedClicked?.();
-                                hideDialog()
-                            }} />
-                    </RadixDialog.Close>
+
+                    <div className="flex flex-col items-center gap-4">
+                        <p className="font-semibold">{message}</p>
+                        <RadixDialog.Close asChild>
+                            <ActionButton
+                                className="bg-primary-color"
+                                title={title ? title : success ? 'Proceed' : 'Go Back'}
+                                onClick={() => {
+                                    onProceedClicked?.();
+                                    hideDialog()
+                                }} />
+                        </RadixDialog.Close>
+                    </div>
                 </RadixDialog.Content>
             </RadixDialog.Portal>
         </RadixDialog.Root>

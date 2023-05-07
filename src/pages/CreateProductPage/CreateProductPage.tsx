@@ -6,27 +6,56 @@ import * as RadixSelect from "@radix-ui/react-select";
 import ArrowDown from '../../assets/arrow-down.svg';
 import ProductType from '../ProductPage/Product/ProductType';
 import React from 'react';
+import { useMutation } from '@tanstack/react-query';
+import * as ProductService from '../../services/product/product-service';
+import { useDialog } from '../../hooks/use-dialog';
+import { useNavigate } from 'react-router-dom';
 
 type CreateProductPageInputs = {
     productName: string;
     productUnit: string;
     productType: ProductType;
-    productBasePrice: string;
+    productBasePrice: number;
 }
 
 export default function CreateProductPage() {
+    const navigate = useNavigate();
+    const createProductMutation = useMutation({
+        mutationFn: ProductService.createProduct
+    })
     const form = useForm<CreateProductPageInputs>();
+    const { showLoadingDialog, hideDialog, showInfoDialog } = useDialog();
+
     const onSubmit: SubmitHandler<CreateProductPageInputs> = (data) => {
-        console.log(data)
+        showLoadingDialog();
+        createProductMutation.mutate({
+            name: data.productName,
+            basePrice: data.productBasePrice,
+            unit: data.productUnit,
+            types: [ProductType[data.productType.toString() as keyof typeof ProductType]],
+        }, {
+            onSuccess: (data) => {
+                hideDialog();
+                navigate(-1)
+            },
+            onError: (err) => {
+                showInfoDialog({
+                    success: false,
+                    message: err?.toString(),
+                })
+            }
+        });
     }
+
     return (
         <CreatePage
             header='Create new product'
             title="Add product' s information"
-            onPrimaryButtonClicked={() => form.handleSubmit(onSubmit)()}
+            onPrimaryButtonClicked={() => form.handleSubmit(onSubmit)()
+            }
         >
             <CreateProductForm {...form} />
-        </CreatePage>
+        </CreatePage >
     )
 }
 
@@ -49,10 +78,9 @@ const CreateProductForm = ({
                         message: 'Product name can not be empty!'
                     },
                 })}
+                label='Product name'
                 error={errors.productName}
-            >
-                <label htmlFor='productName' className='basis-1/5'>Product name</label>
-            </Input>
+            />
 
             <Input
                 placeholder='Product unit'
@@ -63,10 +91,9 @@ const CreateProductForm = ({
                         message: 'Product unit can not be empty!'
                     }
                 })}
+                label='Product unit'
                 error={errors.productUnit}
-            >
-                <label htmlFor='productUnit' className='basis-1/5'>Product unit</label>
-            </Input>
+            />
 
             <Input
                 placeholder='Product base price (kg/km)' type='number'
@@ -83,9 +110,8 @@ const CreateProductForm = ({
                     valueAsNumber: true
                 })}
                 error={errors.productBasePrice}
-            >
-                <label htmlFor='product-base-price' className='basis-1/5'>Product base price</label>
-            </Input>
+                label='Product base price'
+            />
 
             <Controller
                 name='productType'
@@ -102,7 +128,6 @@ const CreateProductForm = ({
                         error={errors.productType}
                         onValueChanged={(value) => setValue('productType', value)}
                     />
-
                 }
             />
         </Form.Root >
@@ -110,7 +135,7 @@ const CreateProductForm = ({
 }
 type SelectProductTypeProps = {
     onValueChanged: (value: ProductType) => void,
-    error: FieldError,
+    error?: FieldError,
 } & ControllerRenderProps<CreateProductPageInputs, 'productType'>
 const SelectProductType = React.forwardRef(({
     onValueChanged,

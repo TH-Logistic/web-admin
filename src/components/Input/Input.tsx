@@ -6,6 +6,7 @@ import { error } from 'console';
 interface InputPropsInterface {
     error?: FieldError;
     register?: UseFormRegisterReturn;
+    label?: string;
 }
 
 export type InputProps = InputPropsInterface & React.ComponentProps<'input'>;
@@ -17,12 +18,14 @@ export const Input = React.forwardRef(({
     children = undefined,
     className,
     register,
+    label,
     error,
     ...props
 }: InputProps, ref) => {
     return (
-        <div className='flex flex-row gap-4'>
+        <div className='flex flex-row w-full gap-4'>
             {children}
+            {label && <label className='basis-1/5'>{label}</label>}
             <div className="flex flex-col w-full gap-2">
                 <input {...props}
                     {...register}

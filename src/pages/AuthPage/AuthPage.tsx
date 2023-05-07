@@ -19,9 +19,8 @@ type AuthInputs = {
 export default function AuthPage() {
 
     const navigate = useNavigate();
-    const apiDispatch = useAppDispatch();
     const { showLoadingDialog, hideDialog, showInfoDialog } = useDialog();
-    const { register, formState: { errors }, handleSubmit, setError } = useForm<AuthInputs>();
+    const { register, formState: { errors }, handleSubmit } = useForm<AuthInputs>();
 
     const loginMutation = useMutation({
         mutationFn: AuthService.login,
@@ -49,7 +48,7 @@ export default function AuthPage() {
 
     return (
         <Form.Root className='flex flex-col items-center w-full h-full gap-4' onSubmit={handleSubmit(onSubmit)}>
-            <h1 className='mt-8 text-2xl font-bold lg:text-4xl text-primary-color'>LOGIN</h1>
+            <h1 className='text-2xl font-bold lg:text-4xl text-primary-color'>LOGIN</h1>
             <div className="flex flex-col items-center w-full gap-4">
                 <Input
                     register={register('phoneNumber', {

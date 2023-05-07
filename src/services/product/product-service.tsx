@@ -2,15 +2,16 @@ import { productClient } from "../../ports/clients"
 import Product from "../../entities/product"
 import { Pagination } from "../../entities/pagination"
 import { QueryParams } from "../common/query-params"
+import { camelizeKeys } from 'humps';
 
 const getProducts = async ({
     page = 0,
-    size = 5,
+    size = 50,
     minPrice = 0,
     maxPrice = 100000,
     types = []
 }: QueryParams<{
-    types: number[],
+    types?: number[],
     minPrice?: number,
     maxPrice?: number,
 }>): Promise<Pagination<Product>> => {
@@ -27,4 +28,11 @@ const getProducts = async ({
     return response.data
 }
 
-export { getProducts }
+
+const createProduct = async (product: Omit<Product, 'id'>): Promise<{ id: string }> => {
+    const response = await productClient.post<{ id: string }>('/product', camelizeKeys(product));
+
+    return response.data;
+}
+
+export { getProducts, createProduct }
