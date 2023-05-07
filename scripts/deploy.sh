@@ -1,7 +1,7 @@
 VERSION=$1
-docker build --tag www.thinhlh.com/web_admin:${VERSION} .
+docker build --tag registry.thinhlh.com/web_admin:${VERSION} .
 
-docker push www.thinhlh.com/web_admin:${VERSION}
+docker push registry.thinhlh.com/web_admin:${VERSION}
 
 # Perform remote deploy with docker context
 # 1. Create a context |

@@ -11,7 +11,7 @@ export default function OrganizationPage() {
     const navigate = useNavigate();
     const { data, error, isLoading } = useQuery({
         queryKey: ['getOrganizations'],
-        queryFn: async () => await getOrganizations({ types: [1, 3] }),
+        queryFn: async () => await getOrganizations({}),
     });
     return (
         <div className="flex flex-col m-8">
@@ -22,8 +22,8 @@ export default function OrganizationPage() {
                 <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ORGARNIZATION.path ?? '')} />
             </div>
             <h1 className="my-8 text-xl font-medium">Organization</h1>
-            <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
-                {data?.content?.map(item => <OrganizationItem item={item} />)}
+            <div className="grid gap-4 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2">
+                {data?.content?.map(item => <OrganizationItem key={item.id} item={item} />)}
             </div>
         </div>
     )

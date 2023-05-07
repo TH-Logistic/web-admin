@@ -4,8 +4,10 @@ import { Outlet } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import { ApiStatus } from '../../stores/api-state';
 import { useAppSelector } from '../../hooks/redux-hook';
+import useAuth from '../../hooks/use-auth';
 export default function BaseLayout() {
     const apiState = useAppSelector((state) => state.apiState.value);
+    const auth = useAuth();
     return (
         <div className="flex flex-col h-screen max-h-screen overflow-hidden">
             <Loading open={apiState === ApiStatus.LOADING} />

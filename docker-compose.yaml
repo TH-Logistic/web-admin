@@ -1,7 +1,7 @@
 version: '3'
 services:
   web_admin:
-    image: www.thinhlh.com/web_admin
+    image: registry.thinhlh.com/web_admin
     container_name: web_admin_container
     environment:
       - REACT_APP_PRODUCT_URL

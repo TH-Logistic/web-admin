@@ -1,7 +1,7 @@
 # How to deploy app
 ```
-docker build -t www.thinhlh.com/web_admin:latest . # Build image
-docker push www.thinhlh.com/web_admin:latest
+docker build -t registry.thinhlh.com/web_admin:latest . # Build image
+docker push registry.thinhlh.com/web_admin:latest
 
 # On Server
 docker compose --env-file .env up -d

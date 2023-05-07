@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        'md': '900px'
+      },
       textColor: {
         "primary-color": "#00ADB5",
         "primary-table-color": "#75CCD0",
@@ -34,6 +37,11 @@ module.exports = {
           'suspended': '#BA8500',
           'resigned': '#6100C7',
           'deleted': '#2F2F2F'
+        },
+        "provider-type": {
+          "1": "#EDCB3C",
+          "2": "#139487",
+          "3": "#ECB390"
         }
       },
       colors: {
@@ -54,7 +62,7 @@ module.exports = {
         }
       },
       fontWeight: {
-        medium: 800
+        medium: 800,
       },
       spacing: {
         "1/6": "16.66666%",
@@ -64,6 +72,11 @@ module.exports = {
         'poppins': ['Poppins', 'sans-serif']
       },
     },
+    // fontWeight: {
+    //   normal: 500,
+    //   semibold: 600,
+    //   bold: 800,
+    // }
   },
   plugins: [
     require('@tailwindcss/line-clamp')
