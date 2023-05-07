@@ -1,4 +1,4 @@
-import { Axios, AxiosError, AxiosInstance, HttpStatusCode, isAxiosError } from "axios";
+import { Axios, AxiosError, AxiosInstance, HttpStatusCode } from "axios";
 import { ApiError } from "../errors/ApiError";
 import { camelizeKeys } from "humps";
 import useAuth from "../hooks/use-auth";

@@ -8,7 +8,7 @@ export default function ProductItem({ item }: ProductItemProps) {
     const navigate = useNavigate();
     return (
         <div className="flex-1 max-w-sm border rounded-md">
-            <div className="p-4" onClick={() => navigate(`/products/${item.id}`)}>
+            <div className="p-4" onClick={() => navigate(`/products/${item.id}`, { state: item })}>
                 <p className="underline decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
                 <div className="flex justify-between my-2">
                     <p className="text-lg">{item.name}</p>

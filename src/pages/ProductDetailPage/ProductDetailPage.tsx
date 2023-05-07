@@ -1,17 +1,22 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { Doughnut } from "react-chartjs-2";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
 import Orders from "../common/Orders/Orders";
 import ProductType from "../ProductPage/Product/ProductType";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
+import Edit from '../../assets/edit.svg';
+import { ROUTES } from "../../routes/routes";
+import Product from "../../entities/product";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ProductDetailPage() {
     const { productId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const product: Product = location.state;
     return (
         <div>
             <DetailHeader header="Product" id={productId!} />
@@ -81,7 +86,14 @@ export default function ProductDetailPage() {
                 <div className="flex-1">
                     <div className="flex flex-col gap-8">
                         <div>
-                            <p className="mb-4 font-bold">Product's Information</p>
+                            <div className="flex flex-row gap-2 mb-4">
+                                <p className="font-bold">Product's Information</p>
+                                <img src={Edit} alt="Edit Product" onClick={() => {
+                                    navigate(`/products/create/${productId}`, {
+                                        state: product
+                                    })
+                                }} />
+                            </div>
                             <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
                                 <div className="flex justify-between">
                                     <p>Product name</p>

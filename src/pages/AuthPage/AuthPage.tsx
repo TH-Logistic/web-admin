@@ -1,15 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Form from "@radix-ui/react-form";
 import { Input } from "../../components/Input/Input";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import * as AuthService from '../../services/auth/auth-service';
-import { useAppDispatch } from "../../hooks/redux-hook";
-import { idle, loading, success } from "../../stores/api-state";
 import { ROUTES } from "../../routes/routes";
 import { useDialog } from "../../hooks/use-dialog";
-import { ApiError } from "../../errors/ApiError";
 
 type AuthInputs = {
     phoneNumber: string;

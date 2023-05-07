@@ -4,12 +4,13 @@ import CreatePage from '../common/CreatePage/CreatePage';
 import * as Form from '@radix-ui/react-form';
 import * as RadixSelect from "@radix-ui/react-select";
 import ArrowDown from '../../assets/arrow-down.svg';
-import ProductType from '../ProductPage/Product/ProductType';
+import ProductType, { getProductTypeFromNumber } from '../ProductPage/Product/ProductType';
 import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import * as ProductService from '../../services/product/product-service';
 import { useDialog } from '../../hooks/use-dialog';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Product from '../../entities/product';
 
 type CreateProductPageInputs = {
     productName: string;
@@ -19,11 +20,23 @@ type CreateProductPageInputs = {
 }
 
 export default function CreateProductPage() {
+    const { productId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const product = location.state as Product;
+
     const createProductMutation = useMutation({
         mutationFn: ProductService.createProduct
-    })
-    const form = useForm<CreateProductPageInputs>();
+    });
+
+    const form = useForm<CreateProductPageInputs>({
+        defaultValues: product ? {
+            productBasePrice: product.basePrice,
+            productName: product.name,
+            productUnit: product.unit,
+            productType: getProductTypeFromNumber(product.types[0]),
+        } : undefined
+    });
     const { showLoadingDialog, hideDialog, showInfoDialog } = useDialog();
 
     const onSubmit: SubmitHandler<CreateProductPageInputs> = (data) => {
@@ -49,8 +62,8 @@ export default function CreateProductPage() {
 
     return (
         <CreatePage
-            header='Create new product'
-            title="Add product' s information"
+            header={productId ? `Update product ${productId}` : `Create new product`}
+            title={`${productId ? "Update" : "Add"} product' s information`}
             onPrimaryButtonClicked={() => form.handleSubmit(onSubmit)()
             }
         >
@@ -65,7 +78,7 @@ const CreateProductForm = ({
     register,
     setValue,
     formState: { errors },
-    control
+    control,
 }: UseFormReturn<CreateProductPageInputs>) => {
     return (
         <Form.Root className='flex flex-col gap-4'>
@@ -147,6 +160,7 @@ const SelectProductType = React.forwardRef(({
             <label htmlFor='product-type' className='basis-1/5'>Product type</label>
             <div className='flex flex-col w-full gap-2'>
                 <RadixSelect.Root
+                    defaultValue={props.value.toString()}
                     onValueChange={(value) => onValueChanged(ProductType[value as keyof typeof ProductType])}
                     name='product-type'>
                     <RadixSelect.Trigger

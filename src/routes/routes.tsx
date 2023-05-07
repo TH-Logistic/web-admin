@@ -74,7 +74,7 @@ export const ROUTES: {
         element: <ProductPage />,
       },
       CREATE_PRODUCT: {
-        path: '/products/create',
+        path: '/products/create/:productId',
         element: <CreateProductPage />
       },
       PRODUCT_DETAIL: {
