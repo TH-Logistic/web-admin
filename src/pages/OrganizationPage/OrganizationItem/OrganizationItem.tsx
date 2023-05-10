@@ -1,11 +1,10 @@
-import { Organization, OrganizationType, ProviderType } from "../../../entities/organization";
+import { Organization, OrganizationType, getProviderTypeValue } from "../../../entities/organization";
 
 export type OrganizationItemProps = {
   item: Organization
 }
 
 export default function OrganizationItem({ item }: OrganizationItemProps) {
-  const providerType = item.providerType ? ProviderType.fromValue(item.providerType) : undefined;
   return (
     <div className="flex-1 p-4 border rounded-md">
       <div className="flex flex-row justify-between gap-4 sm:items-center">
@@ -15,8 +14,8 @@ export default function OrganizationItem({ item }: OrganizationItemProps) {
         {providerType && <p className={`box-content px-4 py-2 text-provider-type-2 font-semibold text-center border rounded-full border-border-color`}>{providerType.valueString}</p>}
         {providerType && <p className={`box-content px-4 py-2 text-provider-type-3 font-semibold text-center border rounded-full border-border-color`}>{providerType.valueString}</p>} */}
 
-          {providerType && <p className={`box-border px-4 py-2 lg:text-base font-medium outline-none text-provider-type-${providerType.value} font-semibold text-center border rounded-full border-border-color`}>{providerType.valueString}</p>}
-          <p className="px-4 py-2 font-semibold text-center rounded-full bg-primary-color text-on-primary">{OrganizationType.fromValue(item.type).toString()}</p>
+          {item.providerType && <p className={`box-border px-4 py-2 lg:text-base font-medium outline-none text-provider-type-${item.providerType} font-semibold text-center border rounded-full border-border-color`}>{getProviderTypeValue(item.providerType)}</p>}
+          <p className="px-4 py-2 font-semibold text-center rounded-full bg-primary-color text-on-primary">{OrganizationType[item.type]}</p>
         </div>
       </div>
       <p className="my-2 text-lg font-semibold text-secondary-dark">{item.name}</p>

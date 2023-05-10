@@ -1,67 +1,37 @@
-class OrganizationType {
-    static readonly CUSTOMER = new OrganizationType(1, "Customer");
-    static readonly PROVIDER = new OrganizationType(2, "Provider");
-    static readonly PARTNER = new OrganizationType(3, "Partner");
-
-    private constructor(
-        public readonly value: number,
-        public readonly valueString: string
-    ) {
+enum OrganizationType {
+    CUSTOMER = 1,
+    PARTNER = 2,
+    PROVIDER = 3,
+}
+const getOrganizationTypeValue = (type?: OrganizationType) => {
+    switch (type) {
+        case OrganizationType.CUSTOMER:
+            return 'Customer';
+        case OrganizationType.PROVIDER:
+            return 'Provider';
+        case OrganizationType.PARTNER:
+            return 'Partner';
+        default:
+            return undefined;
     }
-
-    public toString = () => this.valueString;
-    public static fromValue = (value: number): OrganizationType => {
-        switch (value) {
-            case OrganizationType.CUSTOMER.value:
-                return OrganizationType.CUSTOMER;
-            case OrganizationType.PROVIDER.value:
-                return OrganizationType.PROVIDER;
-            case OrganizationType.PARTNER.value:
-                return OrganizationType.PARTNER;
-            default:
-                throw new Error('Organization not valid')
-        }
-    }
-
-    public static fromValueString = (value: string): OrganizationType => {
-        switch (value) {
-            case OrganizationType.CUSTOMER.valueString.toUpperCase():
-                return OrganizationType.CUSTOMER;
-            case OrganizationType.PROVIDER.valueString.toUpperCase():
-                return OrganizationType.PROVIDER;
-            case OrganizationType.PARTNER.valueString.toUpperCase():
-                return OrganizationType.PARTNER;
-            default:
-                throw new Error('Organization not valid')
-        }
-    }
-
-    // public
 }
 
-class ProviderType {
-    static readonly FUEL = new ProviderType(1, "Fuel");
-    static readonly REPAIR_SERVICE = new ProviderType(2, "Repair Service");
-    static readonly REPLACE_SERVICE = new ProviderType(3, "Replace Service");
+enum ProviderType {
+    FUEL = 1,
+    REPAIR_SERVICE = 2,
+    REPLACE_SERVICE = 3
+}
 
-    private constructor(
-        public readonly value: number,
-        public readonly valueString: string
-    ) {
-    }
-
-    public toString = () => this.valueString;
-    public static fromValue = (value?: number): ProviderType => {
-        switch (value) {
-            case 1:
-                return ProviderType.FUEL;
-            case 2:
-                return ProviderType.REPAIR_SERVICE;
-            case 3:
-                return ProviderType.REPLACE_SERVICE;
-            default:
-                throw new Error('Organization not valid')
-        }
+const getProviderTypeValue = (type?: ProviderType) => {
+    switch (type) {
+        case ProviderType.FUEL:
+            return 'Fuel';
+        case ProviderType.REPAIR_SERVICE:
+            return 'Repair Service';
+        case ProviderType.REPLACE_SERVICE:
+            return 'Replace Service';
+        default:
+            return undefined;
     }
 }
 
@@ -71,8 +41,13 @@ export interface Organization {
     creditCard: string,
     contactName: string,
     contactNumber: string,
-    type: number,
-    providerType?: number
+    type: OrganizationType,
+    providerType?: ProviderType
 }
 
-export { ProviderType, OrganizationType };
+export {
+    ProviderType,
+    OrganizationType,
+    getOrganizationTypeValue,
+    getProviderTypeValue,
+};

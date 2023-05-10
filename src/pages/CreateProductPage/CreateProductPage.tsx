@@ -8,7 +8,7 @@ import * as ProductService from '../../services/product/product-service';
 import { useDialog } from '../../hooks/use-dialog';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Product from '../../entities/product';
-import { Select, SelectItem } from '../../components/Select/Select';
+import * as Select from '../../components/Select/Select';
 
 type CreateProductPageInputs = {
     productName: string;
@@ -134,7 +134,7 @@ const CreateProductForm = ({
                     }
                 }}
                 render={({ field }) =>
-                    <Select
+                    <Select.Root
                         {...field}
                         placeholder='Select product type'
                         label='Product type'
@@ -145,15 +145,11 @@ const CreateProductForm = ({
                             Object
                                 .keys(ProductType)
                                 .filter(i => isNaN(Number(i)))
-                                .map(value => <SelectItem className={`text-product-color-${value.toLowerCase()}`} value={value} />)
+                                .map(value =>
+                                    <Select.Item className={`text-product-color-${value.toLowerCase()}`} value={value} />
+                                )
                         }
-                    </Select>
-
-                    // <SelectProductType
-                    //     {...field}
-                    //     error={errors.productType}
-                    //     onValueChanged={(value) => setValue('productType', value)}
-                    // />
+                    </Select.Root>
                 }
             />
         </Form.Root >

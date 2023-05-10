@@ -1,11 +1,9 @@
 import * as RadixSelect from '@radix-ui/react-select';
-import { ControllerRenderProps, FieldError } from 'react-hook-form';
+import { FieldError } from 'react-hook-form';
 import React from 'react';
 import ArrowDown from '../../assets/arrow-down.svg';
-import { pascalize } from 'humps';
-import { OrganizationType } from '../../entities/organization';
 
-type SelectProps = {
+type RootProps = {
     onValueChanged?: (value: string) => void,
     error?: FieldError,
     label?: string,
@@ -13,7 +11,7 @@ type SelectProps = {
     placeholder?: string,
 } & React.PropsWithChildren;
 
-const Select = React.forwardRef(({
+const Root = React.forwardRef(({
     onValueChanged,
     error,
     label,
@@ -21,7 +19,7 @@ const Select = React.forwardRef(({
     children,
     placeholder,
     ...props
-}: SelectProps, ref) => {
+}: RootProps, ref) => {
     return (
         <div className='flex flex-row items-center gap-4'>
             {label && <label className='basis-1/5'>{label}</label>}
@@ -30,11 +28,11 @@ const Select = React.forwardRef(({
                     defaultValue={defaultValue}
                     onValueChange={onValueChanged}
                 >
-                    <SelectTrigger placeholder={placeholder} />
+                    <Trigger placeholder={placeholder} />
                     <RadixSelect.Portal>
-                        <SelectContent>
+                        <Content>
                             {children}
-                        </SelectContent>
+                        </Content>
                     </RadixSelect.Portal>
                 </RadixSelect.Root>
 
@@ -44,48 +42,61 @@ const Select = React.forwardRef(({
     );
 })
 
-type SelectItemProps = RadixSelect.SelectItemProps;
-const SelectItem = ({ value, className }: SelectItemProps) => {
+type ItemProps = RadixSelect.SelectItemProps;
+const Item = ({ value, className, children }: ItemProps) => {
     return (
         <RadixSelect.Item
             value={value}
             className={`data-[highlighted]: outline-none font-semibold data-[highlighted]:bg-disabled-color py-2 px-4 rounded-md ${className}`}
         >
-            <RadixSelect.ItemText >
-                {OrganizationType[value as keyof typeof OrganizationType].toString()}
-            </RadixSelect.ItemText>
+            {
+                children ? children :
+                    <RadixSelect.ItemText>
+                        {value}
+                    </RadixSelect.ItemText>
+            }
+
         </RadixSelect.Item>
     )
 }
-
-type SelectContentProps = RadixSelect.SelectContentProps;
-const SelectContent = ({
-    className,
-    children,
-    ...props
-}: SelectContentProps) => {
+type ItemTextProps = RadixSelect.SelectItemTextProps;
+const ItemText = (props: ItemTextProps) => {
     return (
-        <RadixSelect.Content
-            className={`overflow-hidden bg-white shadow-lg border border-border-color rounded-md w-[--radix-select-trigger-width] max-h-[30vh] ${className}`}
-            sideOffset={8}
-            avoidCollisions={false}
-            position='popper'
-            {...props}
-        >
-            <RadixSelect.Viewport className='flex flex-col p-2'>
-                {children}
-            </RadixSelect.Viewport>
-        </RadixSelect.Content>
+        <RadixSelect.ItemText>
+            {props.children}
+        </RadixSelect.ItemText>
     )
 }
 
-type SelectTriggerProps = RadixSelect.SelectTriggerProps & React.PropsWithChildren;
-const SelectTrigger = ({
+type ContentProps = RadixSelect.SelectContentProps;
+
+
+const Content = React.forwardRef(({
+    className,
+    children,
+    ...props
+}: ContentProps, ref) => (
+    <RadixSelect.Content
+        className={`overflow-hidden bg-white shadow-lg border border-border-color rounded-md w-[--radix-select-trigger-width] max-h-[30vh] ${className}`}
+        sideOffset={8}
+        avoidCollisions={false}
+        position='popper'
+        {...props}
+    >
+        <RadixSelect.Viewport className='flex flex-col p-2'>
+            {children}
+        </RadixSelect.Viewport>
+    </RadixSelect.Content>
+
+));
+
+type TriggerProps = RadixSelect.SelectTriggerProps & React.PropsWithChildren;
+const Trigger = ({
     className,
     placeholder,
     children,
     ...props
-}: SelectTriggerProps) => {
+}: TriggerProps) => {
     return (
         <RadixSelect.Trigger
             className={`w-full px-4 py-2 border rounded-md border-border-color ${className}`}
@@ -107,4 +118,10 @@ const SelectTrigger = ({
         </RadixSelect.Trigger>
     )
 }
-export { SelectContent, SelectItem, SelectTrigger, Select }
+export {
+    Root,
+    Item,
+    Content,
+    Trigger,
+    ItemText
+}

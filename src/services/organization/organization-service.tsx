@@ -24,4 +24,17 @@ const getOrganizations = async ({
     return response.data
 }
 
-export { getOrganizations }
+const createOrganization = async (organization: Omit<Organization, 'id'>) => {
+    console.log(organization)
+    const response = await organizationClient.post('/organization', {
+        ...organization
+    })
+
+    return response.data;
+}
+
+export {
+    getOrganizations,
+    createOrganization
+}
+
