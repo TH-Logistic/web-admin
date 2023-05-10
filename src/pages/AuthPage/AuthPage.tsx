@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import * as AuthService from '../../services/auth/auth-service';
 import { ROUTES } from "../../routes/routes";
 import { useDialog } from "../../hooks/use-dialog";
+import Patterns from "../../utils/patterns";
 
 type AuthInputs = {
     phoneNumber: string;
@@ -61,7 +62,7 @@ export default function AuthPage() {
                             message: 'Phone number must have less than 15 digits'
                         },
                         pattern: {
-                            value: /^[0-9]+$/,
+                            value: Patterns.NUMBER_ONLY,
                             message: 'Phone number must contains only digits'
                         }
                     })}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import { useForm } from 'react-hook-form';
 import { ROUTES } from "../../routes/routes";
+import Patterns from "../../utils/patterns";
 
 export default function ForgotPasswordPage() {
     const [isSubmittedEmail, setIsSubmittedEmail] = useState(false);
@@ -31,7 +32,7 @@ export default function ForgotPasswordPage() {
                             message: 'Email must be not be empty'
                         },
                         pattern: {
-                            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            value: Patterns.EMAIL,
                             message: 'Email must be valid'
                         },
                     })}

@@ -1,16 +1,14 @@
-import { useForm, SubmitHandler, UseFormReturn, Controller, ControllerRenderProps, FieldError } from 'react-hook-form';
+import { useForm, SubmitHandler, UseFormReturn, Controller } from 'react-hook-form';
 import { Input } from '../../components/Input/Input';
 import CreatePage from '../common/CreatePage/CreatePage';
 import * as Form from '@radix-ui/react-form';
-import * as RadixSelect from "@radix-ui/react-select";
-import ArrowDown from '../../assets/arrow-down.svg';
 import ProductType, { getProductTypeFromNumber } from '../ProductPage/Product/ProductType';
-import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import * as ProductService from '../../services/product/product-service';
 import { useDialog } from '../../hooks/use-dialog';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Product from '../../entities/product';
+import { Select, SelectItem } from '../../components/Select/Select';
 
 type CreateProductPageInputs = {
     productName: string;
@@ -132,80 +130,32 @@ const CreateProductForm = ({
                 rules={{
                     required: {
                         value: true,
-                        message: 'Must select product type'
+                        message: 'Product type must be selected!'
                     }
                 }}
                 render={({ field }) =>
-                    <SelectProductType
+                    <Select
                         {...field}
+                        placeholder='Select product type'
+                        label='Product type'
                         error={errors.productType}
-                        onValueChanged={(value) => setValue('productType', value)}
-                    />
+                        onValueChanged={(value) => setValue('productType', ProductType[value as keyof typeof ProductType])}
+                    >
+                        {
+                            Object
+                                .keys(ProductType)
+                                .filter(i => isNaN(Number(i)))
+                                .map(value => <SelectItem className={`text-product-color-${value.toLowerCase()}`} value={value} />)
+                        }
+                    </Select>
+
+                    // <SelectProductType
+                    //     {...field}
+                    //     error={errors.productType}
+                    //     onValueChanged={(value) => setValue('productType', value)}
+                    // />
                 }
             />
         </Form.Root >
-    )
-}
-type SelectProductTypeProps = {
-    onValueChanged: (value: ProductType) => void,
-    error?: FieldError,
-} & ControllerRenderProps<CreateProductPageInputs, 'productType'>
-const SelectProductType = React.forwardRef(({
-    onValueChanged,
-    error,
-    ...props
-}: SelectProductTypeProps, ref) => {
-    return (
-        <div className='flex flex-row items-center gap-4'>
-            <label htmlFor='product-type' className='basis-1/5'>Product type</label>
-            <div className='flex flex-col w-full gap-2'>
-                <RadixSelect.Root
-                    defaultValue={props.value.toString()}
-                    onValueChange={(value) => onValueChanged(ProductType[value as keyof typeof ProductType])}
-                    name='product-type'>
-                    <RadixSelect.Trigger
-                        className='w-full px-4 py-2 border rounded-md border-border-color' asChild>
-                        <div className='flex flex-row items-center justify-between'>
-                            <RadixSelect.Value
-                                placeholder={
-                                    <p className='text-base text-caption'>Product type</p>
-                                } />
-                            <RadixSelect.Icon asChild>
-                                <img src={ArrowDown} alt='Product type' />
-                            </RadixSelect.Icon>
-                        </div>
-                    </RadixSelect.Trigger>
-
-                    <RadixSelect.Portal>
-                        <RadixSelect.Content className='overflow-hidden bg-white shadow-lg border border-border-color rounded-md w-[--radix-select-trigger-width] max-h-[30vh]' sideOffset={8} avoidCollisions={false} position='popper'>
-                            <RadixSelect.Viewport className='flex flex-col p-2'>
-                                {
-                                    Object
-                                        .keys(ProductType)
-                                        .filter(key => isNaN(Number(key)))
-                                        .map(key => <SelectItem key={key} value={key} />)
-                                }
-                            </RadixSelect.Viewport>
-                        </RadixSelect.Content>
-                    </RadixSelect.Portal>
-                </RadixSelect.Root>
-
-                {error?.message && <p className='text-sm text-error-color'>{error.message}</p>}
-            </div>
-        </div>
-    );
-})
-
-type SelectItemProps = React.ComponentProps<typeof RadixSelect.Item>;
-const SelectItem = ({ value }: SelectItemProps) => {
-    return (
-        <RadixSelect.Item
-            value={ProductType[value as keyof typeof ProductType].toString()}
-            className={`data-[highlighted]: outline-none font-semibold data-[highlighted]:bg-disabled-color py-2 px-4 rounded-md text-product-color-${value.toLowerCase()}`}
-        >
-            <RadixSelect.ItemText >
-                {value}
-            </RadixSelect.ItemText>
-        </RadixSelect.Item>
     )
 }

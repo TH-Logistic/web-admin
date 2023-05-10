@@ -31,7 +31,7 @@ const CreatePage = ({
                 <p className='font-semibold'>{title}</p>
                 {children}
                 {divider && <Divider />}
-                <div className='flex justify-end gap-4'>
+                <div className='flex justify-end gap-4 mb-4'>
                     <ActionButton title='Cancel' primary={false} onClick={() => {
                         onSecondaryButtonClicked?.();
                         navigate(-1);

@@ -4,24 +4,39 @@ class OrganizationType {
     static readonly PARTNER = new OrganizationType(3, "Partner");
 
     private constructor(
-        private readonly value: number,
-        private readonly valueString: string
+        public readonly value: number,
+        public readonly valueString: string
     ) {
     }
 
     public toString = () => this.valueString;
     public static fromValue = (value: number): OrganizationType => {
         switch (value) {
-            case 1:
+            case OrganizationType.CUSTOMER.value:
                 return OrganizationType.CUSTOMER;
-            case 2:
+            case OrganizationType.PROVIDER.value:
                 return OrganizationType.PROVIDER;
-            case 3:
+            case OrganizationType.PARTNER.value:
                 return OrganizationType.PARTNER;
             default:
                 throw new Error('Organization not valid')
         }
     }
+
+    public static fromValueString = (value: string): OrganizationType => {
+        switch (value) {
+            case OrganizationType.CUSTOMER.valueString.toUpperCase():
+                return OrganizationType.CUSTOMER;
+            case OrganizationType.PROVIDER.valueString.toUpperCase():
+                return OrganizationType.PROVIDER;
+            case OrganizationType.PARTNER.valueString.toUpperCase():
+                return OrganizationType.PARTNER;
+            default:
+                throw new Error('Organization not valid')
+        }
+    }
+
+    // public
 }
 
 class ProviderType {
