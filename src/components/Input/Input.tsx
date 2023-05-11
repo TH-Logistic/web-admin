@@ -21,7 +21,7 @@ export const Input = React.forwardRef(({
     label,
     error,
     ...props
-}: InputProps, ref) => {
+}: InputProps, r) => {
     return (
         <div className='flex flex-row w-full gap-4'>
             {children}

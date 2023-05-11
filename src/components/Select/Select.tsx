@@ -47,7 +47,7 @@ const Item = ({ value, className, children }: ItemProps) => {
     return (
         <RadixSelect.Item
             value={value}
-            className={`data-[highlighted]: outline-none font-semibold data-[highlighted]:bg-disabled-color py-2 px-4 rounded-md ${className}`}
+            className={`data-[highlighted]: outline-none data-[highlighted]:bg-disabled-color py-2 px-4 rounded-md ${className}`}
         >
             {
                 children ? children :

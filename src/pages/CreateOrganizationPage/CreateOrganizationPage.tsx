@@ -166,7 +166,10 @@ export default function CreateOrganizationPage() {
                                         .map(value => {
                                             const providerTypeValue = ProviderType[value as keyof typeof ProviderType]
                                             return (
-                                                <Select.Item key={value} value={value} className={`text-provider-type-${providerTypeValue}`}>
+                                                <Select.Item
+                                                    key={value}
+                                                    value={value}
+                                                >
                                                     <Select.ItemText>
                                                         {getProviderTypeValue(providerTypeValue)}
                                                     </Select.ItemText>

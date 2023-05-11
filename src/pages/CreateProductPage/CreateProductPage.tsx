@@ -43,7 +43,7 @@ export default function CreateProductPage() {
             name: data.productName,
             basePrice: data.productBasePrice,
             unit: data.productUnit,
-            types: [ProductType[data.productType.toString() as keyof typeof ProductType]],
+            types: [data.productType],
         }, {
             onSuccess: (data) => {
                 hideDialog();
@@ -148,7 +148,6 @@ const CreateProductForm = ({
                                 .map(value =>
                                     <Select.Item
                                         key={value}
-                                        className={`text-product-color-${value.toLowerCase()}`}
                                         value={value}
                                     />
                                 )
