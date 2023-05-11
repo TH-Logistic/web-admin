@@ -2,12 +2,11 @@ import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
-import { ROUTES } from '../../routes/routes';
 export default function BaseLayout() {
     const { loggedIn } = useAuth();
 
     if (!loggedIn) {
-        return (<Navigate to={ROUTES.AUTH?.path} />)
+        return (<Navigate to={'/auth'} />)
     }
 
     return (

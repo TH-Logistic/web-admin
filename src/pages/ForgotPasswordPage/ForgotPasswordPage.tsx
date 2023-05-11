@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import { useForm } from 'react-hook-form';
-import { ROUTES } from "../../routes/routes";
 import Patterns from "../../utils/patterns";
 
 export default function ForgotPasswordPage() {
@@ -42,7 +41,7 @@ export default function ForgotPasswordPage() {
             <button className='w-full px-4 py-2 rounded-md bg-primary-color disabled:bg-disabled-color ' type="submit" disabled={isSubmittedEmail}>
                 <p className='text-[#ffffff] font-semibold text-l'>RESET PASSWORD</p>
             </button>
-            <p>Back to <Link to={ROUTES.AUTH.subroutes?.LOGIN.path ?? ''}><span className='font-semibold text-primary-color'>Login</span></Link></p>
+            <p>Back to <Link to={'/auth'}><span className='font-semibold text-primary-color'>Login</span></Link></p>
         </form>
     );
 }

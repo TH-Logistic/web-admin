@@ -4,7 +4,6 @@ import * as Form from "@radix-ui/react-form";
 import { Input } from "../../components/Input/Input";
 import { useMutation } from "@tanstack/react-query";
 import * as AuthService from '../../services/auth/auth-service';
-import { ROUTES } from "../../routes/routes";
 import { useDialog } from "../../hooks/use-dialog";
 import Patterns from "../../utils/patterns";
 
@@ -32,7 +31,7 @@ export default function AuthPage() {
         }, {
             onSuccess: () => {
                 hideDialog()
-                navigate(ROUTES.HOME.subroutes?.ORDERS.path ?? '/')
+                navigate('/')
             },
             onError: (err) => {
                 showInfoDialog({

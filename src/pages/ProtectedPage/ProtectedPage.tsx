@@ -5,5 +5,5 @@ export default function ProtectedPage() {
 
     const { token } = useAuth();
 
-    return token ? <Outlet /> : <Navigate to='/auth/login' />
+    return token ? <Outlet /> : <Navigate to='/auth' />
 }

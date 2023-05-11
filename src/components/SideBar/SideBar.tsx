@@ -18,7 +18,6 @@ import OrganizationIcon from './../../assets/organization.svg';
 import OrganizationChoseIcon from './../../assets/organization-choose.svg';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes/routes';
 import { Menu, MenuItem, Sidebar, SubMenu, menuClasses } from 'react-pro-sidebar';
 import useAuth from '../../hooks/use-auth';
 
@@ -41,33 +40,33 @@ export default function SideBar() {
             name: 'Order',
             icon: OrderIcon,
             choseIcon: OrderChoseIcon,
-            path: ROUTES.HOME.subroutes?.ORDERS.path
+            path: '/orders'
         },
         product: {
             name: 'Product',
             icon: ProductIcon,
             choseIcon: ProductChoseIcon,
-            path: ROUTES.HOME.subroutes?.PRODUCTS.path
+            path: '/products'
         },
         route: {
             name: 'Route',
             icon: RouteIcon,
             choseIcon: RouteChoseIcon,
-            path: ROUTES.HOME.subroutes?.ROUTES.path
+            path: "/routes"
         },
         location: {
             name: 'Location',
             icon: LocationIcon,
             choseIcon: LocationChoseIcon,
-            path: ROUTES.HOME.subroutes?.LOCATIONS.path,
+            path: "/locations",
             submenu: {
                 delivery: {
                     name: 'Delivery',
-                    path: ROUTES.HOME.subroutes?.DELIVERY.path,
+                    path: '/locations/delivery',
                 },
                 garage: {
                     name: 'Garage',
-                    path: ROUTES.HOME.subroutes?.GARAGE.path,
+                    path: '/locations/garage',
                 },
             }
         },
@@ -75,25 +74,25 @@ export default function SideBar() {
             name: 'Truck',
             icon: TruckIcon,
             choseIcon: TruckChoseIcon,
-            path: ROUTES.HOME.subroutes?.TRUCKS.path,
+            path: "/trucks",
         },
         orgranization: {
             name: 'Organization',
             icon: OrganizationIcon,
             choseIcon: OrganizationChoseIcon,
-            path: ROUTES.HOME.subroutes?.ORGARNIZATION.path
+            path: "/organizations"
         },
         driver: {
             name: 'Driver',
             icon: DriverIcon,
             choseIcon: DriverChoseIcon,
-            path: ROUTES.HOME.subroutes?.DRIVERS.path,
+            path: "/drivers",
         },
         staff: {
             name: 'Staff',
             icon: StaffIcon,
             choseIcon: StaffChoseIcon,
-            path: ROUTES.HOME.subroutes?.STAFFS.path
+            path: "/staffs"
         },
     }
 
@@ -163,13 +162,14 @@ export default function SideBar() {
                     Object
                         .values(menus)
                         .map((menu) => {
-                            const indexRoute = Object.values(ROUTES.HOME.subroutes!).filter((route) => route.index === true)[0]
+                            // const indexRoute = Object.values(ROUTES.HOME.subroutes!).filter((route) => route.index === true)[0]
+                            const indexRoute = '/orders'
                             const isChose =
                                 // Sublocation is chose
                                 `/${location.pathname.split('/')[1]}` === menu.path ||
 
                                 // This is index route
-                                (location.pathname === '/' && menu.path === indexRoute.path);
+                                (location.pathname === '/' && menu.path === indexRoute);
                             return (
                                 <
                                     SideBarItem
@@ -189,7 +189,7 @@ export default function SideBar() {
             <SideBarItem
                 onClick={removeAuth}
                 key='Log out'
-                path={'/auth/login'}
+                path={'/auth'}
                 name='Log out'
                 isSubItem={false}
                 icon={LogoutIcon}

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import { ROUTES } from "../../../routes/routes";
 import { Route } from "../../../entities/route";
 import { NumericFormat } from "react-number-format";
 
@@ -10,7 +9,7 @@ type RouteItemProps = {
 export default function RouteItem({ item }: RouteItemProps) {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 border rounded-md" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ROUTE.path ?? '')}>
+        <div className="flex-1 border rounded-md" onClick={() => navigate('/routes/create')}>
             <div className="p-4">
                 <div className="flex justify-between">
                     <p className="underline decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>

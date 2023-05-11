@@ -7,7 +7,6 @@ import Orders from "../common/Orders/Orders";
 import ProductType from "../ProductPage/Product/ProductType";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Edit from '../../assets/edit.svg';
-import { ROUTES } from "../../routes/routes";
 import Product from "../../entities/product";
 
 ChartJS.register(ArcElement, Tooltip, Legend);

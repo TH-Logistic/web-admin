@@ -5,7 +5,6 @@ import Search from "../../components/Search/Search";
 import StaffItem from "./StaffItem/StaffItem";
 import { getStaffs } from "../../services/staff/staff-service";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../routes/routes";
 
 export default function StaffPage() {
     const navigate = useNavigate();
@@ -19,7 +18,7 @@ export default function StaffPage() {
                 <Search placeholder="Search by staff name, ..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_STAFF.path ?? '')} />
+                <ActionButton title="+ Create" onClick={() => navigate('/staffs/create')} />
             </div>
             <h1 className="my-8 text-xl font-medium">Staff</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

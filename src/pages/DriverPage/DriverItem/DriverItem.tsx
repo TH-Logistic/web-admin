@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { Staff } from "../../../entities/staff";
-import { ROUTES } from "../../../routes/routes";
 
 export type DriverItemProps = {
     item: Staff
@@ -9,7 +8,7 @@ export type DriverItemProps = {
 export default function DriverItem({ item }: DriverItemProps) {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate(ROUTES.HOME.subroutes?.CREATE_ROUTE.path ?? '')}>
+        <div className="flex-1 p-4 border rounded-md" onClick={() => navigate('/routes/create')}>
             <div className="flex justify-between">
                 <p className="underline decoration-primary-color text-primary-color underline-offset-2">S01</p>
 

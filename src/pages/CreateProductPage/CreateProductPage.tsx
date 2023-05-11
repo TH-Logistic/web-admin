@@ -146,7 +146,11 @@ const CreateProductForm = ({
                                 .keys(ProductType)
                                 .filter(i => isNaN(Number(i)))
                                 .map(value =>
-                                    <Select.Item className={`text-product-color-${value.toLowerCase()}`} value={value} />
+                                    <Select.Item
+                                        key={value}
+                                        className={`text-product-color-${value.toLowerCase()}`}
+                                        value={value}
+                                    />
                                 )
                         }
                     </Select.Root>
