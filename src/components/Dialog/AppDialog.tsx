@@ -1,12 +1,12 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
-import Success from '../../assets/lottie_success.json';
-import Error from '../../assets/lottie_error.json';
+import SuccessIcon from '../../assets/lottie_success.json';
+import ErrorIcon from '../../assets/lottie_error.json';
 import ActionButton from "../ActionButton/ActionButton";
 import { useDialog } from "../../hooks/use-dialog";
 import Lottie from "lottie-react";
 
-const LottieInfoIcon = (success: { success: boolean }) => {
-    return <Lottie animationData={success ? Success : Error} loop={false} className="w-20" />
+const LottieInfoIcon = ({ success }: { success: boolean }) => {
+    return <Lottie animationData={success ? SuccessIcon : ErrorIcon} loop={false} className="w-20" />
 }
 
 type AppDialogProps = RadixDialog.DialogProps & {

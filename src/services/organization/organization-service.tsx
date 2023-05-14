@@ -5,14 +5,14 @@ import { Organization } from "../../entities/organization"
 
 const getOrganizations = async ({
     page = 0,
-    size = 5,
+    size = 50,
     keyword = undefined,
     types = []
 }: QueryParams<{
     types?: number[],
     keyword?: string,
 }>): Promise<Pagination<Organization>> => {
-    const response = await organizationClient.get<Pagination<Organization>>('/organization/list', {
+    const response = await organizationClient.get<Pagination<Organization>>('/list', {
         params: {
             page,
             size,
@@ -25,8 +25,7 @@ const getOrganizations = async ({
 }
 
 const createOrganization = async (organization: Omit<Organization, 'id'>) => {
-    console.log(organization)
-    const response = await organizationClient.post('/organization', {
+    const response = await organizationClient.post('/', {
         ...organization
     })
 

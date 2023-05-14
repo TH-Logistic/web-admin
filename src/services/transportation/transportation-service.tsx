@@ -9,7 +9,7 @@ const getTransportations = async ({
     keyword = undefined
 }: QueryParams<{ keyword?: string }>,
 ): Promise<Pagination<Transportation>> => {
-    const response = await transportationClient.get<Pagination<Transportation>>('/transportation/list', {
+    const response = await transportationClient.get<Pagination<Transportation>>('/list', {
         params: {
             page,
             size,

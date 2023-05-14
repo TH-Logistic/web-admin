@@ -12,7 +12,6 @@ import BaseLayout from './components/BaseLayout/BaseLayout';
 import OrderPage from './pages/OrderPage/OrderPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import CreateProductPage from './pages/CreateProductPage/CreateProductPage';
-import CreateLocationPage from './pages/\bCreateLocationPage/CreateLocationPage';
 import CreateDriverPage from './pages/CreateDriverPage/CreateDriverPage';
 import CreateOrganizationPage from './pages/CreateOrganizationPage/CreateOrganizationPage';
 import CreateRoutePage from './pages/CreateRoutePage/CreateRoutePage';
@@ -28,6 +27,8 @@ import RoutePage from './pages/RoutePage/RoutePage';
 import StaffDetailPage from './pages/StaffDetail/StaffDetailPage';
 import StaffPage from './pages/StaffPage/StaffPage';
 import TransportationPage from './pages/TransportationPage/TransportationPage';
+import CreateLocationPage from './pages/CreateLocationPage/CreateLocationPage';
+import CreateGaragePage from './pages/CreateLocationPage/CreateGaragePage';
 
 function App() {
   // const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -125,7 +126,7 @@ function App() {
         },
         {
           path: '/locations/garage/create',
-          element: <CreateLocationPage />
+          element: <CreateGaragePage />
         },
         {
           path: "/trucks",

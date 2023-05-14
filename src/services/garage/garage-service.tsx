@@ -1,15 +1,14 @@
-import { transportationClient } from "../../ports/clients"
-import { BaseResponse } from "../../entities/base-response"
+import { garageClient } from "../../ports/clients"
 import { Pagination } from "../../entities/pagination"
 import { Garage } from "../../entities/garage"
 import { QueryParams } from "../common/query-params"
 
 const getGarages = async ({
     page = 0,
-    size = 5,
+    size = 50,
     keyword = undefined
 }: QueryParams<{ keyword?: string }>): Promise<Pagination<Garage>> => {
-    const response = await transportationClient.get<Pagination<Garage>>('/garage/list', {
+    const response = await garageClient.get<Pagination<Garage>>('/list', {
         params: {
             size,
             page,
@@ -20,4 +19,12 @@ const getGarages = async ({
     return response.data
 }
 
-export { getGarages }
+const createGarage = async (location: Omit<Garage, 'id'>): Promise<string> => {
+    const response = await garageClient.post<string>('', {
+        ...location,
+    });
+
+    return response.data
+}
+
+export { getGarages, createGarage }

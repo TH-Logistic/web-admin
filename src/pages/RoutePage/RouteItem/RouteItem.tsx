@@ -12,16 +12,16 @@ export default function RouteItem({ item }: RouteItemProps) {
         <div className="flex-1 border rounded-md" onClick={() => navigate('/routes/create')}>
             <div className="p-4">
                 <div className="flex justify-between">
-                    <p className="underline decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
+                    <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
                     <p className="text-end">{`${item.length} km`}</p>
                 </div>
                 <div className="flex justify-between gap-4 my-2">
                     <p className="text-secondary-light">From</p>
-                    <p className="text-end">{item.fromLocation.address}</p>
+                    <p className="text-end">{item.fromLocation.name}</p>
                 </div>
                 <div className="flex justify-between gap-4">
                     <p className="text-secondary-light">To</p>
-                    <p className="text-end">{item.toLocation.address}</p>
+                    <p className="text-end">{item.toLocation.name}</p>
                 </div>
             </div>
             <div className="border" />

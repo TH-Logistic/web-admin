@@ -15,7 +15,7 @@ const getProducts = async ({
     minPrice?: number,
     maxPrice?: number,
 }>): Promise<Pagination<Product>> => {
-    const response = await productClient.get<Pagination<Product>>('/product/list', {
+    const response = await productClient.get<Pagination<Product>>('/list', {
         params: {
             page,
             size,
@@ -30,7 +30,7 @@ const getProducts = async ({
 
 
 const createProduct = async (product: Omit<Product, 'id'>): Promise<{ id: string }> => {
-    const response = await productClient.post<{ id: string }>('/product', camelizeKeys(product));
+    const response = await productClient.post<{ id: string }>('', camelizeKeys(product));
 
     return response.data;
 }

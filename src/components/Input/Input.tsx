@@ -1,6 +1,6 @@
 import { FieldError, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
 import * as Form from "@radix-ui/react-form";
-import React from "react";
+import React, { RefObject } from "react";
 import { error } from 'console';
 
 interface InputPropsInterface {
@@ -21,16 +21,17 @@ export const Input = React.forwardRef(({
     label,
     error,
     ...props
-}: InputProps, r) => {
+}: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
     return (
         <div className='flex flex-row w-full gap-4'>
             {children}
             {label && <label className='basis-1/5'>{label}</label>}
             <div className="flex flex-col w-full gap-2">
-                <input {...props}
-                    {...register}
+                <input
                     className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md ${error ? 'border-error-color' : 'border-border-color'} ${className}`}
+                    ref={ref}
                     {...props}
+                    {...register}
                 />
                 {error?.message && <p className='text-sm text-error-color'>{error.message}</p>}
             </div>
