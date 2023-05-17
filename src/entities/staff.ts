@@ -5,7 +5,7 @@ enum StaffStatus {
     Resigned = 4,
     Deleted = 5
 }
-const enum Gender {
+enum Gender {
     MALE = 'male',
     FEMALE = 'female'
 }

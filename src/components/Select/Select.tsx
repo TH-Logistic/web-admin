@@ -21,7 +21,7 @@ const Root = React.forwardRef(({
     ...props
 }: RootProps, ref) => {
     return (
-        <div className='flex flex-row items-center gap-4'>
+        <div className='flex flex-row gap-4'>
             {label && <label className='basis-1/5'>{label}</label>}
             <div className='flex flex-col w-full gap-2'>
                 <RadixSelect.Root

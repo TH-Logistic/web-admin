@@ -22,7 +22,7 @@ export default function DeliveryPage() {
       </div>
       <h1 className="my-8 text-xl font-medium">Delivery</h1>
       <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
-        {data?.content.map((item) => <DeliveryItem item={item} />)}
+        {data?.content.map((item) => <DeliveryItem key={item.id} item={item} />)}
       </div>
     </div>
   )
