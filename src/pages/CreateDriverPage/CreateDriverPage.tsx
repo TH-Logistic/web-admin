@@ -1,34 +1,35 @@
 import { Input } from '../../components/Input/Input';
 import CreatePage from '../common/CreatePage/CreatePage';
 import * as Select from '../../components/Select/Select';
-import { Gender } from '../../entities/staff';
+import { Gender, StaffRole } from '../../entities/staff';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Patterns from '../../utils/patterns';
 import { useDialog } from '../../hooks/use-dialog';
+import { useMutation } from '@tanstack/react-query';
+import * as StaffService from '../../services/staff/staff-service';
+import { CreateStaffRequest } from '../../services/staff/create-staff-request';
+import { useNavigate } from 'react-router-dom';
 
-type CreateDriverInput = {
-    name: string;
-    gender: Gender;
-    dateOfBirth: number;
-    email: string;
-    phoneNumber: string;
-    password: string;
-    confirmPassword: string;
-    bankName: string;
-    bankAccount: string;
+type CreateDriverInput = CreateStaffRequest & {
+    confirmPassword: string
 }
 
 export default function CreateDriverPage() {
 
+    const navigate = useNavigate();
     const { showInfoDialog, hideDialog, showLoadingDialog } = useDialog();
 
-
-    const { register, formState: { errors }, control, handleSubmit, setError, setValue } = useForm<CreateDriverInput>();
+    const { register, formState: { errors }, control, handleSubmit, setError, setValue } = useForm<CreateDriverInput>({
+        defaultValues: {
+            role: StaffRole.DRIVER,
+            avatar: 'www.thinhlh.com'
+        }
+    });
+    const createDriverMutation = useMutation({
+        mutationFn: StaffService.createStaff
+    });
 
     const onSubmit: SubmitHandler<CreateDriverInput> = (data) => {
-
-        console.log(data)
-
         if (data.confirmPassword !== data.password) {
             setError('confirmPassword', {
                 message: 'Confirm password does not match password!',
@@ -38,10 +39,23 @@ export default function CreateDriverPage() {
             return
         }
 
-
         const { confirmPassword, ...payload } = data;
+        payload.role = StaffRole.DRIVER;
+        payload.username = payload.phoneNumber;
+        payload.birthday = payload.birthday as number;
 
-        console.log(payload)
+        showLoadingDialog();
+
+        createDriverMutation.mutate(payload, {
+            onError: (err) => {
+                showInfoDialog({ success: false, message: err?.toString() });
+            },
+            onSuccess: (data) => {
+                hideDialog();
+                navigate(-1)
+            },
+
+        })
     }
 
     return (
@@ -80,7 +94,7 @@ export default function CreateDriverPage() {
                         <Select.Root
                             label='Gender'
                             placeholder='Gender'
-                            onValueChanged={(value) => setValue('gender', value as Gender)}
+                            onValueChanged={(value) => setValue('gender', Gender[value as keyof typeof Gender])}
                             {...field}
                         >
                             {
@@ -103,15 +117,15 @@ export default function CreateDriverPage() {
 
                 <Input
                     register={
-                        register('dateOfBirth', {
+                        register('birthday', {
                             required: {
                                 value: true,
                                 message: 'Date of birth must not be empty!'
                             },
-                            pattern: {
-                                value: Patterns.NUMBER_ONLY,
-                                message: "Date of birth format is invalid!"
-                            },
+                            // pattern: {
+                            //     value: Patterns.NUMBER_ONLY,
+                            //     message: "Date of birth format is invalid!"
+                            // },
                             max: {
                                 value: new Date().getTime(),
                                 message: "Date of birh must be in the past"
@@ -119,10 +133,12 @@ export default function CreateDriverPage() {
                             min: {
                                 value: 1,
                                 message: "Date of birh is invalid!"
-                            }
+                            },
+                            valueAsNumber: true,
                         })
                     }
-                    error={errors.dateOfBirth}
+                    type='number'
+                    error={errors.birthday}
                     label='Date of birth'
                     placeholder='Date of birth'
                 />

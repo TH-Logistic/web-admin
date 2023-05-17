@@ -25,7 +25,7 @@ class Staff {
     bankName: string;
     name: string;
     email: string;
-    role: Staff;
+    role: StaffRole;
     avatar: string;
     birthday: number;
     status: StaffStatus;
@@ -39,7 +39,7 @@ class Staff {
         bankName: string,
         name: string,
         email: string,
-        role: Staff,
+        role: StaffRole,
         avatar: string,
         birthday: number,
         status: string,
