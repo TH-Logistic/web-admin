@@ -3,14 +3,15 @@ import ActionButton from "../../components/ActionButton/ActionButton";
 import Filter from "../../components/Filter/Filter";
 import Search from "../../components/Search/Search";
 import DriverItem from "./DriverItem/DriverItem";
-import { getStaffs } from "../../services/staff/staff-service";
 import { useNavigate } from "react-router-dom";
+import { getDrivers } from "../../services/driver/driver-service";
+
 
 export default function DriverPage() {
     const navigate = useNavigate();
-    const { data, error, isLoading } = useQuery({
-        queryKey: ['getStaffs'],
-        queryFn: async () => getStaffs(),
+    const { data } = useQuery({
+        queryKey: ['getDrivers'],
+        queryFn: getDrivers,
     });
     return (
         <div className="flex flex-col m-8">

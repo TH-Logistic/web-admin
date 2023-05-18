@@ -6,11 +6,11 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import Patterns from '../../utils/patterns';
 import { useDialog } from '../../hooks/use-dialog';
 import { useMutation } from '@tanstack/react-query';
-import * as StaffService from '../../services/staff/staff-service';
-import { CreateStaffRequest } from '../../services/staff/create-staff-request';
+import * as DriverService from '../../services/driver/driver-service';
+import { CreateDriverRequest } from '../../services/driver/dto/create-driver-request';
 import { useNavigate } from 'react-router-dom';
 
-type CreateDriverInput = CreateStaffRequest & {
+type CreateDriverInput = CreateDriverRequest & {
     confirmPassword: string
 }
 
@@ -26,7 +26,7 @@ export default function CreateDriverPage() {
         }
     });
     const createDriverMutation = useMutation({
-        mutationFn: StaffService.createStaff
+        mutationFn: DriverService.createDriver,
     });
 
     const onSubmit: SubmitHandler<CreateDriverInput> = (data) => {
@@ -40,9 +40,7 @@ export default function CreateDriverPage() {
         }
 
         const { confirmPassword, ...payload } = data;
-        payload.role = StaffRole.DRIVER;
         payload.username = payload.phoneNumber;
-        payload.birthday = payload.birthday as number;
 
         showLoadingDialog();
 

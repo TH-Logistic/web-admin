@@ -7,7 +7,7 @@ import Patterns from '../../utils/patterns';
 import { useDialog } from '../../hooks/use-dialog';
 import { useMutation } from '@tanstack/react-query';
 import * as StaffService from '../../services/staff/staff-service';
-import { CreateStaffRequest } from '../../services/staff/create-staff-request';
+import { CreateStaffRequest } from '../../services/staff/dto/create-staff-request';
 import { useNavigate } from 'react-router-dom';
 
 type CreateStaffInput = CreateStaffRequest & {

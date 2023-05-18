@@ -1,6 +1,6 @@
 import { Staff } from "../../entities/staff"
 import { staffClient } from "../../ports/clients"
-import { CreateStaffRequest } from "./create-staff-request"
+import { CreateStaffRequest } from "./dto/create-staff-request"
 
 const getStaffs = async (): Promise<Staff[]> => {
     const response = await staffClient.get<Staff[]>('/')

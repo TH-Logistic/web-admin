@@ -8,6 +8,7 @@ import ProductType from "../ProductPage/Product/ProductType";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Edit from '../../assets/edit.svg';
 import Product from "../../entities/product";
+import OrderView from "../common/Orders/OrderView";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -139,16 +140,7 @@ export default function ProductDetailPage() {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-8 mx-8 my-16 h-fit">
-                <div className="flex items-center gap-4">
-                    <p className="font-bold">Orders</p>
-                    <Filter />
-                </div>
-
-                <div className="h-[80vh] mb-8">
-                    <Orders />
-                </div>
-            </div>
+            <OrderView />
         </div>
     )
 }

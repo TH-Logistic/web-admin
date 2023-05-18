@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import store from './stores';
 import { DialogProvider } from './hooks/use-dialog';
 import AuthLayout from './components/AuthFrame/AuthLayout';
-import path from 'path';
 import AuthPage from './pages/AuthPage/AuthPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 import BaseLayout from './components/BaseLayout/BaseLayout';
@@ -29,6 +28,7 @@ import StaffPage from './pages/StaffPage/StaffPage';
 import TransportationPage from './pages/TransportationPage/TransportationPage';
 import CreateLocationPage from './pages/CreateLocationPage/CreateLocationPage';
 import CreateGaragePage from './pages/CreateLocationPage/CreateGaragePage';
+import DriverDetailPage from './pages/DriverDetailPage/DriverDetailPage';
 
 function App() {
   // const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -151,6 +151,10 @@ function App() {
         {
           path: "/drivers/create",
           element: <CreateDriverPage />
+        },
+        {
+          path: '/drivers/:driverId',
+          element: <DriverDetailPage />
         },
         {
           path: "/staffs",

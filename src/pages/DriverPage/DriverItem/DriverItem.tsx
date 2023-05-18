@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { Staff } from "../../../entities/staff";
+import { Driver } from "../../../entities/driver";
 
 export type DriverItemProps = {
-    item: Staff
+    item: Driver
 };
 
 export default function DriverItem({ item }: DriverItemProps) {

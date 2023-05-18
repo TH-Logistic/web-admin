@@ -43,6 +43,12 @@ const staffClient = withInterceptors(
     })
 )
 
+const driverClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_BACKEND_URL + '/users',
+    })
+)
+
 const authClient = withInterceptors(
     axios.create({
         baseURL: process.env.REACT_APP_BACKEND_URL + '/auth',
@@ -59,5 +65,6 @@ export {
     garageClient,
     routeClient,
     staffClient,
+    driverClient,
     authClient,
 }
