@@ -12,7 +12,7 @@ export default function OrderPage() {
                 <Search placeholder="Search by order number, license plates,..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/products/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate('/orders/create')} />
             </div>
             <div className="flex items-center gap-4">
                 <p className="text-xl font-bold">Orders</p>

@@ -44,22 +44,22 @@ const GarageDetailPage = (props: GarageDetailPageProps) => {
                     <div className="flex flex-col items-stretch justify-end flex-1 gap-4 ">
                         <p className="font-bold">Garage's Information</p>
                         <div className="flex flex-col h-full gap-4 p-4 border rounded-md border-border-color ">
-                            <div className="flex justify-between">
+                            <div className="flex justify-between gap-4">
                                 <p className="font-semibold text-secondary-dark">Name</p>
                                 <p>{garage.name}</p>
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between gap-4">
                                 <p className="font-semibold text-secondary-dark">Address</p>
                                 <p>{garage.address}</p>
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between gap-4">
                                 <p className="font-semibold text-secondary-dark">Latitude</p>
                                 <p>{garage.latitude}</p>
                             </div>
 
-                            <div className="flex justify-between">
+                            <div className="flex justify-between gap-4">
                                 <p className="font-semibold text-secondary-dark">Longitude</p>
                                 <p>{garage.longitude}</p>
                             </div>

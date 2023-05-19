@@ -15,7 +15,7 @@ export default function ProductItem({ item }: ProductItemProps) {
                     <p className="text-lg text-end">{item.basePrice}</p>
                 </div>
                 <div className="flex justify-between">
-                    <p>unit type</p>
+                    <p>Unit type</p>
                     <p className="text-end">{item.unit}</p>
                 </div>
             </div >

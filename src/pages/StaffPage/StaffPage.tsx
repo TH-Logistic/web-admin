@@ -22,7 +22,7 @@ export default function StaffPage() {
             </div>
             <h1 className="my-8 text-xl font-medium">Staff</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
-                {data?.map((item) => <StaffItem item={item} />)}
+                {data?.map((item) => <StaffItem key={item.id} item={item} />)}
             </div>
         </div>
     )

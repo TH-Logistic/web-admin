@@ -25,7 +25,7 @@ const getOrganizations = async ({
 }
 
 const createOrganization = async (organization: Omit<Organization, 'id'>) => {
-    const response = await organizationClient.post('/', {
+    const response = await organizationClient.post('', {
         ...organization
     })
 

@@ -8,7 +8,7 @@ const getProducts = async ({
     page = 0,
     size = 50,
     minPrice = 0,
-    maxPrice = 100000,
+    maxPrice = 1000000,
     types = []
 }: QueryParams<{
     types?: number[],

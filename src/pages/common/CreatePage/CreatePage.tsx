@@ -5,11 +5,12 @@ import CreateHeader from "../../../components/Headers/CreateHeader/CreateHeader"
 
 export type CreatePageProps = React.PropsWithChildren<{
     header: string;
-    title: string;
+    title?: string;
     /**
      * Show divider between action buttons & children
      */
     divider?: boolean;
+    headerChildren?: React.ReactNode,
     onPrimaryButtonClicked?: () => void;
     onSecondaryButtonClicked?: () => void;
 }>;
@@ -19,16 +20,19 @@ const CreatePage = ({
     title,
     children,
     divider = true,
+    headerChildren,
     onPrimaryButtonClicked,
     onSecondaryButtonClicked
 }: CreatePageProps) => {
     const navigate = useNavigate();
     return (
         <div className="flex flex-col gap-4">
-            <CreateHeader header={header} />
+            <CreateHeader header={header}>
+                {headerChildren}
+            </CreateHeader>
 
             <div className='flex flex-col gap-8 mx-16'>
-                <p className='font-semibold'>{title}</p>
+                {title && <p className='font-semibold'>{title}</p>}
                 {children}
                 {divider && <Divider />}
                 <div className='flex justify-end gap-4 mb-4'>

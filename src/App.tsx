@@ -31,6 +31,8 @@ import CreateGaragePage from './pages/CreateLocationPage/CreateGaragePage';
 import DriverDetailPage from './pages/DriverDetailPage/DriverDetailPage';
 import { DeliveryDetailPage } from './pages/DeliveryDetailPage/DeliveryDetailPage';
 import { GarageDetailPage } from './pages/GarageDetailPage/GarageDetailPage';
+import { elements } from 'chart.js';
+import { CreateOrderPage } from './pages/CreateOrderPage/CreateOrderPage';
 
 function App() {
   // const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -86,6 +88,10 @@ function App() {
         {
           path: '/orders',
           element: <OrderPage />
+        },
+        {
+          path: '/orders/create',
+          element: <CreateOrderPage />
         },
         {
           path: '/products',
