@@ -1,15 +1,5 @@
-export class Garage {
-    id: string;
-    name: string;
-    address: string;
-    latitude: number;
-    longitude: number;
+import { Location } from "./location";
 
-    constructor(id: string, name: string, address: string, latitude: number, longitude: number) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-}
+class Garage extends Location { }
+
+export { Garage };

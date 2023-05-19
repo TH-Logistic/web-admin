@@ -5,6 +5,7 @@ import StaffStatusItem from "../StaffPage/StaffStatus/StaffStatus";
 import { Gender, Staff, StaffRole } from "../../entities/staff";
 import MaleAvatar from '../../assets/male.svg';
 import FeMaleAvatar from '../../assets/female.svg'
+import { millesecondToString } from "../../utils/formatter";
 
 export default function StaffDetailPage() {
     const { staffId } = useParams();
@@ -21,7 +22,7 @@ export default function StaffDetailPage() {
             <Divider />
 
             <div className="px-8 mt-8">
-                <div className="flex flex-row gap-8">
+                <div className="flex flex-row items-stretch gap-8">
                     <div className="flex flex-col justify-end flex-1 gap-4">
                         <p className="font-bold">Staff's Information</p>
                         <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
@@ -32,12 +33,7 @@ export default function StaffDetailPage() {
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Date of birth</p>
-                                <p>{item.birthday}</p>
-                            </div>
-
-                            <div className="flex justify-between">
-                                <p className="font-semibold text-secondary-dark">Number of trips</p>
-                                <p>120</p>
+                                <p>{millesecondToString(item.birthday)}</p>
                             </div>
 
                             <div className="flex justify-between">
@@ -64,8 +60,8 @@ export default function StaffDetailPage() {
                     </div>
 
                     <div className="flex flex-col flex-1">
-                        <div className="flex justify-center">
-                            <img src={item.gender === Gender.MALE ? MaleAvatar : FeMaleAvatar} alt="Avatar" className="rounded-full outline outline-border-color" />
+                        <div className="flex items-center justify-center flex-1">
+                            <img src={item.gender === Gender.MALE ? MaleAvatar : FeMaleAvatar} alt="Avatar" className="w-32 h-32 rounded-full outline outline-border-color" />
                         </div>
                         <div className="flex flex-col gap-2">
                             <p className="font-bold">Salary</p>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { Staff } from "../../../entities/staff";
 import StaffStatusItem from "../StaffStatus/StaffStatus";
+import { pascalize } from "humps";
 
 export type StaffItemProps = {
     item: Staff
@@ -13,12 +14,6 @@ export default function StaffItem({ item }: StaffItemProps) {
             <div className="flex items-center justify-between gap-4">
                 <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2">{item.id}</p>
 
-                {/* <p className={`text-user-status-new font-bold rounded-full bg-user-status-new py-1 px-4`}>New</p>
-                <p className={`text-user-status-active font-bold rounded-full bg-user-status-active py-1 px-4`}>Active</p>
-                <p className={`text-user-status-suspended font-bold rounded-full bg-user-status-suspended py-1 px-4`}>Suspended</p>
-                <p className={`text-user-status-resigned font-bold rounded-full bg-user-status-resigned py-1 px-4`}>Resigned</p>
-                <p className={`text-user-status-deleted font-bold rounded-full bg-user-status-deleted py-1 px-4`}>Deleted</p> */}
-
                 <StaffStatusItem status={item.status} />
             </div>
             <p className="text-lg text-secondary-dark">{item.name}</p>
@@ -29,7 +24,7 @@ export default function StaffItem({ item }: StaffItemProps) {
             </div>
             <div className="flex flex-row justify-between gap-4">
                 <p className="text-secondary-light">Gener</p>
-                <p className="text-end">{item.gender}</p>
+                <p className="text-end">{pascalize(item.gender)}</p>
             </div>
 
             <div className="flex flex-row justify-between">

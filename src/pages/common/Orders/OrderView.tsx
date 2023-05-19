@@ -4,7 +4,7 @@ import Orders from "./Orders"
 type OrderViewProps = object;
 const OrderView = (props: OrderViewProps) => {
     return (
-        <div className="flex flex-col gap-8 mx-8 my-16 h-fit">
+        <div className="flex flex-col gap-8 h-fit">
             <div className="flex items-center gap-4">
                 <p className="font-bold">Orders</p>
                 <Filter />

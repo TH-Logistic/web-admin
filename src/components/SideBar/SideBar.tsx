@@ -97,65 +97,6 @@ export default function SideBar() {
     }
 
     return (
-        // <Sidebar breakPoint='sm' className='flex flex-col py-4 basis-1/5'>
-        //     <Menu className='h-full bg-transparent' menuItemStyles={{
-        //         'button': {
-        //             '&:hover': {
-        //                 backgroundColor: 'rgb(0, 173, 181, 0)',
-        //             },
-        //         },
-        //     }}>
-        //         {Object.entries(menus).map((menu) => {
-        //             return menu[1].submenu ? (
-        //                 <SubMenu
-        //                     className='duration-500 rounded-sm hover:bg-primary-color/20'
-        //                     component={<Link to={menu[1].path} />}
-        //                     icon={
-        //                         <div className='flex items-center'>
-        //                             <div className={`${location.pathname === menu[1].path ? 'visible' : 'invisible'} h-10 mr-2 border-2 border-primary-color`} />
-        //                             <img src={menu[1].icon} className='w-5 h-5' alt='icon' />
-        //                         </div>
-        //                     }
-        //                     label={menu[1].name}>
-        //                     {
-        //                         Object
-        //                             .entries(menu[1].submenu)
-        //                             .map(submenu => (
-        //                                 <MenuItem
-        //                                     className='ml-6'
-        //                                     component={<Link to={submenu[1].path} />}
-        //                                 >
-        //                                     {submenu[1].name}
-        //                                 </MenuItem>
-        //                             ))
-        //                     }
-        //                 </SubMenu >
-        //             ) :
-        //                 <MenuItem icon={
-        //                     <div className='flex items-center'>
-        //                         <div className={`${location.pathname === menu[1].path ? 'visible' : 'invisible'} h-10 mr-2 border-2 border-primary-color`} />
-        //                         <img src={menu[1].icon} className='w-5 h-5' alt='icon' />
-        //                     </div>
-        //                 }
-        //                     className='duration-500 rounded-sm hover:bg-primary-color/20'
-        //                     component={<Link to={menu[1].path} />}>
-        //                     {menu[1].name}
-        //                 </MenuItem>
-        //         })}
-        //     </Menu>
-        //     <Menu className='flex-1'>
-
-        //         <MenuItem icon={
-        //             <div className='flex items-center'>
-        //                 <img src={LogoutIcon} className='w-5 h-5' alt='icon' />
-        //             </div>
-        //         } component={<Link to={'/auth'} />}>
-        //             Logout
-        //         </MenuItem>
-        //     </Menu>
-        // </Sidebar>
-
-
         <div className='flex flex-col justify-between h-full py-4' >
             <div className='flex flex-col gap-2 overflow-auto'>
                 {

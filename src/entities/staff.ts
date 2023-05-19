@@ -5,6 +5,23 @@ enum StaffStatus {
     Resigned = 4,
     Deleted = 5
 }
+const mapStaffStatusStringToEnum = (status: string) => {
+    switch (status.toLowerCase()) {
+        case "new":
+            return StaffStatus.New;
+        case "active":
+            return StaffStatus.Active;
+        case "suspended":
+            return StaffStatus.Suspended;
+        case "resigned":
+            return StaffStatus.Resigned;
+        case "deleted":
+            return StaffStatus.Deleted;
+        default:
+            return StaffStatus.New;
+    }
+}
+
 enum Gender {
     MALE = 'male',
     FEMALE = 'female'
@@ -17,18 +34,18 @@ const enum StaffRole {
 
 
 class Staff {
-    id: string;
-    username: string;
-    gender: Gender;
-    phoneNumber: string;
-    bankAccount: string;
-    bankName: string;
-    name: string;
-    email: string;
-    role: StaffRole;
-    avatar: string;
-    birthday: number;
-    status: StaffStatus;
+    public id: string;
+    public username: string;
+    public gender: Gender;
+    public phoneNumber: string;
+    public bankAccount: string;
+    public bankName: string;
+    public name: string;
+    public email: string;
+    public role: StaffRole;
+    public avatar: string;
+    public birthday: number;
+    public status: StaffStatus;
 
     constructor(
         id: string,
@@ -55,28 +72,8 @@ class Staff {
         this.role = role;
         this.avatar = avatar;
         this.birthday = birthday;
-
-        switch (status.toLowerCase()) {
-            case "new":
-                this.status = StaffStatus.New
-                break;
-            case "active":
-                this.status = StaffStatus.Active
-                break;
-            case "suspended":
-                this.status = StaffStatus.Suspended
-                break;
-            case "resigned":
-                this.status = StaffStatus.Resigned
-                break;
-            case "deleted":
-                this.status = StaffStatus.Deleted
-                break;
-            default:
-                this.status = StaffStatus.Active
-                break;
-        }
+        this.status = mapStaffStatusStringToEnum(status);
     }
 }
 
-export { StaffStatus, Gender, Staff, StaffRole };
+export { StaffStatus, Gender, Staff, StaffRole, mapStaffStatusStringToEnum };

@@ -140,7 +140,9 @@ export default function ProductDetailPage() {
                 </div>
             </div>
 
-            <OrderView />
+            <div className="mx-8 my-16">
+                <OrderView />
+            </div>
         </div>
     )
 }

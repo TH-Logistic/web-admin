@@ -4,12 +4,13 @@ services:
     image: registry.thinhlh.com/web_admin
     container_name: web_admin_container
     environment:
-      - REACT_APP_PRODUCT_URL
-      - REACT_APP_TRANSPORTATION_URL
-      - REACT_APP_ORGARNIZATION_URL
-      - REACT_APP_ROUTE_URL
-      - REACT_APP_AUTH_URL
-      - REACT_APP_USER_URL
+      # - REACT_APP_PRODUCT_URL
+      # - REACT_APP_TRANSPORTATION_URL
+      # - REACT_APP_ORGARNIZATION_URL
+      # - REACT_APP_ROUTE_URL
+      # - REACT_APP_AUTH_URL
+      # - REACT_APP_USER_URL
+      - REACT_APP_GATEWAY_URL
     ports:
       - 3000:3000
     restart: always

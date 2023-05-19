@@ -2,8 +2,15 @@ import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
 import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
+import { millesecondToHHMM } from '../../utils/formatter';
+import { useEffect, useState } from 'react';
 export default function BaseLayout() {
     const { loggedIn } = useAuth();
+    const [time, setTime] = useState(Date.now());
+
+    useEffect(() => {
+        setInterval(() => setTime(Date.now()))
+    }, [])
 
     if (!loggedIn) {
         return (<Navigate to={'/auth'} />)
@@ -16,7 +23,7 @@ export default function BaseLayout() {
                 <div className='flex items-center justify-between flex-grow'>
                     <p className='flex-1 text-lg font-bold ml-14'>Dashboard</p>
                     <div className='flex flex-row mr-4'>
-                        <p>{new Date().getHours() + ':' + new Date().getMinutes()}</p>
+                        <p>{millesecondToHHMM(time)}</p>
                         <div className='mx-4 border border-black' />
                         <img src={NotificationIcon} alt='Notification Icon' />
                     </div>

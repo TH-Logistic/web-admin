@@ -1,9 +1,9 @@
 export class Location {
-    id: string;
-    name: string;
-    address: string;
-    latitude: number;
-    longitude: number;
+    public id: string;
+    public name: string;
+    public address: string;
+    public latitude: number;
+    public longitude: number;
 
     constructor(id: string, name: string, address: string, latitude: number, longitude: number) {
         this.id = id;

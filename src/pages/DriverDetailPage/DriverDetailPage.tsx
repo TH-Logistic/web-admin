@@ -15,33 +15,24 @@ export default function DriverDetailPage() {
     const { driverId } = useParams();
     const { state } = useLocation();
 
-    // const item = state as Staff;
-    const item = new Driver(
-        'ID',
-        'Staff Username',
-        Gender.MALE,
-        '902514621',
-        '3686856868',
-        'MB Bank',
-        "Le Hoang Thinh",
-        "thinhlh0812@gmail.com",
-        StaffRole.DRIVER,
-        'www.thinhlh.com',
-        1454521239279,
-        'new'
-    );
-    // if (item === null) {
-    //     return <Navigate to={'/drivers'} />
-    // }
+    const item = state as Driver;
+    if (item == null) {
+        return <Navigate to={'/drivers'} />
+    }
     return (
         <div>
             <DetailHeader header="Driver" id={item.id} />
             <Divider />
 
-            <div className="flex flex-row gap-8 px-8 mt-8">
-                <div className="flex flex-col justify-end flex-1 gap-4">
+            <div className="flex flex-row items-stretch gap-8 px-8 mt-8">
+                <div className="flex flex-col flex-1 gap-4">
                     <p className="font-bold">Driver's Information</p>
                     <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
+                        <div className="flex justify-between">
+                            <p className="font-semibold text-secondary-dark">Name</p>
+                            <p>{item.name}</p>
+                        </div>
+
                         <div className="flex justify-between">
                             <p className="font-semibold text-secondary-dark">Phone number</p>
                             <p>{item.phoneNumber}</p>
@@ -80,7 +71,7 @@ export default function DriverDetailPage() {
                     </div>
                 </div>
 
-                <div className="flex flex-col flex-1">
+                <div className="flex flex-col self-end flex-1">
                     <div className="flex justify-center">
                         <img src={item.gender === Gender.MALE ? MaleAvatar : FeMaleAvatar} alt="Avatar" className="rounded-full outline outline-border-color" />
                     </div>
@@ -108,7 +99,9 @@ export default function DriverDetailPage() {
                 </div>
             </div>
 
-            <OrderView />
+            <div className="mx-8 my-16">
+                <OrderView />
+            </div>
         </div>
     )
 }

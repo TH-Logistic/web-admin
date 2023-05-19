@@ -29,6 +29,8 @@ import TransportationPage from './pages/TransportationPage/TransportationPage';
 import CreateLocationPage from './pages/CreateLocationPage/CreateLocationPage';
 import CreateGaragePage from './pages/CreateLocationPage/CreateGaragePage';
 import DriverDetailPage from './pages/DriverDetailPage/DriverDetailPage';
+import { DeliveryDetailPage } from './pages/DeliveryDetailPage/DeliveryDetailPage';
+import { GarageDetailPage } from './pages/GarageDetailPage/GarageDetailPage';
 
 function App() {
   // const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
@@ -121,8 +123,16 @@ function App() {
           element: <CreateLocationPage />,
         },
         {
+          path: '/locations/delivery/:deliveryId',
+          element: <DeliveryDetailPage />
+        },
+        {
           path: '/locations/garage',
           element: <GaragePage />
+        },
+        {
+          path: '/locations/garage/:garageId',
+          element: <GarageDetailPage />
         },
         {
           path: '/locations/garage/create',
