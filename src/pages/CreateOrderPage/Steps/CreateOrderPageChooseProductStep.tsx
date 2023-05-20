@@ -8,26 +8,40 @@ import Product from "../../../entities/product";
 import { Input } from "../../../components/Input/Input";
 import Lottie from "lottie-react";
 import LottieEmptyState from "../../../assets/lottie_empty_state.json";
+import { SubmitHandler, UseFieldArrayReturn, UseFormReturn, useFieldArray, useForm } from "react-hook-form";
 
 type CreateOrderPageChooseProductStepProps = {}
-type ChosenProductProps = Product & {
-    weight: number;
+
+type ChosenProduct = Product & { weight: number }
+
+type ChosenProductFormInput = {
+    products: ChosenProduct[]
 }
 
 const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductStepProps) => {
-    const { data, error, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['getProducts'],
         queryFn: async () => await getProducts({}),
     });
 
     const [products, setProducts] = useState<Product[]>();
-    const [chosenProducts, setChosenProducts] = useState<ChosenProductProps[]>([]);
+    const [chosenProducts, setChosenProducts] = useState<ChosenProduct[]>([]);
+
+    const formHook = useForm<ChosenProductFormInput>();
+    const fieldArray = useFieldArray({
+        name: "products",
+        control: formHook.control,
+    });
+
+    const onSubmit: SubmitHandler<ChosenProductFormInput> = (data) => {
+
+    }
 
     useEffect(() => {
         setProducts(data?.content)
     }, [data])
     return (
-        <div className="flex flex-col-reverse gap-8 md:flex-row">
+        <div className="flex flex-col-reverse h-full gap-8 md:flex-row">
             <div className="flex flex-col flex-1 gap-8">
                 <div className="flex">
                     <Search placeholder="Search by product name, product type" />
@@ -46,8 +60,11 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
                             if (currentItemIdx >= 0) {
                                 newChosenProducts.splice(currentItemIdx, 1);
+                                fieldArray.remove(currentItemIdx);
                             } else {
-                                newChosenProducts.push({ ...item, weight: 0 });
+                                const product: ChosenProduct = { ...item, weight: 0 }
+                                newChosenProducts.push(product)
+                                fieldArray.append(product);
                             }
 
                             setChosenProducts(newChosenProducts);
@@ -60,10 +77,17 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
             <div className="flex flex-col flex-1 gap-8">
                 <p className="text-lg font-semibold">Product list</p>
 
-                <div className="w-full h-[60vh] rounded-lg outline outline-border-color" >
+                <div className="w-full h-full rounded-lg outline outline-border-color" >
                     {
                         chosenProducts.length !== 0
-                            ? <ChosenProducts products={chosenProducts} />
+                            ?
+                            <form onSubmit={formHook.handleSubmit(onSubmit)}>
+                                <ChosenProducts
+                                    formHook={formHook}
+                                    fieldArray={fieldArray}
+                                    products={chosenProducts}
+                                />
+                            </form>
                             : <ProductNotChose />
                     }
 
@@ -74,7 +98,13 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
     )
 }
 
-const ChosenProducts = ({ products }: { products: ChosenProductProps[] }) => {
+type ChosenProductsProps = {
+    products: ChosenProduct[],
+    formHook: UseFormReturn<ChosenProductFormInput>,
+    fieldArray: UseFieldArrayReturn<ChosenProductFormInput>
+}
+
+const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps) => {
     return (
         <table className="w-full max-w-[100%] my-8 table-fixed">
             <thead>
@@ -92,17 +122,18 @@ const ChosenProducts = ({ products }: { products: ChosenProductProps[] }) => {
             </thead>
             <tbody className="before:block before:h-4 before:content-['']">
                 {
-                    products.map((value) =>
-                        <tr key={value.id} className="">
-                            <td className="pt-2 text-center">{value.name}</td>
-                            <td className="pt-2 text-center">{value.basePrice}</td>
+                    fieldArray.fields.map((field, index) =>
+                        <tr key={field.id} className="">
+                            <td className="pt-2 text-center">{products[index].name}</td>
+                            <td className="pt-2 text-center">{products[index].basePrice}</td>
                             <td className="flex flex-row justify-center pt-2">
                                 <div>
                                     <Input
                                         placeholder="Weight"
                                         type="number"
+                                        error={formHook.formState.errors.products?.[index]?.weight}
+                                        register={formHook.register(`products.${index}.weight` as const)}
                                         thoundsandSeparator
-                                        value={value.weight}
                                         className="w-20 text-sm text-center placeholder:text-[12px]" />
                                 </div>
                             </td>

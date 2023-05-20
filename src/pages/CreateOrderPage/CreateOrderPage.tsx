@@ -6,6 +6,7 @@ import Search from "../../components/Search/Search";
 import Filter from "../../components/Filter/Filter";
 import { Typography } from "../../components/Typography/Typography";
 import { CreateOrderPageChooseProductStep } from "./Steps/CreateOrderPageChooseProductStep";
+import { CreateOrderPageChooseRouteStep } from "./Steps/CreateOrderPageChooseRouteStep";
 
 type CreateOrderPageProps = {};
 
@@ -19,7 +20,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
         {
             label: 'Chose a route',
             completed: undefined,
-            element: <CreateOrderPageChooseProductStep />
+            element: <CreateOrderPageChooseRouteStep />
         },
         {
             label: 'Complete an order',
@@ -47,22 +48,31 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
             <CreatePage
                 header="Create new order"
                 divider={false}
+                primaryTitle={currentStep !== steps.length - 1 ? 'Next' : 'Save'}
+                secondaryTitle={currentStep !== 0 ? 'Cancel' : 'Previous'}
                 headerChildren={
                     <div className="flex flex-row justify-center mt-4">
                         <div className="w-[80%]">
                             <ProgressStep steps={steps} />
                         </div>
                     </div>
-                }>
-
-                {
-                    // Need to find alternative way to get last element with completed is true
-                    steps
-                        .filter(value => value.completed)
-                        .slice(-1)
-                        .find(() => true)?.element
-                    ?? steps[0].element
                 }
+                shouldNavigateBackWhenSecondaryClicked={currentStep === 0}
+                onSecondaryButtonClicked={() => {
+                    setCurrentStep(currentStep - 1)
+                }}
+                onPrimaryButtonClicked={() => {
+                    if (currentStep !== steps.length - 1) {
+                        setCurrentStep(currentStep + 1);
+                    }
+                }}
+            >
+
+                <div className="max-h-[60vh] h-[60vh]">
+                    {
+                        steps[currentStep].element
+                    }
+                </div>
 
             </CreatePage>
         </>

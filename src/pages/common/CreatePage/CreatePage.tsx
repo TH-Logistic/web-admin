@@ -11,6 +11,9 @@ export type CreatePageProps = React.PropsWithChildren<{
      */
     divider?: boolean;
     headerChildren?: React.ReactNode,
+    primaryTitle?: string,
+    secondaryTitle?: string,
+    shouldNavigateBackWhenSecondaryClicked?: boolean,
     onPrimaryButtonClicked?: () => void;
     onSecondaryButtonClicked?: () => void;
 }>;
@@ -21,8 +24,11 @@ const CreatePage = ({
     children,
     divider = true,
     headerChildren,
+    primaryTitle = "Save",
+    secondaryTitle = "Cancel",
+    shouldNavigateBackWhenSecondaryClicked = true,
     onPrimaryButtonClicked,
-    onSecondaryButtonClicked
+    onSecondaryButtonClicked,
 }: CreatePageProps) => {
     const navigate = useNavigate();
     return (
@@ -33,14 +39,18 @@ const CreatePage = ({
 
             <div className='flex flex-col gap-8 mx-16'>
                 {title && <p className='font-semibold'>{title}</p>}
-                {children}
+                <div className="h-full">
+                    {children}
+                </div>
                 {divider && <Divider />}
                 <div className='flex justify-end gap-4 mb-4'>
-                    <ActionButton title='Cancel' primary={false} onClick={() => {
+                    <ActionButton title={secondaryTitle} primary={false} onClick={() => {
                         onSecondaryButtonClicked?.();
-                        navigate(-1);
+                        if (shouldNavigateBackWhenSecondaryClicked) {
+                            navigate(-1);
+                        }
                     }} />
-                    <ActionButton title='Save' type="submit" primary={true} onClick={onPrimaryButtonClicked} />
+                    <ActionButton title={primaryTitle} type="submit" primary={true} onClick={onPrimaryButtonClicked} />
                 </div>
             </div>
         </div>
