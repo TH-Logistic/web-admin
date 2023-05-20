@@ -1,12 +1,11 @@
-import { FieldError, UseFormRegister, UseFormRegisterReturn } from 'react-hook-form';
-import * as Form from "@radix-ui/react-form";
-import React, { RefObject } from "react";
-import { error } from 'console';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import React from "react";
 
 interface InputPropsInterface {
     error?: FieldError;
     register?: UseFormRegisterReturn;
     label?: string;
+    thoundsandSeparator?: boolean;
 }
 
 export type InputProps = InputPropsInterface & React.ComponentProps<'input'>;
@@ -20,6 +19,7 @@ export const Input = React.forwardRef(({
     register,
     label,
     error,
+    thoundsandSeparator = false,
     ...props
 }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
     return (

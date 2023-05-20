@@ -1,6 +1,13 @@
+import CheckIcon from '../../assets/check.svg'
 export type StepProps = {
     label: string;
-    completed: boolean;
+
+    /**
+     * Undefined: Not yet working on
+     * False: Working on but not yet completed
+     * True: Completed
+     */
+    completed?: boolean;
 }
 type ProgressStepProps = {
     steps: StepProps[]
@@ -13,8 +20,10 @@ const ProgressStep = ({ steps }: ProgressStepProps) => {
                     steps.map(
                         (step, index) =>
                             <>
-                                <div className="flex flex-col" >
-                                    <div className={`w-8 h-8 rounded-full ${step.completed ? "bg-button-color" : "bg-border-color"}`} />
+                                <div key={index}>
+                                    <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step.completed === undefined ? "bg-border-color" : "bg-button-color"}`} >
+                                        {step.completed === true && <img src={CheckIcon} alt='Check' className='w-4 h-4' />}
+                                    </div>
                                 </div>
 
                                 {index !== steps.length - 1 && <div className="h-0.5  bg-border-color grow" />}

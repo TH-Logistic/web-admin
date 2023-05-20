@@ -2,13 +2,30 @@ import { useNavigate } from "react-router-dom"
 import ProductTypeItem from "./ProductTypeItem";
 import Product from "../../../entities/product";
 
-export type ProductItemProps = React.PropsWithChildren<{ item: Product }>;
+export type ProductItemProps = React.PropsWithChildren<{
+    item: Product;
+    navigateOnClick?: boolean;
+    chosen?: boolean;
+    onClick?: () => void;
+}>;
 
-export default function ProductItem({ item }: ProductItemProps) {
+export default function ProductItem({
+    item,
+    navigateOnClick = true,
+    onClick,
+    chosen = false,
+    ...props
+}: ProductItemProps) {
     const navigate = useNavigate();
     return (
-        <div className="flex-1 max-w-sm border rounded-md">
-            <div className="p-4" onClick={() => navigate(`/products/${item.id}`, { state: item })}>
+        <div className={`flex-1 max-w-sm border rounded-md ${chosen ? 'border-2 border-primary-color' : ``}`}>
+            <div className="p-4" onClick={() => {
+                onClick?.();
+                if (navigateOnClick) {
+                    navigate(`/products/${item.id}`, { state: item })
+                }
+            }
+            } >
                 <p className="underline decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
                 <div className="flex justify-between my-2">
                     <p className="text-lg">{item.name}</p>
