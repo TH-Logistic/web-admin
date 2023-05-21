@@ -39,9 +39,7 @@ const CreatePage = ({
 
             <div className='flex flex-col gap-8 mx-16'>
                 {title && <p className='font-semibold'>{title}</p>}
-                <div className="h-full">
-                    {children}
-                </div>
+                {children}
                 {divider && <Divider />}
                 <div className='flex justify-end gap-4 mb-4'>
                     <ActionButton title={secondaryTitle} primary={false} onClick={() => {

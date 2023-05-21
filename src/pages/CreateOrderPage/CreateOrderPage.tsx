@@ -7,6 +7,7 @@ import Filter from "../../components/Filter/Filter";
 import { Typography } from "../../components/Typography/Typography";
 import { CreateOrderPageChooseProductStep } from "./Steps/CreateOrderPageChooseProductStep";
 import { CreateOrderPageChooseRouteStep } from "./Steps/CreateOrderPageChooseRouteStep";
+import { CreateOrderPageDetail } from "./Steps/CreateOrderPageDetail";
 
 type CreateOrderPageProps = {};
 
@@ -25,13 +26,14 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
         {
             label: 'Complete an order',
             completed: undefined,
-            element: <CreateOrderPageChooseProductStep />
+            element: <CreateOrderPageDetail />
         },
     ]);
 
     const [currentStep, setCurrentStep] = useState(0);
 
     useEffect(() => {
+        console.log(currentStep)
         const newSteps = steps.map((step, index) => ({
             ...step,
             completed:
@@ -49,7 +51,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                 header="Create new order"
                 divider={false}
                 primaryTitle={currentStep !== steps.length - 1 ? 'Next' : 'Save'}
-                secondaryTitle={currentStep !== 0 ? 'Cancel' : 'Previous'}
+                secondaryTitle={currentStep === 0 ? 'Cancel' : 'Previous'}
                 headerChildren={
                     <div className="flex flex-row justify-center mt-4">
                         <div className="w-[80%]">
@@ -59,6 +61,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                 }
                 shouldNavigateBackWhenSecondaryClicked={currentStep === 0}
                 onSecondaryButtonClicked={() => {
+                    if (currentStep === 0) return;
                     setCurrentStep(currentStep - 1)
                 }}
                 onPrimaryButtonClicked={() => {
@@ -67,7 +70,6 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                     }
                 }}
             >
-
                 <div className="max-h-[60vh] h-[60vh]">
                     {
                         steps[currentStep].element

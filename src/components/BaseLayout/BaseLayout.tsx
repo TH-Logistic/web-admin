@@ -12,9 +12,9 @@ export default function BaseLayout() {
         setInterval(() => setTime(Date.now()))
     }, [])
 
-    if (!loggedIn) {
-        return (<Navigate to={'/auth'} />)
-    }
+    // if (!loggedIn) {
+    //     return (<Navigate to={'/auth'} />)
+    // }
 
     return (
         <div className="flex flex-col h-screen max-h-screen overflow-hidden">

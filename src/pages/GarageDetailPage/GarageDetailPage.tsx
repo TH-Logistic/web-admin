@@ -69,8 +69,6 @@ const GarageDetailPage = (props: GarageDetailPageProps) => {
 
                 <OrderView />
             </div>
-
-
         </div>
     );
 }

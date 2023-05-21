@@ -5,6 +5,7 @@ interface InputPropsInterface {
     error?: FieldError;
     register?: UseFormRegisterReturn;
     label?: string;
+    centerLabel?: boolean;
     thoundsandSeparator?: boolean;
 }
 
@@ -18,12 +19,13 @@ export const Input = React.forwardRef(({
     className,
     register,
     label,
+    centerLabel = false,
     error,
     thoundsandSeparator = false,
     ...props
 }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
     return (
-        <div className='flex flex-row w-full gap-4'>
+        <div className={`flex flex-row w-full gap-4 ${centerLabel ? 'items-center' : ''}`}>
             {children}
             {label && <label className='basis-1/5'>{label}</label>}
             <div className="flex flex-col w-full gap-2">

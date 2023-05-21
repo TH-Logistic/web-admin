@@ -24,7 +24,6 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
         queryFn: async () => await getProducts({}),
     });
 
-    const [products, setProducts] = useState<Product[]>();
     const [chosenProducts, setChosenProducts] = useState<ChosenProduct[]>([]);
 
     const formHook = useForm<ChosenProductFormInput>();
@@ -37,9 +36,6 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
     }
 
-    useEffect(() => {
-        setProducts(data?.content)
-    }, [data])
     return (
         <div className="flex flex-col-reverse h-full gap-8 md:flex-row">
             <div className="flex flex-col flex-1 gap-8">
@@ -48,8 +44,8 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
                     <Filter />
                 </div>
 
-                <div className="grid gap-4 h-full overflow-auto md:grid-cols-1 lg:grid-cols-2 sm:grid-cols-1 max-h-[50vh]">
-                    {(products ?? []).map((item) => <ProductItem
+                <div className="grid h-full gap-4 overflow-auto md:grid-cols-1 lg:grid-cols-2 sm:grid-cols-1">
+                    {(data?.content ?? []).map((item) => <ProductItem
                         navigateOnClick={false}
                         item={item}
                         key={item.id}
@@ -76,12 +72,11 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
             <div className="flex flex-col flex-1 gap-8">
                 <p className="text-lg font-semibold">Product list</p>
-
-                <div className="w-full h-full rounded-lg outline outline-border-color" >
+                <div className="h-full max-h-[90%] rounded-lg outline outline-border-color">
                     {
                         chosenProducts.length !== 0
                             ?
-                            <form onSubmit={formHook.handleSubmit(onSubmit)}>
+                            <form onSubmit={formHook.handleSubmit(onSubmit)} className="">
                                 <ChosenProducts
                                     formHook={formHook}
                                     fieldArray={fieldArray}
@@ -90,7 +85,6 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
                             </form>
                             : <ProductNotChose />
                     }
-
                 </div>
             </div>
         </div>
@@ -146,7 +140,7 @@ const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps)
 }
 
 const ProductNotChose = () => {
-    return <Lottie animationData={LottieEmptyState} loop />
+    return <Lottie animationData={LottieEmptyState} loop className="h-full" />
 }
 
 export { CreateOrderPageChooseProductStep }
