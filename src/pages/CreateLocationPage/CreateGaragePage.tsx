@@ -15,7 +15,6 @@ const CreateGaragePage = () => {
     })
 
     const onSubmit = (data: CreateLocationPageInputs) => {
-        console.log('Data')
         showLoadingDialog()
 
         createGargeMutate.mutate({

@@ -1,10 +1,14 @@
 import { Driver } from "../../entities/driver"
-import { mapStaffStatusStringToEnum } from "../../entities/staff";
+import { StaffRole, mapStaffStatusStringToEnum } from "../../entities/staff";
 import { driverClient } from "../../ports/clients"
 import { CreateDriverRequest } from "./dto/create-driver-request";
 
 const getDrivers = async (): Promise<Driver[]> => {
-    const response = await driverClient.get<Driver[]>('/')
+    const response = await driverClient.get<Driver[]>('/', {
+        params: {
+            role: StaffRole.DRIVER
+        }
+    })
 
     return response.data.map((driver) => {
         return {

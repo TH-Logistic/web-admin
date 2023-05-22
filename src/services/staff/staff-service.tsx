@@ -1,9 +1,13 @@
-import { Staff, mapStaffStatusStringToEnum } from "../../entities/staff"
+import { Staff, StaffRole, mapStaffStatusStringToEnum } from "../../entities/staff"
 import { staffClient } from "../../ports/clients"
 import { CreateStaffRequest } from "./dto/create-staff-request"
 
 const getStaffs = async (): Promise<Staff[]> => {
-    const response = await staffClient.get<Staff[]>('/')
+    const response = await staffClient.get<Staff[]>('/', {
+        params: {
+            role: StaffRole.ADMIN
+        }
+    })
 
     return response.data.map((staff) => {
         return {

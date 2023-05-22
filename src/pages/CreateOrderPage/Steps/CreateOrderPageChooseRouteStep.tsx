@@ -11,32 +11,7 @@ type CreateOrderPageChooseRouteStepProps = {}
 const CreateOrderPageChooseRouteStep = (props: CreateOrderPageChooseRouteStepProps) => {
     const { data, error, isLoading } = useQuery({
         queryKey: ['getRoutes'],
-        // queryFn: async () => await RouteService.getRoutes({}),
-        queryFn: async () => {
-            const routes = Array.from({ length: 20 }, (_, index): Route => ({
-                id: index.toString(),
-                isEnable: true,
-                length: 120,
-                tonBasedLimit: 10000,
-                tripBasedCost: 2000000,
-                fromLocation: {
-                    id: 'fromLocationId',
-                    address: 'New To Address',
-                    latitude: 10.02,
-                    longitude: 10.3,
-                    name: 'From Address'
-                },
-                toLocation: {
-                    id: 'toLocationId',
-                    address: 'New From Address',
-                    latitude: 10.02,
-                    longitude: 10.3,
-                    name: 'From Address'
-                }
-            }))
-
-            return { content: routes };
-        }
+        queryFn: async () => await RouteService.getRoutes({}),
     });
 
     const [chosenRoute, setChosenRoute] = useState<Route | undefined>(undefined);

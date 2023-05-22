@@ -1,7 +1,7 @@
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import React from "react";
 
-interface InputPropsInterface {
+interface MultilLineInputPropsInterface {
     error?: FieldError;
     register?: UseFormRegisterReturn;
     label?: string;
@@ -9,12 +9,12 @@ interface InputPropsInterface {
     thoundsandSeparator?: boolean;
 }
 
-export type InputProps = InputPropsInterface & React.ComponentProps<'input'>;
+export type MultilLineInputProps = MultilLineInputPropsInterface & React.ComponentProps<'textarea'>;
 
 /**
  * Component for taking user input
  */
-export const Input = React.forwardRef(({
+export const MultilLineInput = React.forwardRef(({
     children = undefined,
     className,
     register,
@@ -23,15 +23,15 @@ export const Input = React.forwardRef(({
     error,
     thoundsandSeparator = false,
     ...props
-}: InputProps, ref: React.ForwardedRef<HTMLInputElement>) => {
+}: MultilLineInputProps, ref: React.ForwardedRef<HTMLTextAreaElement>) => {
     return (
         <div className={`flex flex-row w-full gap-4 ${centerLabel ? 'items-center' : ''}`}>
             {children}
             {label && <label className='basis-1/5'>{label}</label>}
             <div className="flex flex-col w-full gap-2">
-                <input
+                <textarea
                     className={`px-4 py-2 outline-none border placeholder:text-caption border-border-color rounded-md ${error ? 'border-error-color' : 'border-border-color'} ${className}`}
-                    ref={ref as React.ForwardedRef<HTMLInputElement>}
+                    ref={ref}
                     {...props}
                     {...register}
                 />

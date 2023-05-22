@@ -44,7 +44,7 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
                     <Filter />
                 </div>
 
-                <div className="grid h-full gap-4 overflow-auto md:grid-cols-1 lg:grid-cols-2 sm:grid-cols-1">
+                <div className="grid max-h-full gap-4 overflow-auto md:grid-cols-1 lg:grid-cols-2 sm:grid-cols-1">
                     {(data?.content ?? []).map((item) => <ProductItem
                         navigateOnClick={false}
                         item={item}
@@ -72,7 +72,7 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
             <div className="flex flex-col flex-1 gap-8">
                 <p className="text-lg font-semibold">Product list</p>
-                <div className="h-full max-h-[90%] rounded-lg outline outline-border-color">
+                <div className="h-full max-h-[90%] rounded-lg outline outline-1 outline-border-color">
                     {
                         chosenProducts.length !== 0
                             ?
