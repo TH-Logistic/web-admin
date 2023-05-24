@@ -32,7 +32,7 @@ const CreateOrderPageDetail = (props: CreateOrderPageDetailProps) => {
                         register('deliverTime', {
                             valueAsNumber: true, required: {
                                 value: true,
-                                message: 'Deliver time can not be null!'
+                                message: 'Deliver time can not be empty!'
                             }
                         })
                     }
