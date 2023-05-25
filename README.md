@@ -1,4 +1,4 @@
-# How to deploy app
+# How to deploy app on server
 ```
 docker build -t registry.thinhlh.com/web_admin:latest . # Build image
 docker push registry.thinhlh.com/web_admin:latest
