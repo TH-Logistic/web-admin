@@ -1,18 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { Input } from "../../../components/Input/Input"
 import { MultilLineInput } from "../../../components/Input/MultilineInput"
+import { CreateOrderPageDetailInput } from "./CreateOrderPageTypes"
 
 const FormTitle = (props: React.PropsWithChildren) => {
     return <p className="text-lg font-bold">{props.children}</p>
-}
-
-type CreateOrderPageDetailInput = {
-    deliverTime: number;
-    pickUpContactName: string;
-    pickUpContactNumber: string;
-    unloadContactName: string;
-    unloadContactNumber: string;
-    note: string;
 }
 
 type CreateOrderPageDetailProps = {}

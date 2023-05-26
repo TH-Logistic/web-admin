@@ -26,7 +26,7 @@ export default function ProductItem({
                 }
             }
             } >
-                <p className="underline decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
+                <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
                 <div className="flex justify-between my-2">
                     <p className="text-lg">{item.name}</p>
                     <p className="text-lg text-end">{item.basePrice}</p>

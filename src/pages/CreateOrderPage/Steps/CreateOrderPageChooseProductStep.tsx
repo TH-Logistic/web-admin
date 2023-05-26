@@ -3,22 +3,24 @@ import Filter from "../../../components/Filter/Filter"
 import Search from "../../../components/Search/Search"
 import { getProducts } from "../../../services/product/product-service";
 import ProductItem from "../../ProductPage/Product/ProductItem";
-import { useEffect, useState } from "react";
-import Product from "../../../entities/product";
+import { useState } from "react";
 import { Input } from "../../../components/Input/Input";
 import Lottie from "lottie-react";
 import LottieEmptyState from "../../../assets/lottie_empty_state.json";
 import { SubmitHandler, UseFieldArrayReturn, UseFormReturn, useFieldArray, useForm } from "react-hook-form";
+import { ChosenProduct, ChosenProductsInput } from "./CreateOrderPageTypes";
 
-type CreateOrderPageChooseProductStepProps = {}
+type CreateOrderPageChooseProductStepProps = {
+    onSubmit: SubmitHandler<ChosenProductsInput>,
+    formHook: UseFormReturn<ChosenProductsInput>;
 
-type ChosenProduct = Product & { weight: number }
-
-type ChosenProductFormInput = {
-    products: ChosenProduct[]
 }
 
-const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductStepProps) => {
+
+const CreateOrderPageChooseProductStep = ({
+    formHook,
+    onSubmit
+}: CreateOrderPageChooseProductStepProps) => {
     const { data } = useQuery({
         queryKey: ['getProducts'],
         queryFn: async () => await getProducts({}),
@@ -26,15 +28,10 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
     const [chosenProducts, setChosenProducts] = useState<ChosenProduct[]>([]);
 
-    const formHook = useForm<ChosenProductFormInput>();
     const fieldArray = useFieldArray({
         name: "products",
         control: formHook.control,
     });
-
-    const onSubmit: SubmitHandler<ChosenProductFormInput> = (data) => {
-
-    }
 
     return (
         <div className="flex flex-col-reverse h-full gap-8 md:flex-row">
@@ -94,8 +91,8 @@ const CreateOrderPageChooseProductStep = (props: CreateOrderPageChooseProductSte
 
 type ChosenProductsProps = {
     products: ChosenProduct[],
-    formHook: UseFormReturn<ChosenProductFormInput>,
-    fieldArray: UseFieldArrayReturn<ChosenProductFormInput>
+    formHook: UseFormReturn<ChosenProductsInput>,
+    fieldArray: UseFieldArrayReturn<ChosenProductsInput>
 }
 
 const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps) => {
@@ -116,8 +113,8 @@ const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps)
             </thead>
             <tbody className="before:block before:h-4 before:content-['']">
                 {
-                    fieldArray.fields.map((field, index) =>
-                        <tr key={field.id} className="">
+                    fieldArray.fields.map((field, index) => {
+                        return <tr key={field.id} className="">
                             <td className="pt-2 text-center">{products[index].name}</td>
                             <td className="pt-2 text-center">{products[index].basePrice}</td>
                             <td className="flex flex-row justify-center pt-2">
@@ -126,12 +123,16 @@ const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps)
                                         placeholder="Weight"
                                         type="number"
                                         error={formHook.formState.errors.products?.[index]?.weight}
-                                        register={formHook.register(`products.${index}.weight` as const)}
+                                        register={formHook.register(`products.${index}.weight` as const, {
+                                            min: 0
+                                        })}
                                         thoundsandSeparator
                                         className="w-20 text-sm text-center placeholder:text-[12px]" />
                                 </div>
                             </td>
                         </tr>
+                    }
+
                     )
                 }
             </tbody>

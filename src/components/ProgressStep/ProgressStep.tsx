@@ -15,12 +15,12 @@ type ProgressStepProps = {
 const ProgressStep = ({ steps }: ProgressStepProps) => {
     return (
         <div className="flex flex-col gap-2">
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center">
                 {
                     steps.map(
                         (step, index) =>
                             <>
-                                <div key={index}>
+                                <div key={index} className=''>
                                     <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step.completed === undefined ? "bg-border-color" : "bg-button-color"}`} >
                                         {step.completed === true && <img src={CheckIcon} alt='Check' className='w-4 h-4' />}
                                     </div>

@@ -1,22 +1,39 @@
 import { useEffect, useState } from "react";
-import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import { ProgressStep, StepProps } from "../../components/ProgressStep/ProgressStep";
 import CreatePage from "../common/CreatePage/CreatePage";
-import Search from "../../components/Search/Search";
-import Filter from "../../components/Filter/Filter";
-import { Typography } from "../../components/Typography/Typography";
 import { CreateOrderPageChooseProductStep } from "./Steps/CreateOrderPageChooseProductStep";
 import { CreateOrderPageChooseRouteStep } from "./Steps/CreateOrderPageChooseRouteStep";
 import { CreateOrderPageDetail } from "./Steps/CreateOrderPageDetail";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { createOrderSlice } from "../../stores/create-order-state";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ChosenProductsInput, CreateOrderInputs } from "./Steps/CreateOrderPageTypes";
 
 type CreateOrderPageProps = {};
 
 const CreateOrderPage = (props: CreateOrderPageProps) => {
+    const navigate = useNavigate();
+
+    const [createOrderData, setCreateOrderData] = useState<CreateOrderInputs>();
+
+    const choseProductsForm = useForm<ChosenProductsInput>();
+    const onChoseProductSubmit: SubmitHandler<ChosenProductsInput> = (data) => {
+        setCreateOrderData({
+            ...createOrderData,
+            products: data.products,
+        })
+        choseProductsForm.reset()
+    }
+
     const [steps, setSteps] = useState<(StepProps & { element: JSX.Element })[]>([
         {
             label: 'Chose a product',
             completed: undefined,
-            element: <CreateOrderPageChooseProductStep />
+            element: <CreateOrderPageChooseProductStep
+                formHook={choseProductsForm}
+                onSubmit={onChoseProductSubmit}
+            />
         },
         {
             label: 'Chose a route',
@@ -33,7 +50,6 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
     const [currentStep, setCurrentStep] = useState(0);
 
     useEffect(() => {
-        console.log(currentStep)
         const newSteps = steps.map((step, index) => ({
             ...step,
             completed:
@@ -61,13 +77,33 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                 }
                 shouldNavigateBackWhenSecondaryClicked={currentStep === 0}
                 onSecondaryButtonClicked={() => {
-                    if (currentStep === 0) return;
-                    setCurrentStep(currentStep - 1)
+                    if (currentStep === 0) {
+                        navigate(-1);
+                    } else {
+                        setCurrentStep(currentStep - 1)
+                    }
                 }}
                 onPrimaryButtonClicked={() => {
-                    if (currentStep !== steps.length - 1) {
-                        setCurrentStep(currentStep + 1);
+                    switch (currentStep) {
+                        case 0: {
+                            choseProductsForm.handleSubmit(onChoseProductSubmit)()
+                            setCurrentStep(currentStep + 1);
+                            break;
+                        }
+                        case 1: {
+                            setCurrentStep(currentStep + 1);
+                            break;
+                        }
+                        case 2: {
+                            setCurrentStep(currentStep + 1);
+                            return;
+                        }
+                        default: {
+                            return;
+                        }
                     }
+
+                    setCurrentStep(currentStep + 1);
                 }}
             >
                 <div className="max-h-[60vh] h-[60vh]">
