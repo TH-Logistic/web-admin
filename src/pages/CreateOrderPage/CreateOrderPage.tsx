@@ -110,9 +110,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                 }
                 shouldNavigateBackWhenSecondaryClicked={currentStep === 0}
                 onSecondaryButtonClicked={() => {
-                    if (currentStep === 0) {
-                        navigate(ROUTES.ORDERS);
-                    } else {
+                    if (currentStep !== 0) {
                         setCurrentStep(currentStep - 1)
                     }
                 }}
