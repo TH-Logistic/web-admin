@@ -38,6 +38,16 @@ module.exports = {
           'resigned': '#6100C7',
           'deleted': '#2F2F2F'
         },
+        "order-status": {
+          'open': '#105CCD',
+          'assigned': '#105CCD',
+          'job_started': '#BA8500',
+          'pick_up_arrived': '#BA8500',
+          'pick_up_done': '#BA8500',
+          'delivery_arrived': '#6100C7',
+          'discharged': '#6100C7',
+          'completed': '#056803',
+        },
         "provider-type": {
           "1": "#EDCB3C",
           "2": "#139487",
@@ -59,7 +69,17 @@ module.exports = {
           'suspended': '#F0E4C6',
           'resigned': '#DEC9F4',
           'deleted': '#AAAAAA'
-        }
+        },
+        "order-status": {
+          'open': '#C6DCF0',
+          'assigned': '#C6DCF0',
+          'job_started': '#F0E4C6',
+          'pick_up_arrived': '#F0E4C6',
+          'pick_up_done': '#F0E4C6',
+          'delivery_arrived': '#DEC9F4',
+          'discharged': '#DEC9F4',
+          'completed': '#C7F0C6',
+        },
       },
       fontWeight: {
         medium: 800,
