@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import OrganizationItem from "./OrganizationItem/OrganizationItem";
 import { useQuery } from "@tanstack/react-query";
 import { getOrganizations } from "../../services/organization/organization-service";
+import { ROUTES } from "../../utils/routes";
 
 export default function OrganizationPage() {
     const navigate = useNavigate();

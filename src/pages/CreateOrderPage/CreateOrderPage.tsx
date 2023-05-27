@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { ProgressStep, StepProps } from "../../components/ProgressStep/ProgressStep";
 import CreatePage from "../common/CreatePage/CreatePage";
 import { CreateOrderPageChooseProductStep } from "./Steps/CreateOrderPageChooseProductStep";
@@ -13,12 +13,21 @@ import { useDialog } from "../../hooks/use-dialog";
 import { Route } from "../../entities/route";
 import { ROUTES } from "../../utils/routes";
 
+const enum CreateOrderDataActions {
+    CHOOSE_PRODUCTS = "CHOOSE_PRODUCT",
+    CHOOSE_ROUTE = "CHOOSE_ROUTE",
+    SUBMIT_DETAIL = "SUBMIT_DETAIL"
+}
+
+
 type CreateOrderPageProps = {};
 
 const CreateOrderPage = (props: CreateOrderPageProps) => {
     const navigate = useNavigate();
 
     const [createOrderData, setCreateOrderData] = useState<CreateOrderInputs>();
+
+    // const [createOrderData, dispatch] = useReducer<typeof createOrderDataReducer>(createOrderDataReducer);
     const { showDialog, hideDialog, showInfoDialog } = useDialog();
 
     const choseProductsForm = useForm<ChosenProductsInput>();
@@ -115,6 +124,10 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                     }
                 }}
                 onPrimaryButtonClicked={() => {
+                    // if (currentStep !== steps.length - 1) {
+                    //     setCurrentStep(currentStep + 1)
+                    // }
+
                     switch (currentStep) {
                         case 0: {
                             choseProductsForm.handleSubmit(onChoseProductSubmit)()

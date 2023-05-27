@@ -3,7 +3,7 @@ import Filter from "../../../components/Filter/Filter"
 import Search from "../../../components/Search/Search"
 import * as RouteService from "../../../services/route/route-service";
 import RouteItem from "../../RoutePage/RouteItem/RouteItem";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Route } from "../../../entities/route";
 
 type CreateOrderPageChooseRouteStepProps = {
@@ -20,9 +20,15 @@ const CreateOrderPageChooseRouteStep = ({
 
     const [chosenRoute, setChosenRoute] = useState<Route | undefined>(undefined);
 
+    const notInitialRender = useRef(false)
     useEffect(() => {
-        onChooseRoute(chosenRoute);
+        if (notInitialRender.current) {
+            onChooseRoute(chosenRoute);
+        } else {
+            notInitialRender.current = true;
+        }
     }, [chosenRoute, onChooseRoute]);
+
     return (
         <div className="flex flex-col h-full max-h-full gap-8">
             <div className="flex flex-row w-1/2 gap-4">

@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import ProductItem from "./Product/ProductItem";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../services/product/product-service";
+import { ROUTES } from "../../utils/routes";
 
 export default function ProductPage() {
     const navigate = useNavigate();
