@@ -3,6 +3,7 @@ export const enum ROUTES {
     FORGOT_PASSWORD = "/auth/forgot-password",
     ROOT = "/",
     ORDERS = "/orders",
+    ORDER_DETAIL = "/orders/:orderId",
     CREATE_ORDER = "/orders/create",
     PRODUCTS = "/products",
     CREATE_PRODUCT = "/products/create",

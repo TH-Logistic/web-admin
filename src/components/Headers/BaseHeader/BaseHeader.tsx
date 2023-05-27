@@ -1,7 +1,7 @@
 import Divider from '../../Divider/Divider';
 
 type ContentHeaderProps = React.PropsWithChildren<{
-    centerItems: boolean;
+    centerItems?: boolean;
 }>
 
 /**

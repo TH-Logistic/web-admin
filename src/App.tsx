@@ -34,6 +34,7 @@ import { GarageDetailPage } from './pages/GarageDetailPage/GarageDetailPage';
 import { elements } from 'chart.js';
 import { CreateOrderPage } from './pages/CreateOrderPage/CreateOrderPage';
 import { ROUTES } from './utils/routes';
+import { OrderDetailPage } from './pages/OrderDetailPage/OrderDetailPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -62,6 +63,10 @@ function App() {
         {
           path: ROUTES.ORDERS,
           element: <OrderPage />
+        },
+        {
+          path: ROUTES.ORDER_DETAIL,
+          element: <OrderDetailPage />
         },
         {
           path: ROUTES.CREATE_ORDER,
