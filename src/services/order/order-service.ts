@@ -9,7 +9,7 @@ const getOrders = async ({
     page = 0,
     size = 50,
     minOrderFee = 0,
-    maxOrderFee = 10e7,
+    maxOrderFee = 10e9,
     statusList,
     keyword,
 }: QueryParams<GetOrdersParams>): Promise<Pagination<Order>> => {

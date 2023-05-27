@@ -7,7 +7,7 @@ type OrderItemProps = Order;
 const OrderItem = ({ id, licensePlate, driverInCharge, createdAt, pickUpAt, unloadAt, orderFee, status }: OrderItemProps) => {
     return (
         <tr key={id} className="text-center">
-            <td className="pr-4 text-sm underline text-start text-primary-table-color">{id}</td>
+            <td className="pt-2 pr-4 text-sm underline text-start text-primary-table-color">{id}</td>
             < td className="">{licensePlate}</td>
             <td className="">{driverInCharge}</td>
             <td>

@@ -5,17 +5,6 @@ import * as OrderService from "../../../services/order/order-service";
 import { OrderItem } from "./OrderItem";
 
 export default function Orders() {
-    const headers: string[] = [
-        'Order number',
-        'Driver in charge',
-        'Truck license plate',
-        'Product type',
-        'Date created',
-        'Pickup at',
-        'Unload at',
-        'Order fee',
-        'Status'
-    ]
     const { data, error, isLoading } = useQuery({
         queryKey: ['getOrders'],
         queryFn: () => OrderService.getOrders({}),
@@ -28,11 +17,11 @@ export default function Orders() {
                         <th className="pr-8 font-semibold text-start whitespace-nowrap text-primary-table-color">
                             Order number
                         </th>
-                        <th className="px-8 font-semibold text-start whitespace-nowrap text-primary-table-color">
-                            Driver in charge
-                        </th>
                         <th className="px-8 font-semibold text-center whitespace-nowrap text-primary-table-color">
                             Truck license plate
+                        </th>
+                        <th className="px-8 font-semibold text-start whitespace-nowrap text-primary-table-color">
+                            Driver in charge
                         </th>
                         <th className="px-8 font-semibold text-center whitespace-nowrap text-primary-table-color">
                             Product type

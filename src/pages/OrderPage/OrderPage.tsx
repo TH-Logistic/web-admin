@@ -19,7 +19,7 @@ export default function OrderPage() {
                 <p className="text-xl font-bold">Orders</p>
             </div>
 
-            <div className="h-[50vh]">
+            <div className="h-[60vh]">
                 <Orders />
             </div>
         </div>
