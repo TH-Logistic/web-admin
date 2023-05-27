@@ -3,6 +3,7 @@ import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import { Garage } from "../../entities/garage";
 import OrderView from "../common/Orders/OrderView";
 import FemaleIcon from "../../assets/female.svg";
+import { ROUTES } from "../../utils/routes";
 
 type GarageDetailPageProps = {}
 const GarageDetailPage = (props: GarageDetailPageProps) => {
@@ -13,7 +14,7 @@ const GarageDetailPage = (props: GarageDetailPageProps) => {
     const garage = state as Garage;
 
     if (garage == null) {
-        return <Navigate to='/locations/garage' />
+        return <Navigate to={ROUTES.GARAGE} />
     }
 
     return (

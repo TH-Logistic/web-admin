@@ -10,7 +10,7 @@ export default function CreateHeader({ header, children }: CreateHeaderProps) {
     const navigate = useNavigate();
 
     return (
-        <BaseHeader>
+        <BaseHeader centerItems={true}>
             <img src={CloseIcon} alt="close" className='w-4 mt-2 mr-4' onClick={() => navigate(-1)} />
             <div className='w-full'>
                 <p className='text-lg font-semibold '>{header}</p>

@@ -19,7 +19,7 @@ export default function ProductPage() {
                 <Search placeholder="Search by product name, product types,..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/products/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.CREATE_PRODUCT)} />
             </div>
             <h1 className="my-8 text-xl font-medium">Products</h1>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1">

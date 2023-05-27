@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form"
+import { SubmitHandler, UseFormReturn } from "react-hook-form"
 import { Input } from "../../../components/Input/Input"
 import { MultilLineInput } from "../../../components/Input/MultilineInput"
 import { CreateOrderPageDetailInput } from "./CreateOrderPageTypes"
@@ -7,12 +7,19 @@ const FormTitle = (props: React.PropsWithChildren) => {
     return <p className="text-lg font-bold">{props.children}</p>
 }
 
-type CreateOrderPageDetailProps = {}
+type CreateOrderPageDetailProps = {
+    onSubmit: SubmitHandler<CreateOrderPageDetailInput>;
+    formHook: UseFormReturn<CreateOrderPageDetailInput>;
+}
 
-const CreateOrderPageDetail = (props: CreateOrderPageDetailProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<CreateOrderPageDetailInput>()
-
-    const onSubmit: SubmitHandler<CreateOrderPageDetailInput> = (data) => { }
+const CreateOrderPageDetail = ({
+    formHook: {
+        register,
+        handleSubmit,
+        formState: { errors }
+    },
+    onSubmit
+}: CreateOrderPageDetailProps) => {
 
     return (
         <form className="flex flex-col h-full gap-8 overflow-auto" onSubmit={handleSubmit(onSubmit)} >
@@ -22,7 +29,8 @@ const CreateOrderPageDetail = (props: CreateOrderPageDetailProps) => {
                     centerLabel
                     register={
                         register('deliverTime', {
-                            valueAsNumber: true, required: {
+                            valueAsNumber: true,
+                            required: {
                                 value: true,
                                 message: 'Deliver time can not be empty!'
                             }

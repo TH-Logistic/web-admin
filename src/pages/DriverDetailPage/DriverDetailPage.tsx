@@ -2,14 +2,13 @@ import { Navigate, useLocation, useParams } from "react-router-dom"
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Divider from "../../components/Divider/Divider";
 import StaffStatusItem from "../StaffPage/StaffStatus/StaffStatus";
-import { Gender, StaffRole } from "../../entities/staff";
+import { Gender } from "../../entities/staff";
 import MaleAvatar from '../../assets/male.svg';
 import FeMaleAvatar from '../../assets/female.svg'
 import { Driver } from "../../entities/driver";
-import Orders from "../common/Orders/Orders";
 import OrderView from "../common/Orders/OrderView";
-import moment from 'moment';
 import { millesecondToString } from "../../utils/formatter";
+import { ROUTES } from "../../utils/routes";
 
 export default function DriverDetailPage() {
     const { driverId } = useParams();
@@ -17,12 +16,11 @@ export default function DriverDetailPage() {
 
     const item = state as Driver;
     if (item == null) {
-        return <Navigate to={'/drivers'} />
+        return <Navigate to={ROUTES.DRIVERS} />
     }
     return (
         <div>
             <DetailHeader header="Driver" id={item.id} />
-            <Divider />
 
             <div className="flex flex-row items-stretch gap-8 px-8 mt-8">
                 <div className="flex flex-col flex-1 gap-4">

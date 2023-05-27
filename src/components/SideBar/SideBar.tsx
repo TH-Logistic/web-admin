@@ -16,10 +16,10 @@ import LocationIcon from './../../assets/location.svg';
 import LocationChoseIcon from './../../assets/location-chose.svg';
 import OrganizationIcon from './../../assets/organization.svg';
 import OrganizationChoseIcon from './../../assets/organization-choose.svg';
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, MenuItem, Sidebar, SubMenu, menuClasses } from 'react-pro-sidebar';
+import { useLocation } from 'react-router-dom';
+import { MenuItem } from 'react-pro-sidebar';
 import useAuth from '../../hooks/use-auth';
+import { ROUTES } from '../../utils/routes';
 
 export type MenuItem = {
     name: string,
@@ -30,7 +30,6 @@ export type MenuItem = {
 }
 export default function SideBar() {
     const location = useLocation()
-    const navigate = useNavigate()
     const { removeAuth } = useAuth();
 
     const menus: {
@@ -40,33 +39,33 @@ export default function SideBar() {
             name: 'Order',
             icon: OrderIcon,
             choseIcon: OrderChoseIcon,
-            path: '/orders'
+            path: ROUTES.ORDERS
         },
         product: {
             name: 'Product',
             icon: ProductIcon,
             choseIcon: ProductChoseIcon,
-            path: '/products'
+            path: ROUTES.PRODUCTS
         },
         route: {
             name: 'Route',
             icon: RouteIcon,
             choseIcon: RouteChoseIcon,
-            path: "/routes"
+            path: ROUTES.ROUTES
         },
         location: {
             name: 'Location',
             icon: LocationIcon,
             choseIcon: LocationChoseIcon,
-            path: "/locations",
+            path: ROUTES.LOCATIONS,
             submenu: {
                 delivery: {
                     name: 'Delivery',
-                    path: '/locations/delivery',
+                    path: ROUTES.DELIVERY,
                 },
                 garage: {
                     name: 'Garage',
-                    path: '/locations/garage',
+                    path: ROUTES.GARAGE,
                 },
             }
         },
@@ -74,25 +73,25 @@ export default function SideBar() {
             name: 'Truck',
             icon: TruckIcon,
             choseIcon: TruckChoseIcon,
-            path: "/trucks",
+            path: ROUTES.TRUCKS,
         },
         orgranization: {
             name: 'Organization',
             icon: OrganizationIcon,
             choseIcon: OrganizationChoseIcon,
-            path: "/organizations"
+            path: ROUTES.ORGANIZATIONS
         },
         driver: {
             name: 'Driver',
             icon: DriverIcon,
             choseIcon: DriverChoseIcon,
-            path: "/drivers",
+            path: ROUTES.DRIVERS,
         },
         staff: {
             name: 'Staff',
             icon: StaffIcon,
             choseIcon: StaffChoseIcon,
-            path: "/staffs"
+            path: ROUTES.STAFFS
         },
     }
 
@@ -104,13 +103,13 @@ export default function SideBar() {
                         .values(menus)
                         .map((menu) => {
                             // const indexRoute = Object.values(ROUTES.HOME.subroutes!).filter((route) => route.index === true)[0]
-                            const indexRoute = '/orders'
+                            const indexRoute = ROUTES.ORDERS
                             const isChose =
                                 // Sublocation is chose
                                 `/${location.pathname.split('/')[1]}` === menu.path ||
 
                                 // This is index route
-                                (location.pathname === '/' && menu.path === indexRoute);
+                                (location.pathname === ROUTES.ROOT && menu.path === indexRoute);
                             return (
                                 <
                                     SideBarItem
@@ -130,7 +129,7 @@ export default function SideBar() {
             <SideBarItem
                 onClick={removeAuth}
                 key='Log out'
-                path={'/auth'}
+                path={ROUTES.AUTH}
                 name='Log out'
                 isSubItem={false}
                 icon={LogoutIcon}

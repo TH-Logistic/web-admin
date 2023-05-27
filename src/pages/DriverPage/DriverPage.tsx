@@ -19,7 +19,7 @@ export default function DriverPage() {
                 <Search placeholder="Search by staff name, ..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/drivers/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.CREATE_DRIVER)} />
             </div>
             <h1 className="my-8 text-xl font-medium">Driver</h1>
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

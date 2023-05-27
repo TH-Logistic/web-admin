@@ -18,7 +18,7 @@ export default function OrganizationPage() {
                 <Search placeholder="Search by organization name, contact, ..." />
                 <Filter />
                 <div className="flex-auto" />
-                <ActionButton title="+ Create" onClick={() => navigate('/organizations/create')} />
+                <ActionButton title="+ Create" onClick={() => navigate(ROUTES.CREATE_ORGANIZATION)} />
             </div>
             <h1 className="my-8 text-xl font-medium">Organization</h1>
             <div className="grid gap-4 lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-2">

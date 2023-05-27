@@ -3,18 +3,26 @@ import Filter from "../../../components/Filter/Filter"
 import Search from "../../../components/Search/Search"
 import * as RouteService from "../../../services/route/route-service";
 import RouteItem from "../../RoutePage/RouteItem/RouteItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route } from "../../../entities/route";
 
-type CreateOrderPageChooseRouteStepProps = {}
+type CreateOrderPageChooseRouteStepProps = {
+    onChooseRoute: (route?: Route) => void;
+}
 
-const CreateOrderPageChooseRouteStep = (props: CreateOrderPageChooseRouteStepProps) => {
+const CreateOrderPageChooseRouteStep = ({
+    onChooseRoute
+}: CreateOrderPageChooseRouteStepProps) => {
     const { data, error, isLoading } = useQuery({
         queryKey: ['getRoutes'],
         queryFn: async () => await RouteService.getRoutes({}),
     });
 
     const [chosenRoute, setChosenRoute] = useState<Route | undefined>(undefined);
+
+    useEffect(() => {
+        onChooseRoute(chosenRoute);
+    }, [chosenRoute, onChooseRoute]);
     return (
         <div className="flex flex-col h-full max-h-full gap-8">
             <div className="flex flex-row w-1/2 gap-4">
@@ -29,7 +37,11 @@ const CreateOrderPageChooseRouteStep = (props: CreateOrderPageChooseRouteStepPro
                         item={item}
                         chosen={chosenRoute?.id === item.id}
                         onClick={() => {
-                            setChosenRoute(item)
+                            if (chosenRoute?.id === item.id) {
+                                setChosenRoute(undefined);
+                            } else {
+                                setChosenRoute(item)
+                            }
                         }}
                     />
                 </div>

@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
 import { millesecondToHHMM } from '../../utils/formatter';
 import { useEffect, useState } from 'react';
+import { ROUTES } from '../../utils/routes';
 export default function BaseLayout() {
     const { loggedIn } = useAuth();
     const [time, setTime] = useState(Date.now());
@@ -12,9 +13,9 @@ export default function BaseLayout() {
         setInterval(() => setTime(Date.now()))
     }, [])
 
-    // if (!loggedIn) {
-    //     return (<Navigate to={'/auth'} />)
-    // }
+    if (!loggedIn) {
+        return (<Navigate to={ROUTES.AUTH} />)
+    }
 
     return (
         <div className="flex flex-col h-screen max-h-screen overflow-hidden">

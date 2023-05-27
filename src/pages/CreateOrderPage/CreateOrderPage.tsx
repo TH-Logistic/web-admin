@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { createOrderSlice } from "../../stores/create-order-state";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ChosenProductsInput, CreateOrderInputs } from "./Steps/CreateOrderPageTypes";
+import { ChosenProductsInput, CreateOrderInputs, CreateOrderPageDetailInput } from "./Steps/CreateOrderPageTypes";
+import { useDialog } from "../../hooks/use-dialog";
+import { Route } from "../../entities/route";
+import { ROUTES } from "../../utils/routes";
 
 type CreateOrderPageProps = {};
 
@@ -16,14 +19,39 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
     const navigate = useNavigate();
 
     const [createOrderData, setCreateOrderData] = useState<CreateOrderInputs>();
+    const { showDialog, hideDialog, showInfoDialog } = useDialog();
 
     const choseProductsForm = useForm<ChosenProductsInput>();
     const onChoseProductSubmit: SubmitHandler<ChosenProductsInput> = (data) => {
+        if (data.products.length === 0) {
+            showInfoDialog({
+                success: false,
+                message: "Must choose at least 1 product!"
+            })
+        } else {
+            setCreateOrderData({
+                ...createOrderData,
+                products: data.products,
+            })
+            choseProductsForm.reset()
+
+            setCurrentStep(currentStep + 1);
+        }
+    }
+
+    const onChooseRoute = (route?: Route) => {
         setCreateOrderData({
             ...createOrderData,
-            products: data.products,
+            route: route,
+        });
+    }
+
+    const createOrderDetailForm = useForm<CreateOrderPageDetailInput>();
+
+    const onCreateOrderDetaiSubmit: SubmitHandler<CreateOrderPageDetailInput> = (data) => {
+        setCreateOrderData({
+            ...data
         })
-        choseProductsForm.reset()
     }
 
     const [steps, setSteps] = useState<(StepProps & { element: JSX.Element })[]>([
@@ -38,12 +66,17 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
         {
             label: 'Chose a route',
             completed: undefined,
-            element: <CreateOrderPageChooseRouteStep />
+            element: <CreateOrderPageChooseRouteStep
+                onChooseRoute={onChooseRoute}
+            />
         },
         {
             label: 'Complete an order',
             completed: undefined,
-            element: <CreateOrderPageDetail />
+            element: <CreateOrderPageDetail
+                formHook={createOrderDetailForm}
+                onSubmit={onCreateOrderDetaiSubmit}
+            />
         },
     ]);
 
@@ -78,7 +111,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                 shouldNavigateBackWhenSecondaryClicked={currentStep === 0}
                 onSecondaryButtonClicked={() => {
                     if (currentStep === 0) {
-                        navigate(-1);
+                        navigate(ROUTES.ORDERS);
                     } else {
                         setCurrentStep(currentStep - 1)
                     }
@@ -87,23 +120,28 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                     switch (currentStep) {
                         case 0: {
                             choseProductsForm.handleSubmit(onChoseProductSubmit)()
-                            setCurrentStep(currentStep + 1);
                             break;
                         }
                         case 1: {
-                            setCurrentStep(currentStep + 1);
+                            if (createOrderData?.route) {
+                                setCurrentStep(currentStep + 1);
+                            } else {
+                                showInfoDialog({
+                                    success: false,
+                                    message: "Must choose a route!"
+                                })
+                            }
                             break;
                         }
                         case 2: {
-                            setCurrentStep(currentStep + 1);
+                            createOrderDetailForm.handleSubmit(onCreateOrderDetaiSubmit)()
+                            // setCurrentStep(currentStep + 1);
                             return;
                         }
                         default: {
                             return;
                         }
                     }
-
-                    setCurrentStep(currentStep + 1);
                 }}
             >
                 <div className="max-h-[60vh] h-[60vh]">

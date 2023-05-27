@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import GarageItem from "./GarageItem/GarageItem";
 import { useQuery } from "@tanstack/react-query";
 import { getGarages } from "../../services/garage/garage-service";
+import { ROUTES } from "../../utils/routes";
 
 export default function GaragePage() {
 
@@ -21,7 +22,7 @@ export default function GaragePage() {
         <Search placeholder="Search by garage name, address,..." />
         <Filter />
         <div className="flex-auto" />
-        <ActionButton title="+ Create" onClick={() => navigate('/locations/garage/create')} />
+        <ActionButton title="+ Create" onClick={() => navigate(ROUTES.CREATE_GARAGE)} />
       </div>
       <h1 className="my-8 text-xl font-medium">Garage</h1>
       <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">

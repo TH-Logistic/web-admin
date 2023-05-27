@@ -6,6 +6,7 @@ import { Gender, Staff, StaffRole } from "../../entities/staff";
 import MaleAvatar from '../../assets/male.svg';
 import FeMaleAvatar from '../../assets/female.svg'
 import { millesecondToString } from "../../utils/formatter";
+import { ROUTES } from "../../utils/routes";
 
 export default function StaffDetailPage() {
     const { staffId } = useParams();
@@ -14,7 +15,7 @@ export default function StaffDetailPage() {
     const item = state as Staff;
 
     if (item === null) {
-        return <Navigate to={'/staffs'} />
+        return <Navigate to={ROUTES.STAFFS} />
     }
     return (
         <div>

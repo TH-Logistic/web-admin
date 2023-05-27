@@ -4,6 +4,7 @@ import { Garage } from "../../entities/garage";
 import OrderView from "../common/Orders/OrderView";
 import FemaleIcon from "../../assets/female.svg";
 import { Location } from "../../entities/location";
+import { ROUTES } from "../../utils/routes";
 
 type DeliveryDetailPageProps = {}
 const DeliveryDetailPage = (props: DeliveryDetailPageProps) => {
@@ -14,7 +15,7 @@ const DeliveryDetailPage = (props: DeliveryDetailPageProps) => {
     const delivery = state as Location;
 
     if (delivery == null) {
-        return <Navigate to='/locations/delivery' />
+        return <Navigate to={ROUTES.DELIVERY} />
     }
 
     return (

@@ -73,7 +73,7 @@ const CreateOrderPageChooseProductStep = ({
                     {
                         chosenProducts.length !== 0
                             ?
-                            <form onSubmit={formHook.handleSubmit(onSubmit)} className="">
+                            <form onSubmit={formHook.handleSubmit(onSubmit)}>
                                 <ChosenProducts
                                     formHook={formHook}
                                     fieldArray={fieldArray}

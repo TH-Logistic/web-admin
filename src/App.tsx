@@ -33,39 +33,13 @@ import { DeliveryDetailPage } from './pages/DeliveryDetailPage/DeliveryDetailPag
 import { GarageDetailPage } from './pages/GarageDetailPage/GarageDetailPage';
 import { elements } from 'chart.js';
 import { CreateOrderPage } from './pages/CreateOrderPage/CreateOrderPage';
+import { ROUTES } from './utils/routes';
 
 function App() {
-  // const mapSubRouteToRoute = (route: { [key: string]: Route } | undefined): any => {
-  //   if (!route || route?.subroutes) return undefined
-  //   return Object.entries(route).map(subroute => ({
-  //     element: subroute[1].element,
-  //     path: subroute[1].index === true ? undefined : subroute[1].path,
-  //     index: subroute[1].index,
-  //     subroute: mapSubRouteToRoute(subroute[1].subroutes)
-  //   }))
-  // }
-
-
-  // const router = createBrowserRouter(
-  //   Object
-  //     .keys(ROUTES)
-  //     .map(
-  //       (key) => (
-  //         {
-  //           element: ROUTES[key as BaseRoutes].element,
-  //           path: ROUTES[key as BaseRoutes].path,
-  //           index: ROUTES[key as BaseRoutes].index,
-  //           children: mapSubRouteToRoute(ROUTES[key as BaseRoutes].subroutes),
-  //           errorElement: <ErrorPage />
-  //         }
-  //       )
-  //     )
-  // );
-
   const router = createBrowserRouter([
     {
       element: <AuthLayout />,
-      path: '/auth',
+      path: ROUTES.AUTH,
       children: [
         {
           element: <AuthPage />,
@@ -73,115 +47,115 @@ function App() {
         },
         {
           element: <ForgotPasswordPage />,
-          path: '/auth/forgot-password'
+          path: ROUTES.FORGOT_PASSWORD
         }
       ]
     },
     {
       element: <BaseLayout />,
-      path: '/',
+      path: ROUTES.ROOT,
       children: [
         {
           index: true,
           element: <OrderPage />
         },
         {
-          path: '/orders',
+          path: ROUTES.ORDERS,
           element: <OrderPage />
         },
         {
-          path: '/orders/create',
+          path: ROUTES.CREATE_ORDER,
           element: <CreateOrderPage />
         },
         {
-          path: '/products',
+          path: ROUTES.PRODUCTS,
           element: <ProductPage />
         },
         {
-          path: '/products/create',
+          path: ROUTES.CREATE_PRODUCT,
           element: <CreateProductPage />,
         },
         {
-          path: '/products/update/:productId'
+          path: ROUTES.UPDATE_PRODUCT
         },
         {
-          path: '/products/:productId',
+          path: ROUTES.PRODUCT_DETAIL,
           element: <ProductDetailPage />
         },
         {
-          path: "/routes",
+          path: ROUTES.ROUTES,
           element: <RoutePage />
         },
         {
-          path: '/routes/create',
+          path: ROUTES.CREATE_ROUTE,
           element: <CreateRoutePage />
         },
         {
-          path: "/locations",
+          path: ROUTES.LOCATIONS,
           element: <LocationPage />,
         },
         {
-          path: '/locations/delivery',
+          path: ROUTES.DELIVERY,
           element: <DeliveryPage />
         },
         {
-          path: "/locations/delivery/create",
+          path: ROUTES.CREATE_DELIVERY,
           element: <CreateLocationPage />,
         },
         {
-          path: '/locations/delivery/:deliveryId',
+          path: ROUTES.DELIVERY_DETAIL,
           element: <DeliveryDetailPage />
         },
         {
-          path: '/locations/garage',
+          path: ROUTES.GARAGE,
           element: <GaragePage />
         },
         {
-          path: '/locations/garage/:garageId',
+          path: ROUTES.GARAGE_DETAIL,
           element: <GarageDetailPage />
         },
         {
-          path: '/locations/garage/create',
+          path: ROUTES.CREATE_GARAGE,
           element: <CreateGaragePage />
         },
         {
-          path: "/trucks",
+          path: ROUTES.TRUCKS,
           element: <TransportationPage />
         },
         {
-          path: "/trucks/create",
+          path: ROUTES.CREATE_TRUCK,
           element: <CreateTransportationPage />,
         },
         {
-          path: "/organizations",
+          path: ROUTES.ORGANIZATIONS,
           element: <OrganizationPage />
         },
         {
-          path: "/organizations/create",
+          path: ROUTES.CREATE_ORGANIZATION,
           element: <CreateOrganizationPage />
         },
         {
-          path: "/drivers",
+          path: ROUTES.DRIVERS,
           element: <DriverPage />
         },
         {
-          path: "/drivers/create",
+          path: ROUTES.CREATE_DRIVER,
           element: <CreateDriverPage />
         },
         {
-          path: '/drivers/:driverId',
+          path: ROUTES.DRIVER_DETAIL,
           element: <DriverDetailPage />
         },
         {
-          path: "/staffs",
+          path: ROUTES.STAFFS,
           element: <StaffPage />
         },
         {
-          path: "/staffs/create",
+          path: ROUTES.CREATE_STAFF,
           element: <CreateStaffPage />
         },
         {
-          path: '/staffs/:staffId',
+          path: ROUTES.STAFF_DETAIL,
           element: <StaffDetailPage />
         }
       ]

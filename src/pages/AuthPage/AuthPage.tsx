@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import * as AuthService from '../../services/auth/auth-service';
 import { useDialog } from "../../hooks/use-dialog";
 import Patterns from "../../utils/patterns";
+import { ROUTES } from "../../utils/routes";
 
 type AuthInputs = {
     phoneNumber: string;
@@ -31,7 +32,7 @@ export default function AuthPage() {
         }, {
             onSuccess: () => {
                 hideDialog()
-                navigate('/')
+                navigate(ROUTES.ROOT)
             },
             onError: (err) => {
                 showInfoDialog({
