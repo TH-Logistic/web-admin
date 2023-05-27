@@ -1,13 +1,13 @@
 import Product from "../../../entities/product"
 import { Route } from "../../../entities/route"
 
-export type ChosenProduct = Product & { weight: number }
+export type CreateOrderChosenProduct = Product & { weight: number }
 
-export type ChosenProductsInput = {
-    products: ChosenProduct[]
+export type CreateOrderChosenProductsInput = {
+    products: CreateOrderChosenProduct[]
 }
 
-export type CreateOrderPageDetailInput = {
+export type CreateOrderDetailInput = {
     deliverTime: number;
     pickUpContactName: string;
     pickUpContactNumber: string;
@@ -16,4 +16,4 @@ export type CreateOrderPageDetailInput = {
     note: string;
 }
 
-export type CreateOrderInputs = Partial<ChosenProductsInput & { route: Route } & CreateOrderPageDetailInput>
+export type CreateOrderInputs = Partial<CreateOrderChosenProductsInput & { route: Route } & CreateOrderDetailInput>

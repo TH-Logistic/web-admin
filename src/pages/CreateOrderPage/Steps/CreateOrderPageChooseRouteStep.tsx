@@ -36,21 +36,23 @@ const CreateOrderPageChooseRouteStep = ({
                 <Filter />
             </div>
 
-            <div className="grid gap-4 overflow-auto lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3">
-                {data?.content.map(item => <div className="scale-x-95">
-                    <RouteItem
+            <div className="grid gap-4 overflow-auto lg:grid-cols-3 sm:grid-cols-2 md:grid-cols-2">
+                {data?.content.map(item =>
+                    <div
                         key={item.id}
-                        item={item}
-                        chosen={chosenRoute?.id === item.id}
-                        onClick={() => {
-                            if (chosenRoute?.id === item.id) {
-                                setChosenRoute(undefined);
-                            } else {
-                                setChosenRoute(item)
-                            }
-                        }}
-                    />
-                </div>
+                        className="scale-x-95">
+                        <RouteItem
+                            item={item}
+                            chosen={chosenRoute?.id === item.id}
+                            onClick={() => {
+                                if (chosenRoute?.id === item.id) {
+                                    setChosenRoute(undefined);
+                                } else {
+                                    setChosenRoute(item)
+                                }
+                            }}
+                        />
+                    </div>
                 )}
             </div>
         </div>

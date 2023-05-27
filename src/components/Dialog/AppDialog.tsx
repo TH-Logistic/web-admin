@@ -25,7 +25,7 @@ const AppDialog = ({ success = true, message = 'Message', title, onProceedClicke
                     <LottieInfoIcon success={success} />
 
                     <div className="flex flex-col items-center gap-4">
-                        <p className="font-semibold text-center">{message}</p>
+                        <p className="mx-4 font-semibold text-center">{message}</p>
                         <RadixDialog.Close asChild>
                             <ActionButton
                                 className="bg-primary-color"

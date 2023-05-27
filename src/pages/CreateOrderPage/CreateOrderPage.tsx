@@ -1,17 +1,16 @@
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { ProgressStep, StepProps } from "../../components/ProgressStep/ProgressStep";
 import CreatePage from "../common/CreatePage/CreatePage";
 import { CreateOrderPageChooseProductStep } from "./Steps/CreateOrderPageChooseProductStep";
 import { CreateOrderPageChooseRouteStep } from "./Steps/CreateOrderPageChooseRouteStep";
 import { CreateOrderPageDetail } from "./Steps/CreateOrderPageDetail";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
-import { createOrderSlice } from "../../stores/create-order-state";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ChosenProductsInput, CreateOrderInputs, CreateOrderPageDetailInput } from "./Steps/CreateOrderPageTypes";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { CreateOrderChosenProductsInput, CreateOrderInputs, CreateOrderDetailInput } from "./Steps/CreateOrderPageTypes";
 import { useDialog } from "../../hooks/use-dialog";
 import { Route } from "../../entities/route";
-import { ROUTES } from "../../utils/routes";
+import { useMutation } from "@tanstack/react-query";
+import * as OrderService from "../../services/order/order-service";
+import { useNavigate } from "react-router-dom";
 
 const enum CreateOrderDataActions {
     CHOOSE_PRODUCTS = "CHOOSE_PRODUCT",
@@ -19,58 +18,119 @@ const enum CreateOrderDataActions {
     SUBMIT_DETAIL = "SUBMIT_DETAIL"
 }
 
+type CreateOrderDataActionType = {
+    type: CreateOrderDataActions.CHOOSE_PRODUCTS;
+    payload: CreateOrderChosenProductsInput;
+} | {
+    type: CreateOrderDataActions.CHOOSE_ROUTE;
+    payload: Route | undefined;
+} | {
+    type: CreateOrderDataActions.SUBMIT_DETAIL;
+    payload: CreateOrderDetailInput
+}
 
-type CreateOrderPageProps = {};
+const createOrderDataReducer = (state: CreateOrderInputs, action: CreateOrderDataActionType): CreateOrderInputs => {
+    const { type, payload } = action;
 
-const CreateOrderPage = (props: CreateOrderPageProps) => {
+    switch (type) {
+        case CreateOrderDataActions.CHOOSE_PRODUCTS: {
+            return {
+                ...state,
+                products: payload.products
+            }
+        }
+        case CreateOrderDataActions.CHOOSE_ROUTE: {
+            return {
+                ...state,
+                route: payload
+            };
+        }
+        case CreateOrderDataActions.SUBMIT_DETAIL: {
+            return {
+                ...state,
+                ...payload,
+            };
+        }
+    }
+}
+
+
+const CreateOrderPage = () => {
     const navigate = useNavigate();
+    const { showInfoDialog, showLoadingDialog, hideDialog } = useDialog();
+    const createOrderMutation = useMutation({
+        mutationFn: OrderService.createOrder
+    })
+    const [createOrderData, dispatch] = useReducer(createOrderDataReducer, {});
 
-    const [createOrderData, setCreateOrderData] = useState<CreateOrderInputs>();
+    // Use this ref for get access to create order data value inside submit callback
+    const createOrderDataRef = useRef<CreateOrderInputs>();
+    createOrderDataRef.current = createOrderData;
 
-    // const [createOrderData, dispatch] = useReducer<typeof createOrderDataReducer>(createOrderDataReducer);
-    const { showDialog, hideDialog, showInfoDialog } = useDialog();
-
-    const choseProductsForm = useForm<ChosenProductsInput>();
-    const onChoseProductSubmit: SubmitHandler<ChosenProductsInput> = (data) => {
+    // Chose Product Form
+    const choseProductsForm = useForm<CreateOrderChosenProductsInput>();
+    const onChoseProductSubmit: SubmitHandler<CreateOrderChosenProductsInput> = (data) => {
         if (data.products.length === 0) {
             showInfoDialog({
                 success: false,
                 message: "Must choose at least 1 product!"
             })
         } else {
-            setCreateOrderData({
-                ...createOrderData,
-                products: data.products,
+            dispatch({
+                type: CreateOrderDataActions.CHOOSE_PRODUCTS,
+                payload: data
             })
+
             choseProductsForm.reset()
 
             setCurrentStep(currentStep + 1);
         }
     }
 
-    const onChooseRoute = (route?: Route) => {
-        setCreateOrderData({
-            ...createOrderData,
-            route: route,
+    // Choose Route
+    const onChooseRoute = (route?: Route) => dispatch({
+        type: CreateOrderDataActions.CHOOSE_ROUTE,
+        payload: route
+    })
+
+    // Submit Detail
+    const createOrderDetailFormRef = useRef<HTMLFormElement>(null);
+
+    const onCreateOrderDetaiSubmit: SubmitHandler<CreateOrderDetailInput> = async (data) => {
+        dispatch({ type: CreateOrderDataActions.SUBMIT_DETAIL, payload: data });
+
+        showLoadingDialog();
+        createOrderMutation.mutate({
+            productList: createOrderDataRef.current?.products?.map(value => ({ productId: value.id, weight: value.weight })) ?? [],
+            routeId: createOrderDataRef.current?.route?.id!,
+            deliveryTime: data.deliverTime,
+            pickUpContactName: data.pickUpContactName,
+            pickUpContactNo: data.pickUpContactNumber,
+            unloadContactName: data.unloadContactName,
+            unloadContactNo: data.unloadContactNumber,
+        }, {
+            onSuccess: (data) => {
+                hideDialog();
+                navigate(-1)
+            },
+            onError: (err) => {
+                showInfoDialog({
+                    success: false,
+                    message: err?.toString(),
+                })
+            }
         });
-    }
-
-    const createOrderDetailForm = useForm<CreateOrderPageDetailInput>();
-
-    const onCreateOrderDetaiSubmit: SubmitHandler<CreateOrderPageDetailInput> = (data) => {
-        setCreateOrderData({
-            ...data
-        })
     }
 
     const [steps, setSteps] = useState<(StepProps & { element: JSX.Element })[]>([
         {
             label: 'Chose a product',
             completed: undefined,
-            element: <CreateOrderPageChooseProductStep
-                formHook={choseProductsForm}
-                onSubmit={onChoseProductSubmit}
-            />
+            element:
+                <CreateOrderPageChooseProductStep
+                    formHook={choseProductsForm}
+                    onSubmit={onChoseProductSubmit}
+                />
         },
         {
             label: 'Chose a route',
@@ -82,10 +142,11 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
         {
             label: 'Complete an order',
             completed: undefined,
-            element: <CreateOrderPageDetail
-                formHook={createOrderDetailForm}
-                onSubmit={onCreateOrderDetaiSubmit}
-            />
+            element:
+                <CreateOrderPageDetail
+                    formRef={createOrderDetailFormRef}
+                    onSubmit={onCreateOrderDetaiSubmit}
+                />
         },
     ]);
 
@@ -124,10 +185,6 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                     }
                 }}
                 onPrimaryButtonClicked={() => {
-                    // if (currentStep !== steps.length - 1) {
-                    //     setCurrentStep(currentStep + 1)
-                    // }
-
                     switch (currentStep) {
                         case 0: {
                             choseProductsForm.handleSubmit(onChoseProductSubmit)()
@@ -145,8 +202,7 @@ const CreateOrderPage = (props: CreateOrderPageProps) => {
                             break;
                         }
                         case 2: {
-                            createOrderDetailForm.handleSubmit(onCreateOrderDetaiSubmit)()
-                            // setCurrentStep(currentStep + 1);
+                            createOrderDetailFormRef.current?.requestSubmit();
                             return;
                         }
                         default: {

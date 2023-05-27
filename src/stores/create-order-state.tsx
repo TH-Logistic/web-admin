@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '.';
-import { ChosenProductsInput, CreateOrderInputs, CreateOrderPageDetailInput } from '../pages/CreateOrderPage/Steps/CreateOrderPageTypes';
+import { CreateOrderChosenProductsInput, CreateOrderInputs, CreateOrderDetailInput } from '../pages/CreateOrderPage/Steps/CreateOrderPageTypes';
 import { Route } from '../entities/route';
 
 const initialState: CreateOrderInputs = {
@@ -10,7 +10,7 @@ export const createOrderSlice = createSlice({
     name: 'createOrderState',
     initialState,
     reducers: {
-        addProducts: (state, action: PayloadAction<ChosenProductsInput>) => {
+        addProducts: (state, action: PayloadAction<CreateOrderChosenProductsInput>) => {
             state.products = action.payload.products;
         },
 
@@ -26,7 +26,7 @@ export const createOrderSlice = createSlice({
             state.route = undefined;
         },
 
-        addDetail: (state, action: PayloadAction<CreateOrderPageDetailInput>) => {
+        addDetail: (state, action: PayloadAction<CreateOrderDetailInput>) => {
             state = { ...action.payload }
         },
         removeDetail: (state) => {

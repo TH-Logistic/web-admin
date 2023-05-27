@@ -7,13 +7,12 @@ import { useState } from "react";
 import { Input } from "../../../components/Input/Input";
 import Lottie from "lottie-react";
 import LottieEmptyState from "../../../assets/lottie_empty_state.json";
-import { SubmitHandler, UseFieldArrayReturn, UseFormReturn, useFieldArray, useForm } from "react-hook-form";
-import { ChosenProduct, ChosenProductsInput } from "./CreateOrderPageTypes";
+import { SubmitHandler, UseFieldArrayReturn, UseFormReturn, useFieldArray, useForm, useFormContext } from "react-hook-form";
+import { CreateOrderChosenProduct, CreateOrderChosenProductsInput } from "./CreateOrderPageTypes";
 
 type CreateOrderPageChooseProductStepProps = {
-    onSubmit: SubmitHandler<ChosenProductsInput>,
-    formHook: UseFormReturn<ChosenProductsInput>;
-
+    onSubmit: SubmitHandler<CreateOrderChosenProductsInput>,
+    formHook: UseFormReturn<CreateOrderChosenProductsInput>
 }
 
 
@@ -26,7 +25,7 @@ const CreateOrderPageChooseProductStep = ({
         queryFn: async () => await getProducts({}),
     });
 
-    const [chosenProducts, setChosenProducts] = useState<ChosenProduct[]>([]);
+    const [chosenProducts, setChosenProducts] = useState<CreateOrderChosenProduct[]>([]);
 
     const fieldArray = useFieldArray({
         name: "products",
@@ -55,7 +54,7 @@ const CreateOrderPageChooseProductStep = ({
                                 newChosenProducts.splice(currentItemIdx, 1);
                                 fieldArray.remove(currentItemIdx);
                             } else {
-                                const product: ChosenProduct = { ...item, weight: 0 }
+                                const product: CreateOrderChosenProduct = { ...item, weight: 0 }
                                 newChosenProducts.push(product)
                                 fieldArray.append(product);
                             }
@@ -90,9 +89,9 @@ const CreateOrderPageChooseProductStep = ({
 }
 
 type ChosenProductsProps = {
-    products: ChosenProduct[],
-    formHook: UseFormReturn<ChosenProductsInput>,
-    fieldArray: UseFieldArrayReturn<ChosenProductsInput>
+    products: CreateOrderChosenProduct[],
+    formHook: UseFormReturn<CreateOrderChosenProductsInput>,
+    fieldArray: UseFieldArrayReturn<CreateOrderChosenProductsInput>
 }
 
 const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps) => {
@@ -124,7 +123,12 @@ const ChosenProducts = ({ products, formHook, fieldArray }: ChosenProductsProps)
                                         type="number"
                                         error={formHook.formState.errors.products?.[index]?.weight}
                                         register={formHook.register(`products.${index}.weight` as const, {
-                                            min: 0
+                                            min: 0,
+                                            required: {
+                                                value: true,
+                                                message: "Weight can not be empty"
+                                            },
+                                            valueAsNumber: true,
                                         })}
                                         thoundsandSeparator
                                         className="w-20 text-sm text-center placeholder:text-[12px]" />

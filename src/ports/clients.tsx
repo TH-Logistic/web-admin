@@ -55,6 +55,12 @@ const authClient = withInterceptors(
     })
 )
 
+const orderClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_BACKEND_URL + '/job',
+    })
+)
+
 
 
 export {
@@ -67,4 +73,5 @@ export {
     staffClient,
     driverClient,
     authClient,
+    orderClient
 }

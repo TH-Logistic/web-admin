@@ -1,28 +1,25 @@
-import { SubmitHandler, UseFormReturn } from "react-hook-form"
+import { SubmitHandler, UseFormReturn, useForm, useFormContext } from "react-hook-form"
 import { Input } from "../../../components/Input/Input"
 import { MultilLineInput } from "../../../components/Input/MultilineInput"
-import { CreateOrderPageDetailInput } from "./CreateOrderPageTypes"
+import { CreateOrderDetailInput, CreateOrderInputs } from "./CreateOrderPageTypes"
+import { LegacyRef } from "react"
 
 const FormTitle = (props: React.PropsWithChildren) => {
     return <p className="text-lg font-bold">{props.children}</p>
 }
 
 type CreateOrderPageDetailProps = {
-    onSubmit: SubmitHandler<CreateOrderPageDetailInput>;
-    formHook: UseFormReturn<CreateOrderPageDetailInput>;
+    formRef: LegacyRef<HTMLFormElement>;
+    onSubmit: SubmitHandler<CreateOrderDetailInput>;
 }
 
 const CreateOrderPageDetail = ({
-    formHook: {
-        register,
-        handleSubmit,
-        formState: { errors }
-    },
+    formRef,
     onSubmit
 }: CreateOrderPageDetailProps) => {
-
+    const { register, handleSubmit, formState: { errors } }: UseFormReturn<CreateOrderDetailInput> = useForm<CreateOrderDetailInput>();
     return (
-        <form className="flex flex-col h-full gap-8 overflow-auto" onSubmit={handleSubmit(onSubmit)} >
+        <form ref={formRef} className="flex flex-col h-full gap-8 overflow-auto" onSubmit={handleSubmit(onSubmit)} >
             <div className="flex flex-col gap-4">
                 <FormTitle>Need to deliver at</FormTitle>
                 <Input
