@@ -67,12 +67,12 @@ export interface OrderDetail {
         deliveryStatus: number;
         isInGarage: boolean;
         garage: Garage;
-    };
-    mainDriver?: Driver & {
-        dateOfBirth: number
-    };
-    coDriver?: Driver & {
-        dateOfBirth: number
+        mainDriver?: Driver & {
+            dateOfBirth: number
+        };
+        coDriver?: Driver & {
+            dateOfBirth: number
+        };
     };
     startingGarage?: Garage,
     endingGarage?: Garage,

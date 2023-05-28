@@ -6,6 +6,9 @@ module.exports = {
       screens: {
         'md': '900px'
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       textColor: {
         "primary-color": "#00ADB5",
         "primary-table-color": "#75CCD0",
@@ -80,6 +83,10 @@ module.exports = {
           'discharged': '#DEC9F4',
           'completed': '#C7F0C6',
         },
+        "garage": {
+          "starting": "#31B053",
+          "ending": "#EA352B",
+        }
       },
       fontWeight: {
         medium: 800,

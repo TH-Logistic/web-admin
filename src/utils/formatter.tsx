@@ -1,7 +1,7 @@
 import moment from "moment";
 
 const millisecondToString = (value: number, format?: string) => {
-    return moment(value).format(format ?? 'L');
+    return moment(value).format(format ?? "DD/MM/YYYY");
 }
 
 const millisecondToHHMM = (value: number) => {
