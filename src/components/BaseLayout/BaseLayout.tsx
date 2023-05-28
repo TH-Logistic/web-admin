@@ -1,10 +1,10 @@
 import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
-import { millesecondToHHMM } from '../../utils/formatter';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { ROUTES } from '../../utils/routes';
+import { millisecondToHHMM } from '../../utils/formatter';
 export default function BaseLayout() {
     const { loggedIn } = useAuth();
     const [time, setTime] = useState(Date.now());
@@ -24,7 +24,7 @@ export default function BaseLayout() {
                 <div className='flex items-center justify-between flex-grow'>
                     <p className='flex-1 text-lg font-bold ml-14'>Dashboard</p>
                     <div className='flex flex-row mr-4'>
-                        <p>{millesecondToHHMM(time)}</p>
+                        <p>{millisecondToHHMM(time)}</p>
                         <div className='mx-4 border border-black' />
                         <img src={NotificationIcon} alt='Notification Icon' />
                     </div>

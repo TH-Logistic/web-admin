@@ -1,5 +1,6 @@
 import GoogleMapReact from "google-map-react";
 import Marker from '../../assets/marker.svg';
+import { LegacyRef } from "react";
 
 type Coordiate = {
     lat: number;
@@ -17,7 +18,7 @@ const MarkerItem = ({ lat, lng, title }: MarkerProps) =>
             alt="Location Marker"
         />
 
-        {title && <p className="text-lg font-semibold text-black">{title}</p>}
+        {title && <p className="font-semibold text-black text-md">{title}</p>}
     </div>
 
 
@@ -25,7 +26,7 @@ const MarkerItem = ({ lat, lng, title }: MarkerProps) =>
 export type MapProps = {
     center?: Coordiate,
     zoom?: number,
-    markers?: MarkerProps[]
+    markers?: MarkerProps[],
 } & React.ComponentProps<typeof GoogleMapReact>;
 const Map = ({
     center,
@@ -51,8 +52,16 @@ const Map = ({
                 {...props}
             >
 
-                {center && <MarkerItem lat={center?.lat} lng={center?.lng} />}
-                {markers.map(marker => <MarkerItem lat={marker.lat} lng={marker.lng} key={marker.lat + marker.lng} />)}
+                {/* {center && <MarkerItem lat={center?.lat} lng={center?.lng} />} */}
+                {
+                    markers.map(marker =>
+                        <MarkerItem
+                            lat={marker.lat}
+                            lng={marker.lng}
+                            key={marker.lat + marker.lng}
+                            title={marker.title} />
+                    )
+                }
             </GoogleMapReact>
         </div>
     )

@@ -7,7 +7,6 @@ import MaleAvatar from '../../assets/male.svg';
 import FeMaleAvatar from '../../assets/female.svg'
 import { Driver } from "../../entities/driver";
 import OrderView from "../common/Orders/OrderView";
-import { millesecondToString } from "../../utils/formatter";
 import { ROUTES } from "../../utils/routes";
 
 export default function DriverDetailPage() {
@@ -18,6 +17,10 @@ export default function DriverDetailPage() {
     if (item == null) {
         return <Navigate to={ROUTES.DRIVERS} />
     }
+    function millesecondToString(birthday: number): import("react").ReactNode {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <div>
             <DetailHeader header="Driver" id={item.id} />

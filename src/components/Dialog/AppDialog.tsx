@@ -31,8 +31,8 @@ const AppDialog = ({ success = true, message = 'Message', title, onProceedClicke
                                 className="bg-primary-color"
                                 title={title ? title : success ? 'Proceed' : 'Go Back'}
                                 onClick={() => {
-                                    onProceedClicked?.();
                                     hideDialog()
+                                    onProceedClicked?.();
                                 }} />
                         </RadixDialog.Close>
                     </div>

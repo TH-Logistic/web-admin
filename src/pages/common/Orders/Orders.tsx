@@ -24,7 +24,7 @@ export default function Orders() {
                             Driver in charge
                         </th>
                         <th className="px-8 font-semibold text-center whitespace-nowrap text-primary-table-color">
-                            Product type
+                            Product name
                         </th>
                         <th className="px-8 font-semibold text-center whitespace-nowrap text-primary-table-color">
                             Date created

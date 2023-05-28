@@ -1,61 +1,99 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import { OrderStatusItem } from "../common/Orders/OrderStatusItem";
-import { OrderStatus } from "../../entities/order";
+import { OrderDetail, OrderStatus } from "../../entities/order";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
-import ProductType from "../ProductPage/Product/ProductType";
 import Map from "../../components/Map/Map";
+import { useMutation } from "@tanstack/react-query";
+import * as OrderService from "../../services/order/order-service";
+import { useEffect } from "react";
+import { ROUTES } from "../../utils/routes";
+import { useDialog } from "../../hooks/use-dialog";
+import Loading from "../../components/Loading/Loading";
+import { FormattedNumber } from "react-intl";
+import { millisecondToHHMMDDmmYYYY } from "../../utils/formatter";
+
 
 type OrderDetailPageProps = object;
+type OrderDetailSectionProps = {
+    orderDetail: OrderDetail
+}
 const OrderDetailPage = (props: OrderDetailPageProps) => {
+    const { showInfoDialog, showLoadingDialog, hideDialog } = useDialog();
+    const navigate = useNavigate();
     const { orderId } = useParams();
-    return (
-        <div className="flex flex-col">
-            <DetailHeader header="Order" id={orderId}>
-                <OrderStatusItem status={OrderStatus.OPEN} className="px-4" />
-            </DetailHeader>
 
-            <div className="flex flex-col gap-8 p-8">
-                <div className="flex flex-col gap-8 md:flex-row">
-                    <div className="flex-1 ">
-                        <OrderDetailTransportation />
+    const { mutate, data: order, isLoading } = useMutation({
+        mutationKey: ["getOrderDetail"],
+        mutationFn: OrderService.getOrderDetail,
+    })
+
+    useEffect(() => {
+        if (orderId) {
+            mutate(orderId, {
+                onError: (err) => {
+                    showInfoDialog({
+                        success: false,
+                        message: err?.toString(),
+                        onProceedClicked: () => {
+                            navigate(ROUTES.ORDERS);
+                        }
+                    })
+                }
+            })
+        }
+    }, [])
+
+
+    return isLoading ?
+        <Loading defaultOpen /> :
+        !order ?
+            <></> :
+            <div className="flex flex-col">
+                <DetailHeader header="Order" id={orderId}>
+                    <OrderStatusItem status={order.status} className="px-4" />
+                </DetailHeader>
+
+                <div className="flex flex-col gap-8 p-8">
+                    <div className="flex flex-col gap-8 md:flex-row">
+                        <div className="flex-1 ">
+                            <OrderDetailTransportation />
+                        </div>
+
+                        <div className="flex-1">
+                            <OrderDetailDestinationGarage />
+                        </div>
                     </div>
 
-                    <div className="flex-1">
-                        <OrderDetailDestinationGarage />
-                    </div>
-                </div>
+                    <div className="flex flex-col gap-8 md:flex-row">
+                        <div className="flex-1 ">
+                            <OrderDetailMainDriver />
+                        </div>
 
-                <div className="flex flex-col gap-8 md:flex-row">
-                    <div className="flex-1 ">
-                        <OrderDetailMainDriver />
-                    </div>
-
-                    <div className="flex-1 ">
-                        <OrderDetailCoDriver />
-                    </div>
-                </div>
-
-                <div className="flex flex-col gap-8 md:flex-row">
-                    <div className="flex-1">
-                        <OrderDetailOrderInformation />
+                        <div className="flex-1 ">
+                            <OrderDetailCoDriver />
+                        </div>
                     </div>
 
-                    <div className="flex flex-col flex-1 gap-8">
-                        <OrderDetailProducts />
-                        <OrderDetailContact />
-                        <OrderDetailRequestBilling />
-                    </div>
-                </div>
+                    <div className="flex flex-col gap-8 md:flex-row">
+                        <div className="flex-1">
+                            <OrderDetailOrderInformation orderDetail={order} />
+                        </div>
 
-                <div className="flex flex-col gap-4">
-                    <p className="text-lg font-semibold">Route</p>
-                    <Map />
+                        <div className="flex flex-col flex-1 gap-8">
+                            <OrderDetailProducts orderDetail={order} />
+                            <OrderDetailContact orderDetail={order} />
+                            <OrderDetailRequestBilling />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <p className="text-lg font-semibold">Route</p>
+                        <OrderDetailMap orderDetail={order} />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
 }
 
 type OrderDetailItemContainerProps = React.PropsWithChildren<{ title: string }>;
@@ -114,23 +152,23 @@ const OrderDetailCoDriver = () => {
     )
 }
 
-const OrderDetailOrderInformation = () => {
+const OrderDetailOrderInformation = ({ orderDetail }: OrderDetailSectionProps) => {
     return (
         <OrderDetailItemContainer title="Orders Information">
             <div className="flex flex-col flex-1 w-full gap-4 p-4 overflow-auto">
                 <div className="flex flex-row items-center justify-between gap-2">
                     <p>Status</p>
-                    <OrderStatusItem status={OrderStatus.DELIVERY_ARRIVED} />
+                    <OrderStatusItem status={orderDetail?.status ?? OrderStatus.OPEN} />
                 </div>
 
                 <div className="flex flex-row items-center justify-between gap-2">
                     <p>Order Type</p>
-                    <p>Ton based</p>
+                    <p>{orderDetail.isTonBased ? 'Ton based' : 'Trip based'}</p>
                 </div>
 
                 <div className="flex flex-row items-center justify-between gap-2">
                     <p>Order Fee</p>
-                    <p>5,000,000</p>
+                    <FormattedNumber value={orderDetail.totalPrice} />
                 </div>
 
                 <div className="flex flex-col gap-4">
@@ -144,10 +182,18 @@ const OrderDetailOrderInformation = () => {
                     <p className="font-semibold">Tracking order</p>
 
                     <ul className="flex flex-col gap-4 list-disc [&>*]:ml-6">
+
+                        <li>
+                            <div className="flex flex-row justify-between">
+                                <p>Must delivery before</p>
+                                <p className="underline underline-offset-8">{millisecondToHHMMDDmmYYYY(orderDetail.mustDeliverAt)}</p>
+                            </div>
+                        </li>
+
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Created At</p>
-                                <p>17:42 24/03/2023</p>
+                                <p>{millisecondToHHMMDDmmYYYY(orderDetail.createdAt)}</p>
                             </div>
                         </li>
 
@@ -155,49 +201,77 @@ const OrderDetailOrderInformation = () => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Assigned At</p>
-                                <p>19:20 25/03/2023</p>
+                                <p>{
+                                    orderDetail.assignedAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.assignedAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Started At</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.acceptedAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.acceptedAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Pick up arrived at</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.pickUpArriveAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.pickUpArriveAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Pick up done at</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.pickUpDoneAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.pickUpDoneAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Delivery arrived at</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.unloadArriveAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.unloadArriveAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Discharged at</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.unloadDoneAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.unloadDoneAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Completed At</p>
-                                <p>Not Yet</p>
+                                <p>{
+                                    orderDetail.completedAt ?
+                                        millisecondToHHMMDDmmYYYY(orderDetail.completedAt) :
+                                        "Not Yet"
+                                }</p>
                             </div>
                         </li>
                     </ul>
@@ -205,14 +279,15 @@ const OrderDetailOrderInformation = () => {
 
                 <div className="flex flex-col gap-2">
                     <p className="font-semibold">Note to driver</p>
-                    <p>Notes</p>
+                    <p>{orderDetail.notesToDriver}</p>
                 </div>
             </div>
         </OrderDetailItemContainer>
     )
 }
 
-const OrderDetailProducts = () => {
+const OrderDetailProducts = ({ orderDetail }: OrderDetailSectionProps) => {
+    const navigate = useNavigate();
     return (
         <OrderDetailItemContainer title="Products">
             <div className="p-4 h-[30vh] overflow-auto">
@@ -234,19 +309,22 @@ const OrderDetailProducts = () => {
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td className="pt-4 text-sm text-start">
-                                Gỗ Lâm Tuyền
-                            </td>
+                        {orderDetail?.products?.map(product =>
+                            <tr key={product.id} onClick={() => navigate(`/products/${product.id}`)}>
+                                <td className="pt-4 text-sm text-start">
+                                    {product.name}
+                                </td>
 
-                            <td className="flex items-center justify-center pt-4">
-                                <ProductTypeItem className="text-sm" type={ProductType.Agricultural} />
-                            </td>
+                                <td className="flex items-center justify-center pt-4">
+                                    <ProductTypeItem className="text-sm" type={product.types[0]} />
+                                </td>
 
-                            <td className="pt-4 text-sm text-end">
-                                20,000
-                            </td>
-                        </tr>
+                                <td className="pt-4 text-sm text-end">
+                                    <FormattedNumber value={product.basePrice} />
+                                </td>
+                            </tr>
+                        )}
+
                     </tbody>
                 </table>
             </div>
@@ -254,7 +332,7 @@ const OrderDetailProducts = () => {
     )
 }
 
-const OrderDetailContact = () => {
+const OrderDetailContact = ({ orderDetail }: OrderDetailSectionProps) => {
     return (
         <OrderDetailItemContainer title="Contact">
             <div className="flex flex-col justify-center w-full h-full gap-8 p-4">
@@ -265,14 +343,14 @@ const OrderDetailContact = () => {
                         <li className="ml-6">
                             <div className="flex flex-row items-center justify-between gap-4">
                                 <p>Contact name</p>
-                                <p>Le Hoang Thinh</p>
+                                <p>{orderDetail?.pickUpContactName}</p>
                             </div>
                         </li>
 
                         <li className="ml-6">
                             <div className="flex flex-row items-center justify-between gap-4">
                                 <p>Contact number</p>
-                                <p>0902514621</p>
+                                <p>{orderDetail?.pickUpContactNo}</p>
                             </div>
                         </li>
                     </ul>
@@ -285,14 +363,14 @@ const OrderDetailContact = () => {
                         <li>
                             <div className="flex flex-row items-center justify-between gap-4">
                                 <p>Contact name</p>
-                                <p>Vo Duc Trung Hieu</p>
+                                <p>{orderDetail?.unloadContactName}</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row items-center justify-between gap-4">
                                 <p>Contact number</p>
-                                <p>094272618</p>
+                                <p>{orderDetail?.unloadContactNo}</p>
                             </div>
                         </li>
                     </ul>
@@ -309,6 +387,49 @@ const OrderDetailRequestBilling = () => {
                 The order hasn’t been assigned
             </div>
         </OrderDetailItemContainer>
+    )
+}
+
+
+const OrderDetailMap = ({ orderDetail }: OrderDetailSectionProps) => {
+    const markers = [];
+
+    if (orderDetail.startingGarage) {
+        markers.push({
+            lat: orderDetail.startingGarage.latitude,
+            lng: orderDetail.startingGarage.longitude,
+            title: "Starting garage"
+        })
+    }
+
+    if (orderDetail.endingGarage) {
+        markers.push({
+            lat: orderDetail.endingGarage.latitude,
+            lng: orderDetail.endingGarage.longitude,
+            title: "Ending garage"
+        })
+    }
+
+
+    markers.push(
+        {
+            lat: orderDetail.route.fromLocation.latitude,
+            lng: orderDetail.route.fromLocation.longitude,
+            title: "Departure"
+        },
+        {
+            lat: orderDetail.route.toLocation.latitude,
+            lng: orderDetail.route.toLocation.longitude,
+            title: "Destination"
+        })
+
+    const center = {
+        lat: markers.reduce((previous, current) => previous + current.lat, 0) / (markers.length === 0 ? 1 : markers.length),
+        lng: markers.reduce((previous, current) => previous + current.lng, 0) / (markers.length === 0 ? 1 : markers.length)
+    }
+
+    return (
+        <Map markers={markers} center={center} zoom={12} />
     )
 }
 

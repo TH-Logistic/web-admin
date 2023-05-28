@@ -48,7 +48,12 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
         if (dialogProps.loading) {
             dialog = <Loading open={dialogProps.show} />
         } else {
-            dialog = <AppDialog open={dialogProps.show} success={dialogProps.success} message={dialogProps.message} />
+            dialog = <AppDialog
+                onProceedClicked={dialogProps.onProceedClicked}
+                open={dialogProps.show}
+                success={dialogProps.success}
+                message={dialogProps.message}
+            />
         }
     } else {
         dialog = undefined;

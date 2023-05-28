@@ -1,4 +1,4 @@
-import { Order, OrderStatus, mapNumberToOrderStatus } from "../../entities/order";
+import { Order, OrderDetail, OrderStatus, mapNumberToOrderStatus } from "../../entities/order";
 import { Pagination } from "../../entities/pagination";
 import { orderClient } from "../../ports/clients"
 import { QueryParams } from "../common/query-params"
@@ -24,7 +24,6 @@ const getOrders = async ({
         }
     });
 
-    console.log(response)
     return {
         ...response.data,
         content: response.data?.content.map(value => ({
@@ -34,10 +33,19 @@ const getOrders = async ({
     };
 }
 
+const getOrderDetail = async (orderId: string): Promise<OrderDetail> => {
+    const response = await orderClient.get<OrderDetail>(`/${orderId}`)
+
+    return {
+        ...response.data,
+        status: mapNumberToOrderStatus(response.data.status)
+    };
+}
+
 const createOrder = async (createOrderRequest: CreateOrderRequest) => {
     const response = await orderClient.post<{ id: string }>("", createOrderRequest)
 
     return response.data
 }
 
-export { getOrders, createOrder }
+export { getOrders, getOrderDetail, createOrder }

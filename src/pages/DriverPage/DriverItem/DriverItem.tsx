@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
 import { Driver } from "../../../entities/driver";
-import { millesecondToString } from "../../../utils/formatter";
 import { StaffStatus } from "../../../entities/staff";
 import { pascalize } from "humps";
 import StaffStatusItem from "../../StaffPage/StaffStatus/StaffStatus";
+import { millisecondToString } from "../../../utils/formatter";
 
 export type DriverItemProps = {
     item: Driver
@@ -24,7 +24,7 @@ export default function DriverItem({ item }: DriverItemProps) {
             <div className="h-2" />
             <div className="flex justify-between">
                 <p className="text-secondary-light">DOB</p>
-                <p className="break-words text-end">{millesecondToString(item.birthday)}</p>
+                <p className="break-words text-end">{millisecondToString(item.birthday)}</p>
             </div>
             <div className="flex flex-row justify-between">
                 <p className="text-secondary-light">Gener</p>

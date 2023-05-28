@@ -5,8 +5,8 @@ import StaffStatusItem from "../StaffPage/StaffStatus/StaffStatus";
 import { Gender, Staff, StaffRole } from "../../entities/staff";
 import MaleAvatar from '../../assets/male.svg';
 import FeMaleAvatar from '../../assets/female.svg'
-import { millesecondToString } from "../../utils/formatter";
 import { ROUTES } from "../../utils/routes";
+import { millisecondToString } from "../../utils/formatter";
 
 export default function StaffDetailPage() {
     const { staffId } = useParams();
@@ -34,7 +34,7 @@ export default function StaffDetailPage() {
 
                             <div className="flex justify-between">
                                 <p className="font-semibold text-secondary-dark">Date of birth</p>
-                                <p>{millesecondToString(item.birthday)}</p>
+                                <p>{millisecondToString(item.birthday)}</p>
                             </div>
 
                             <div className="flex justify-between">

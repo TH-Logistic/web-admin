@@ -5,7 +5,7 @@ import { OrderStatusItem } from "./OrderStatusItem";
 import { useNavigate } from "react-router-dom";
 
 type OrderItemProps = Order;
-const OrderItem = ({ id, licensePlate, driverInCharge, createdAt, pickUpAt, unloadAt, orderFee, status }: OrderItemProps) => {
+const OrderItem = ({ id, licensePlate, driverInCharge, products, createdAt, pickUpAt, unloadAt, orderFee, status }: OrderItemProps) => {
     const navigate = useNavigate();
     return (
         <tr key={id} className="text-center cursor-pointer" onClick={() => navigate(`/orders/${id}`)}>
@@ -13,9 +13,8 @@ const OrderItem = ({ id, licensePlate, driverInCharge, createdAt, pickUpAt, unlo
             < td className="">{licensePlate}</td>
             <td className="">{driverInCharge}</td>
             <td>
-                <div className="flex items-center justify-center">
-                    <ProductTypeItem type={ProductType.Dangerous} />
-                </div>
+                {products.slice(0, 3).map(product => <p>{product}</p>)
+                }
             </td>
             <td className="">{createdAt}</td>
             <td className="">{pickUpAt}</td>

@@ -1,3 +1,9 @@
+import { Driver } from "./driver";
+import { Garage } from "./garage";
+import Product from "./product";
+import { Route } from "./route";
+import { Transportation } from "./transportation";
+
 export enum OrderStatus {
     OPEN = 1,
     ASSIGNED = 2,
@@ -50,4 +56,44 @@ export interface Order {
     unloadAt: string;
     orderFee: string;
     status: number;
+}
+
+export interface OrderDetail {
+    id: string;
+    transportation?: {
+        id: string;
+        licensePlate: string;
+        load: string;
+        deliveryStatus: number;
+        isInGarage: boolean;
+        garage: Garage;
+    };
+    mainDriver?: Driver & {
+        dateOfBirth: number
+    };
+    coDriver?: Driver & {
+        dateOfBirth: number
+    };
+    startingGarage?: Garage,
+    endingGarage?: Garage,
+    products: Product[],
+    route: Route
+    healthcheck: null,
+    status: OrderStatus,
+    totalPrice: number,
+    isTonBased: boolean,
+    mustDeliverAt: number,
+    createdAt: number,
+    assignedAt?: number,
+    acceptedAt?: null,
+    pickUpArriveAt?: number,
+    pickUpDoneAt?: number,
+    unloadArriveAt?: number,
+    unloadDoneAt?: number,
+    completedAt?: number,
+    pickUpContactName: string,
+    pickUpContactNo: string,
+    unloadContactName: string,
+    unloadContactNo: string,
+    notesToDriver?: string
 }
