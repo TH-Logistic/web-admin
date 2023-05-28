@@ -1,5 +1,4 @@
-import { pascalize } from "humps";
-import { Order, OrderStatus } from "../../../entities/order"
+import { Order } from "../../../entities/order"
 import ProductType from "../../ProductPage/Product/ProductType";
 import ProductTypeItem from "../../ProductPage/Product/ProductTypeItem";
 import { OrderStatusItem } from "./OrderStatusItem";

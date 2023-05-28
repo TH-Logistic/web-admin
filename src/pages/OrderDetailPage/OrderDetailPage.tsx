@@ -5,45 +5,53 @@ import { OrderStatus } from "../../entities/order";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import ProductType from "../ProductPage/Product/ProductType";
+import Map from "../../components/Map/Map";
 
 type OrderDetailPageProps = object;
 const OrderDetailPage = (props: OrderDetailPageProps) => {
     const { orderId } = useParams();
     return (
         <div className="flex flex-col">
-            <DetailHeader header="Order" id="OO1">
+            <DetailHeader header="Order" id={orderId}>
                 <OrderStatusItem status={OrderStatus.OPEN} className="px-4" />
             </DetailHeader>
 
-            <div className="flex flex-col gap-8 p-8 md:flex-row">
-                <div className="flex-1 ">
-                    <OrderDetailTransportation />
+            <div className="flex flex-col gap-8 p-8">
+                <div className="flex flex-col gap-8 md:flex-row">
+                    <div className="flex-1 ">
+                        <OrderDetailTransportation />
+                    </div>
+
+                    <div className="flex-1">
+                        <OrderDetailDestinationGarage />
+                    </div>
                 </div>
 
-                <div className="flex-1">
-                    <OrderDetailDestinationGarage />
-                </div>
-            </div>
+                <div className="flex flex-col gap-8 md:flex-row">
+                    <div className="flex-1 ">
+                        <OrderDetailMainDriver />
+                    </div>
 
-            <div className="flex flex-col gap-8 p-8 md:flex-row">
-                <div className="flex-1 ">
-                    <OrderDetailMainDriver />
-                </div>
-
-                <div className="flex-1 ">
-                    <OrderDetailCoDriver />
-                </div>
-            </div>
-
-            <div className="flex flex-col gap-8 p-8 md:flex-row">
-                <div className="flex-1">
-                    <OrderDetailOrderInformation />
+                    <div className="flex-1 ">
+                        <OrderDetailCoDriver />
+                    </div>
                 </div>
 
-                <div className="flex flex-col flex-1 gap-8">
-                    <OrderDetailProducts />
-                    <OrderDetailContact />
-                    <OrderDetailRequestBilling />
+                <div className="flex flex-col gap-8 md:flex-row">
+                    <div className="flex-1">
+                        <OrderDetailOrderInformation />
+                    </div>
+
+                    <div className="flex flex-col flex-1 gap-8">
+                        <OrderDetailProducts />
+                        <OrderDetailContact />
+                        <OrderDetailRequestBilling />
+                    </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    <p className="text-lg font-semibold">Route</p>
+                    <Map />
                 </div>
             </div>
         </div>
