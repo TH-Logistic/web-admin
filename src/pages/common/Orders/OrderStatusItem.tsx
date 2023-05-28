@@ -1,5 +1,5 @@
 import { pascalize } from "humps"
-import { OrderStatus } from "../../../entities/order"
+import { OrderStatus, getOrderStatusString } from "../../../entities/order"
 
 type OrderStatusItemProps = {
     status: OrderStatus,
@@ -34,8 +34,8 @@ const OrderStatusItem = ({ status, className }: OrderStatusItemProps) => {
                     {pascalize(OrderStatus[status])}
                 </p> */}
 
-            <p className={`${className} py-1 rounded-full text-order-status-${OrderStatus[status].toLowerCase()} bg-order-status-${OrderStatus[status].toLowerCase()} `}>
-                {pascalize(OrderStatus[status])}
+            <p className={`${className} py-1 px-2 rounded-full text-order-status-${OrderStatus[status].toLowerCase()} bg-order-status-${OrderStatus[status].toLowerCase()}`}>
+                {getOrderStatusString(status)}
             </p>
         </>
     )

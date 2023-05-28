@@ -19,6 +19,27 @@ export const mapNumberToOrderStatus = (value: number): OrderStatus => {
     }
 }
 
+export const getOrderStatusString = (value: OrderStatus): string => {
+    switch (value) {
+        case OrderStatus.OPEN:
+            return "Open";
+        case OrderStatus.ASSIGNED:
+            return "Assigned";
+        case OrderStatus.JOB_STARTED:
+            return "Job started";
+        case OrderStatus.PICK_UP_ARRIVED:
+            return "Pick up arrived";
+        case OrderStatus.PICK_UP_DONE:
+            return "Pick up done";
+        case OrderStatus.DELIVERY_ARRIVED:
+            return "Delivery arrived";
+        case OrderStatus.DISCHARGED:
+            return "Discharged";
+        case OrderStatus.COMPLETED:
+            return "Completed"
+    }
+}
+
 export interface Order {
     id: string;
     licensePlate: string;

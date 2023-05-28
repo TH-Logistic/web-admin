@@ -91,6 +91,12 @@ module.exports = {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif']
       },
+      fontSize: {
+        'md': "1rem",
+      },
+      lineHeight: {
+        'md': '1.5rem'
+      },
     },
     // fontWeight: {
     //   normal: 500,
