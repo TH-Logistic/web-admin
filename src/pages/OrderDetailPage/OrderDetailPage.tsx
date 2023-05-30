@@ -158,9 +158,9 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
                     <p className="font-semibold">Must arrive garage at</p>
                     <p>{millisecondToHHMMDDmmYYYY(order.mustDeliverAt)}</p>
 
-                    <div className="flex flex-row items-center gap-4">
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-row items-center gap-4">
+                    <div className="flex flex-col [&>*]:break-words gap-4">
+                        <div className="flex flex-row gap-4">
+                            <div className="flex flex-row items-center flex-1 gap-4">
                                 <div className="flex flex-col">
                                     <div className="flex flex-col items-center justify-center w-4 h-4 rounded-full bg-garage-starting/25">
                                         <div className="w-2 h-2 rounded-full bg-garage-starting" />
@@ -169,12 +169,7 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
                                 <p>Starting point</p>
                             </div>
 
-                            <p className="break-words">{order.startingGarage?.name}</p>
-                            <p className="break-words">{order.startingGarage?.address}</p>
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-row items-center gap-4">
+                            <div className="flex flex-row items-center flex-1 gap-4">
                                 <div className="flex flex-col">
                                     <div className="flex flex-col items-center justify-center w-4 h-4 rounded-full bg-garage-ending/25">
                                         <div className="w-2 h-2 rounded-full bg-garage-ending" />
@@ -182,9 +177,16 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
                                 </div>
                                 <p>Ending point</p>
                             </div>
+                        </div>
 
-                            <p className="break-words">{order.endingGarage?.name}</p>
-                            <p className="break-words">{order.endingGarage?.address}</p>
+                        <div className="flex flex-row gap-4 [&>*]:flex-1">
+                            <p>{order.startingGarage?.name}</p>
+                            <p>{order.endingGarage?.name}</p>
+                        </div>
+
+                        <div className="flex flex-row gap-4 [&>*]:flex-1">
+                            <p>{order.startingGarage?.address}</p>
+                            <p>{order.endingGarage?.address}</p>
                         </div>
                     </div>
                 </div>
@@ -345,14 +347,14 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Must delivery before</p>
-                                <p className="underline underline-offset-8">{millisecondToHHMMDDmmYYYY(order.mustDeliverAt)}</p>
+                                <p className="underline text-end underline-offset-8">{millisecondToHHMMDDmmYYYY(order.mustDeliverAt)}</p>
                             </div>
                         </li>
 
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Created At</p>
-                                <p>{millisecondToHHMMDDmmYYYY(order.createdAt)}</p>
+                                <p className="text-end">{millisecondToHHMMDDmmYYYY(order.createdAt)}</p>
                             </div>
                         </li>
 
@@ -360,7 +362,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Assigned At</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.assignedAt ?
                                         millisecondToHHMMDDmmYYYY(order.assignedAt) :
                                         "Not Yet"
@@ -371,7 +373,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Started At</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.acceptedAt ?
                                         millisecondToHHMMDDmmYYYY(order.acceptedAt) :
                                         "Not Yet"
@@ -382,7 +384,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Pick up arrived at</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.pickUpArriveAt ?
                                         millisecondToHHMMDDmmYYYY(order.pickUpArriveAt) :
                                         "Not Yet"
@@ -393,7 +395,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Pick up done at</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.pickUpDoneAt ?
                                         millisecondToHHMMDDmmYYYY(order.pickUpDoneAt) :
                                         "Not Yet"
@@ -404,7 +406,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Delivery arrived at</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.unloadArriveAt ?
                                         millisecondToHHMMDDmmYYYY(order.unloadArriveAt) :
                                         "Not Yet"
@@ -415,7 +417,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Discharged at</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.unloadDoneAt ?
                                         millisecondToHHMMDDmmYYYY(order.unloadDoneAt) :
                                         "Not Yet"
@@ -426,7 +428,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                         <li>
                             <div className="flex flex-row justify-between">
                                 <p>Completed At</p>
-                                <p>{
+                                <p className="text-end">{
                                     order.completedAt ?
                                         millisecondToHHMMDDmmYYYY(order.completedAt) :
                                         "Not Yet"
