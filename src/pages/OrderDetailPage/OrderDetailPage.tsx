@@ -14,6 +14,8 @@ import Loading from "../../components/Loading/Loading";
 import { FormattedNumber } from "react-intl";
 import { millisecondToHHMMDDmmYYYY, millisecondToString } from "../../utils/formatter";
 import TransportationImage from "../../assets/transportation.svg";
+import CheckIcon from "../../assets/check-fill.svg";
+import CancelIcon from "../../assets/cancel.svg";
 import MaleIcon from "../../assets/male.svg";
 import FemaleIcon from "../../assets/male.svg";
 import moment from "moment";
@@ -29,14 +31,14 @@ const OrderDetailPage = (props: OrderDetailPageProps) => {
     const navigate = useNavigate();
     const { orderId } = useParams();
 
-    const { mutate, data: order, isLoading } = useMutation({
+    const { mutate: getOrderMutation, data: order, isLoading: getOrderIsLoading } = useMutation({
         mutationKey: ["getOrderDetail"],
         mutationFn: OrderService.getOrderDetail,
     })
 
     useEffect(() => {
         if (orderId) {
-            mutate(orderId, {
+            getOrderMutation(orderId, {
                 onError: (err) => {
                     showInfoDialog({
                         success: false,
@@ -51,7 +53,7 @@ const OrderDetailPage = (props: OrderDetailPageProps) => {
     }, [])
 
 
-    return isLoading ?
+    return getOrderIsLoading ?
         <Loading defaultOpen /> :
         !order ?
             <></> :
@@ -332,11 +334,53 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                     <FormattedNumber value={order.totalPrice} />
                 </div>
 
+
                 <div className="flex flex-col gap-4">
-                    <p>Transportation's status before delivery</p>
-                    <div className="flex items-center justify-center h-40 p-4 bg-red-200">
-                        <p className="text-center">The transportation hasn’t been assigned</p>
+                    <div className="flex flex-row items-center gap-4">
+                        <p className="text-sm font-semibold">Transportation's status before delivery</p>
+                        <img src={order.healthcheck?.isHealthcheckOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
                     </div>
+                    {order.healthcheck?.note && <p className="p-4 text-sm break-words bg-blue-100 rounded-md">{order.healthcheck?.note}</p>}
+                    {
+                        order.healthcheck ? (
+                            <div className="flex flex-col gap-2 [&>div]:flex [&>div]:flex-row [&>div]:justify-between [&>div]:items-center [&>div>p]:text-sm">
+                                <div>
+                                    <p>Tires</p>
+                                    <img src={order.healthcheck.isTiresOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+
+                                <div>
+                                    <p>Lighting</p>
+                                    <img src={order.healthcheck.isLightOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+
+                                <div>
+                                    <p>Brake</p>
+                                    <img src={order.healthcheck.isBrakeOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+
+                                <div>
+                                    <p>Fluid</p>
+                                    <img src={order.healthcheck.isFluidLevelOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+
+                                <div>
+                                    <p>Battery</p>
+                                    <img src={order.healthcheck.isBatteryOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+
+                                <div>
+                                    <p>Wiper</p>
+                                    <img src={order.healthcheck.isWiperOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                                </div>
+                            </div>
+                        ) :
+                            (
+                                <div className="flex items-center justify-center p-4 py-16">
+                                    <p className="text-center">The transportation hasn’t been assigned</p>
+                                </div>
+                            )
+                    }
                 </div>
 
                 <div className="flex flex-col gap-4">

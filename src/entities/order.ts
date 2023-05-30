@@ -78,7 +78,18 @@ export interface OrderDetail {
     endingGarage?: Garage,
     products: Product[],
     route: Route
-    healthcheck: null,
+    healthcheck?: {
+        id: string;
+        note?: string;
+        createdAt: number;
+        isHealthcheckOk: boolean;
+        isTiresOk: boolean,
+        isLightOk: boolean,
+        isBrakeOk: boolean,
+        isFluidLevelOk: boolean,
+        isBatteryOk: boolean,
+        isWiperOk: boolean
+    },
     status: OrderStatus,
     totalPrice: number,
     isTonBased: boolean,
