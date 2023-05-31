@@ -10,7 +10,7 @@ import * as OrderService from "../../services/order/order-service";
 import { useEffect } from "react";
 import { ROUTES } from "../../utils/routes";
 import { useDialog } from "../../hooks/use-dialog";
-import Loading from "../../components/Loading/Loading";
+import LoadingDialog from "../../components/Dialog/LoadingDialog";
 import { FormattedNumber } from "react-intl";
 import { millisecondToHHMMDDmmYYYY, millisecondToString } from "../../utils/formatter";
 import TransportationImage from "../../assets/transportation.svg";
@@ -54,7 +54,7 @@ const OrderDetailPage = (props: OrderDetailPageProps) => {
 
 
     return getOrderIsLoading ?
-        <Loading defaultOpen /> :
+        <LoadingDialog defaultOpen /> :
         !order ?
             <></> :
             <div className="flex flex-col">
@@ -91,7 +91,7 @@ const OrderDetailPage = (props: OrderDetailPageProps) => {
                         <div className="flex flex-col flex-1 gap-8">
                             <OrderDetailProducts order={order} />
                             <OrderDetailContact order={order} />
-                            <OrderDetailRequestBilling />
+                            <OrderDetailRequestBilling order={order} />
                         </div>
                     </div>
 
@@ -103,11 +103,26 @@ const OrderDetailPage = (props: OrderDetailPageProps) => {
             </div>
 }
 
-type OrderDetailItemContainerProps = React.PropsWithChildren<{ title: string }>;
-const OrderDetailItemContainer = ({ title, children }: OrderDetailItemContainerProps) => {
+type OrderDetailItemContainerProps = React.PropsWithChildren<{
+    title: string;
+    additionalButtonTitle?: string;
+    additionalButtonOnClick?: () => void;
+}>;
+const OrderDetailItemContainer = ({
+    title,
+    additionalButtonTitle,
+    additionalButtonOnClick,
+    children
+}: OrderDetailItemContainerProps) => {
     return (
         <div className="flex flex-col h-full gap-4">
-            <p className="text-lg font-semibold">{title}</p>
+            <div className="flex flex-row items-center justify-between gap-4">
+                <p className="text-lg font-semibold">{title}</p>
+                {
+                    additionalButtonTitle &&
+                    <ActionButton title={additionalButtonTitle} onClick={additionalButtonOnClick} />
+                }
+            </div>
             <div className="min-h-[30vh] max-h-full h-full outline flex flex-col rounded-md outline-1 outline-border-color">
                 <div className="flex flex-col items-center flex-1">
                     {children}
@@ -585,9 +600,14 @@ const OrderDetailContact = ({ order }: OrderDetailSectionProps) => {
     )
 }
 
-const OrderDetailRequestBilling = () => {
+
+const OrderDetailRequestBilling = ({ order }: OrderDetailSectionProps) => {
     return (
-        <OrderDetailItemContainer title="Request Billing">
+        <OrderDetailItemContainer
+            title="Request Billing"
+            additionalButtonTitle={"Create"}
+            additionalButtonOnClick={() => { }}
+        >
             <div className="flex flex-col items-center justify-center h-full">
                 The order hasn’t been assigned
             </div>

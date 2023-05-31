@@ -1,6 +1,6 @@
 import React from "react";
-import Loading from "../components/Loading/Loading";
-import AppDialog from "../components/Dialog/AppDialog";
+import LoadingDialog from "../components/Dialog/LoadingDialog";
+import InfoDialog from "../components/Dialog/InfoDialog";
 
 
 // 3 cases
@@ -46,9 +46,9 @@ const DialogProvider = ({ children }: DialogProviderProps) => {
 
     if (dialogProps.show) {
         if (dialogProps.loading) {
-            dialog = <Loading open={dialogProps.show} />
+            dialog = <LoadingDialog open={dialogProps.show} />
         } else {
-            dialog = <AppDialog
+            dialog = <InfoDialog
                 onProceedClicked={dialogProps.onProceedClicked}
                 open={dialogProps.show}
                 success={dialogProps.success}
