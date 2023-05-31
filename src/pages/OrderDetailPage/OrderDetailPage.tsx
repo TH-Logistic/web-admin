@@ -338,7 +338,7 @@ const OrderDetailOrderInformation = ({ order }: OrderDetailSectionProps) => {
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-row items-center gap-4">
                         <p className="text-sm font-semibold">Transportation's status before delivery</p>
-                        <img src={order.healthcheck?.isHealthcheckOk ? CheckIcon : CancelIcon} alt="Health check transportation" />
+                        {order.healthcheck && <img src={order.healthcheck?.isHealthcheckOk ? CheckIcon : CancelIcon} alt="Health check transportation" />}
                     </div>
                     {order.healthcheck?.note && <p className="p-4 text-sm break-words bg-blue-100 rounded-md">{order.healthcheck?.note}</p>}
                     {
