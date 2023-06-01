@@ -31,7 +31,7 @@ const CreateOrderPageChooseRouteStep = ({
 
     return (
         <div className="flex flex-col h-full max-h-full gap-8">
-            <div className="flex flex-row w-1/2 gap-4">
+            <div className="flex flex-row items-center w-1/2 gap-4">
                 <Search placeholder="Search by route, location name" />
                 <Filter />
             </div>

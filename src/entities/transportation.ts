@@ -1,12 +1,14 @@
+import { Garage } from "./garage"
+
 export class Transportation {
     id: string
     licensePlate: string
     load: number
-    garage: any
+    garage: Garage
     mainDriverName: string
     coDriverName: string
 
-    constructor(id: string, licensePlate: string, load: number, garage: any, mainDriverName: string, coDriverName: string) {
+    constructor(id: string, licensePlate: string, load: number, garage: Garage, mainDriverName: string, coDriverName: string) {
         this.id = id;
         this.licensePlate = licensePlate;
         this.load = load;

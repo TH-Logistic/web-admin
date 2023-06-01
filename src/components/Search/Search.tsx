@@ -5,10 +5,10 @@ export type SearchProps = React.PropsWithoutRef<{
 }>;
 
 export default function Search({
-    placeholder
+    placeholder,
 }: SearchProps) {
     return (
-        <div className="flex flex-row justify-between flex-1 mr-8 border rounded-md border-border-color">
+        <div className="flex flex-row justify-between flex-1 border rounded-md border-border-color">
             <input
                 type="text"
                 placeholder={placeholder}

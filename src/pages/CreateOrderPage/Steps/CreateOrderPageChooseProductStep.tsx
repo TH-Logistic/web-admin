@@ -35,7 +35,7 @@ const CreateOrderPageChooseProductStep = ({
     return (
         <div className="flex flex-col-reverse h-full gap-8 md:flex-row">
             <div className="flex flex-col flex-1 gap-8">
-                <div className="flex">
+                <div className="flex flex-row items-center gap-8">
                     <Search placeholder="Search by product name, product type" />
                     <Filter />
                 </div>

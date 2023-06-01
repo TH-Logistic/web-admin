@@ -7,7 +7,7 @@ import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Map from "../../components/Map/Map";
 import { useMutation } from "@tanstack/react-query";
 import * as OrderService from "../../services/order/order-service";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ROUTES } from "../../utils/routes";
 import { useDialog } from "../../hooks/use-dialog";
 import LoadingDialog from "../../components/Dialog/LoadingDialog";
@@ -20,6 +20,8 @@ import MaleIcon from "../../assets/male.svg";
 import FemaleIcon from "../../assets/male.svg";
 import moment from "moment";
 import { Gender } from "../../entities/staff";
+import AppDialog from "../../components/Dialog/AppDialog";
+import OrderDetailAddTransportationDialog from "./components/OrderDetailAddTransportationDialog";
 
 
 type OrderDetailPageProps = object;
@@ -134,6 +136,7 @@ const OrderDetailItemContainer = ({
 
 const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
     const navigate = useNavigate();
+    const [openTransportationPicker, setOpenTransportationPicker] = useState(false);
     return (
         <OrderDetailItemContainer title="Transportation">
             {
@@ -157,7 +160,19 @@ const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
 
                     <div className="flex flex-col items-center justify-center flex-1 gap-2">
                         <p>Click to add transportation</p>
-                        <ActionButton title="Add" className="px-8" />
+                        <ActionButton
+                            title="Add"
+                            className="px-8"
+                            onClick={() => setOpenTransportationPicker(true)}
+                        />
+                        <OrderDetailAddTransportationDialog
+                            onPrimaryClicked={(transportation) => {
+                                setOpenTransportationPicker(false);
+                            }}
+                            onSecondaryClicked={() => {
+                                setOpenTransportationPicker(false);
+                            }}
+                            open={openTransportationPicker} />
                     </div>
             }
 

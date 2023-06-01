@@ -6,7 +6,7 @@ import LocationItem from "./LocationItem/LocationItem";
 export default function LocationPage() {
     return (
         <div className="flex flex-col m-8">
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center gap-8">
                 <Search placeholder="Search by location name, address,..." />
                 <Filter />
                 <div className="flex-auto" />

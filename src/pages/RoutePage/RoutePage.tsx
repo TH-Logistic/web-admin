@@ -14,7 +14,7 @@ export default function RoutePage() {
     });
     return (
         <div className="flex flex-col m-8">
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center gap-8">
                 <Search placeholder="Search by route code, location name, ..." />
                 <Filter />
                 <div className="flex-auto" />

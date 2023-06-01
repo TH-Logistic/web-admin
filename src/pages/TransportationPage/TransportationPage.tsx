@@ -15,7 +15,7 @@ export default function TransportationPage() {
   });
   return (
     <div className="flex flex-col m-8">
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-8">
         <Search placeholder="Search by license plate, ..." />
         <Filter />
         <div className="flex-auto" />
