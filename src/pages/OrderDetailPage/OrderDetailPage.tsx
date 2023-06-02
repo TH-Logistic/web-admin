@@ -7,7 +7,6 @@ import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Map from "../../components/Map/Map";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import * as OrderService from "../../services/order/order-service";
-import * as BillingService from "../../services/billing/billing-service";
 import { useEffect, useState } from "react";
 import { ROUTES } from "../../utils/routes";
 import { useDialog } from "../../hooks/use-dialog";
@@ -24,6 +23,8 @@ import { Gender } from "../../entities/staff";
 import AppDialog from "../../components/Dialog/AppDialog";
 import OrderDetailAddTransportationDialog from "./components/OrderDetailAddTransportationDialog";
 import InfoDialog from "../../components/Dialog/InfoDialog";
+import { BillingService } from "../../services/billing";
+import Orders from "../common/Orders/Orders";
 
 
 type OrderDetailPageProps = object;
@@ -88,11 +89,11 @@ const OrderDetailPage = () => {
                     </div>
 
                     <div className="flex flex-col gap-8 md:flex-row">
-                        <div className="flex-1">
+                        <div className="flex-1 w-1/2">
                             <OrderDetailOrderInformation order={order} />
                         </div>
 
-                        <div className="flex flex-col flex-1 gap-8">
+                        <div className="flex flex-col flex-1 w-1/2 gap-8">
                             <OrderDetailProducts order={order} />
                             <OrderDetailContact order={order} />
                             <OrderDetailRequestBilling order={order} />
@@ -689,12 +690,11 @@ const OrderDetailContact = ({ order }: OrderDetailSectionProps) => {
 const OrderDetailRequestBilling = ({ order }: OrderDetailSectionProps) => {
 
     const {
-        // mutate: getBillingByJobMutate,
         data: getBillingByJobData,
         error: getBillingByJobError,
         isLoading: getBillingByJob
     } = useQuery({
-        queryKey: ['getBillingByJob'],
+        queryKey: ['getBillingByJob', order.id],
         queryFn: () => BillingService.getBillingByJob(order.id)
     });
 
@@ -704,9 +704,122 @@ const OrderDetailRequestBilling = ({ order }: OrderDetailSectionProps) => {
             additionalButtonTitle={"Create"}
             additionalButtonOnClick={() => { }}
         >
-            <div className="flex flex-col items-center justify-center h-full">
-                The order hasn’t been assigned
+
+            <div className="flex flex-col items-center justify-center w-full h-full p-4">
+                {
+                    order.status === OrderStatus.OPEN ?
+                        (
+                            <div className="flex flex-col items-center justify-center h-full">
+                                The order hasn’t been assigned
+                            </div>
+                        ) : (
+                            (getBillingByJobData?.length ?? []) === 0 ?
+                                <p>There is no invoice for current job</p>
+                                :
+                                <div className="w-full h-full max-w-full overflow-auto">
+                                    {/* <table className="w-full h-full table-auto">
+                                        <thead>
+                                            <tr className="[& > *]:pr-12">
+                                                <th className="text-start text-primary-table-color">
+                                                    Organization
+                                                </th>
+
+                                                <th className="text-primary-table-color">
+                                                    Title
+                                                </th>
+
+                                                <th className="text-end text-primary-table-color">
+                                                    Decription
+                                                </th>
+
+                                                <th className="text-end text-primary-table-color">
+                                                    Price
+                                                </th>
+
+                                                <th className="text-end text-primary-table-color">
+                                                    Created At
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {getBillingByJobData?.map(bill =>
+                                                <tr key={bill.id} className="[&>td]:mt-4 [&>td]:text-sm [&>td]:text-start [&>td]:pr-4">
+                                                    <td>
+                                                        {bill.id}
+                                                    </td>
+
+                                                    <td>
+                                                        {bill.title}
+                                                    </td>
+
+                                                    <td>
+                                                        {
+                                                            bill.description.slice(0, Math.max(bill.description.length, 30))
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        <FormattedNumber value={bill.cost} />
+                                                    </td>
+
+                                                    <td>
+                                                        {bill.createdAt}
+                                                    </td>
+                                                </tr>
+                                            )}
+
+                                        </tbody>
+                                    </table> */}
+
+                                    <table className="w-full table-auto">
+                                        <thead>
+                                            <tr className="[&>th]:text-start [&>th]:text-primary-color [&>th]:whitespace-nowrap [&>th]:font-semibold">
+                                                <th>
+                                                    Organization
+                                                </th>
+
+                                                <th className="text-center">
+                                                    Title
+                                                </th>
+
+                                                <th className="text-center">
+                                                    Decription
+                                                </th>
+
+                                                <th className="text-center">
+                                                    Price
+                                                </th>
+
+                                                <th className="text-end">
+                                                    Created At
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                (getBillingByJobData ?? []).map(bill => (
+                                                    <tr key={bill.id} className="text-sm [&>td]:pt-2 [&>td]:pr-4 text-center whitespace-nowrap cursor-pointer">
+                                                        <td className="underline whitespace-normal text-start text-primary-table-color">{bill.id}</td>
+                                                        <td className="">{bill.title}</td>
+                                                        <td className="text-start">{bill.description.slice(0, Math.max(20, bill.description.length))}</td>
+                                                        <td className="">
+                                                            <FormattedNumber value={1000000.0} />
+                                                        </td>
+                                                        <td className="text-end">
+                                                            {bill.createdAt}
+                                                        </td>
+                                                    </tr >
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table >
+                                </div>
+                        )
+                }
             </div>
+
+
         </OrderDetailItemContainer>
     )
 }

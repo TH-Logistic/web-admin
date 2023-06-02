@@ -3,6 +3,6 @@ type DividerProps = React.ComponentProps<'div'> & {
 }
 export default function Divider({ horizontal = true, className }: DividerProps) {
     return (
-        <div className={`${horizontal ? 'border-t-[1px]' : 'border-l-[1px]'} border-border-color ${className}`} />
+        <div className={`${horizontal ? 'border-t-[1px] border-b-0' : 'border-l-[1px] border-r-0'} border-border-color ${className}`} />
     )
 }

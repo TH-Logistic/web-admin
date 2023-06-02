@@ -1,8 +1,9 @@
+import { Billing } from "../../entities/billing";
 import { billingClient } from "../../ports/clients";
 
 const getBillingByJob = async (jobId: string) => {
-
-    const response = await billingClient.get(`/find-by-job/${jobId}`);
+    billingClient.defaults.baseURL = "http://www.thinhlh.com:8086/api/v1/billing"
+    const response = await billingClient.get<Billing[]>(`/find-by-job/${jobId}`);
 
     const data = response.data;
 
@@ -10,7 +11,8 @@ const getBillingByJob = async (jobId: string) => {
 }
 
 const getBillingByOrganization = async (organizationId: string) => {
-    const response = await billingClient.get(`statistic/organization/${organizationId}`);
+
+    const response = await billingClient.get<Billing[]>(`statistic/organization/${organizationId}`);
 
     const data = response.data;
 

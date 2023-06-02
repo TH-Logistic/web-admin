@@ -2,6 +2,9 @@ import { garageClient } from "../../ports/clients"
 import { Pagination } from "../../entities/pagination"
 import { Garage } from "../../entities/garage"
 import { QueryParams } from "../common/query-params"
+import { Statistic } from "../common/dto/statistic"
+import { Order } from "../../entities/order"
+import { Transportation } from "../../entities/transportation"
 
 const getGarages = async ({
     page = 0,
@@ -19,6 +22,17 @@ const getGarages = async ({
     return response.data
 }
 
+type GetGarageDetailResponse = {
+    garage: Garage,
+    transportationsAtGarage: Transportation[],
+    manager: any
+}
+const getGarageDetail = async (garageId: string): Promise<GetGarageDetailResponse> => {
+    const response = await garageClient.get<GetGarageDetailResponse>(`/detail/${garageId}`);
+
+    return response.data;
+}
+
 const createGarage = async (location: Omit<Garage, 'id'>): Promise<string> => {
     const response = await garageClient.post<string>('', {
         ...location,
@@ -27,4 +41,8 @@ const createGarage = async (location: Omit<Garage, 'id'>): Promise<string> => {
     return response.data
 }
 
-export { getGarages, createGarage }
+export {
+    getGarages,
+    createGarage,
+    getGarageDetail
+}

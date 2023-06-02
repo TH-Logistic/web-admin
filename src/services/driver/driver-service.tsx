@@ -1,6 +1,6 @@
 import { Driver } from "../../entities/driver"
 import { StaffRole, mapStaffStatusStringToEnum } from "../../entities/staff";
-import { driverClient } from "../../ports/clients"
+import { driverClient, orderClient } from "../../ports/clients"
 import { CreateDriverRequest } from "./dto/create-driver-request";
 
 const getDrivers = async (): Promise<Driver[]> => {
@@ -18,6 +18,11 @@ const getDrivers = async (): Promise<Driver[]> => {
     })
 }
 
+const getDriverNumberOfTrip = async (driverId: string): Promise<number> => {
+    const response = await orderClient.get<number>(`/number-of-trips/${driverId}`)
+    return response.data;
+}
+
 
 const createDriver = async (data: CreateDriverRequest): Promise<Driver> => {
     const response = await driverClient.post<Driver>('/', { ...data });
@@ -25,4 +30,4 @@ const createDriver = async (data: CreateDriverRequest): Promise<Driver> => {
     return response.data
 }
 
-export { getDrivers, createDriver }
+export { getDrivers, createDriver, getDriverNumberOfTrip }

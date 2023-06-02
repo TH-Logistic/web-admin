@@ -1,7 +1,9 @@
 import { locationClient } from "../../ports/clients"
 import { Pagination } from "../../entities/pagination"
-import { Location } from "../../entities/location"
 import { QueryParams } from "../common/query-params"
+import { Location } from "../../entities/location"
+import { Statistic } from "../common/dto/statistic"
+import { Order } from "../../entities/order"
 
 const getLocations = async ({
     page = 0,
@@ -19,6 +21,17 @@ const getLocations = async ({
     return response.data
 }
 
+type GetLocationDetailResponse = {
+    location: Location,
+    statistic: Statistic,
+    jobs: Order[]
+}
+const getLocationDetail = async (locationId: string): Promise<GetLocationDetailResponse> => {
+    const response = await locationClient.get<GetLocationDetailResponse>(`/detail/${locationId}`);
+
+    return response.data;
+}
+
 
 const createLocation = async (location: Omit<Location, 'id'>): Promise<string> => {
     const response = await locationClient.post<string>('', {
@@ -29,4 +42,8 @@ const createLocation = async (location: Omit<Location, 'id'>): Promise<string> =
 }
 
 
-export { getLocations, createLocation }
+export {
+    getLocations,
+    createLocation,
+    getLocationDetail
+}

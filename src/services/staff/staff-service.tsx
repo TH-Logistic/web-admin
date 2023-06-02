@@ -17,6 +17,15 @@ const getStaffs = async (): Promise<Staff[]> => {
     })
 }
 
+const getStaffById = async (staffId: string): Promise<Staff> => {
+    const response = await staffClient.get<Staff>(`/${staffId}`);
+
+    return {
+        ...response.data,
+        status: mapStaffStatusStringToEnum(response.data.status.toString())
+    }
+}
+
 
 const createStaff = async (data: CreateStaffRequest): Promise<Staff> => {
     const response = await staffClient.post<Staff>('/', { ...data });
@@ -24,4 +33,8 @@ const createStaff = async (data: CreateStaffRequest): Promise<Staff> => {
     return response.data
 }
 
-export { getStaffs, createStaff }
+export {
+    getStaffs,
+    createStaff,
+    getStaffById
+}

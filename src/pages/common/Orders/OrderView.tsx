@@ -1,8 +1,9 @@
 import Filter from "../../../components/Filter/Filter"
-import Orders from "./Orders"
+import Orders, { OrdersProps } from "./Orders"
 
-type OrderViewProps = object;
+type OrderViewProps = OrdersProps;
 const OrderView = (props: OrderViewProps) => {
+    console.log(props)
     return (
         <div className="flex flex-col gap-8 h-fit">
             <div className="flex items-center gap-4">
@@ -11,7 +12,7 @@ const OrderView = (props: OrderViewProps) => {
             </div>
 
             <div className="h-[80vh] mb-8">
-                <Orders />
+                <Orders {...props} />
             </div>
         </div>
     );

@@ -3,6 +3,8 @@ import Product from "../../entities/product"
 import { Pagination } from "../../entities/pagination"
 import { QueryParams } from "../common/query-params"
 import { camelizeKeys } from 'humps';
+import { Order } from "../../entities/order";
+import { Statistic } from "../common/dto/statistic";
 
 const getProducts = async ({
     page = 0,
@@ -28,8 +30,13 @@ const getProducts = async ({
     return response.data
 }
 
-const getProductById = async (productId: string): Promise<Product | undefined> => {
-    const response = await productClient.get<Product>(`/${productId}`);
+type GetProductByIdResponse = {
+    product: Product,
+    jobs: Order[],
+    statistic: Statistic
+}
+const getProductById = async (productId: string): Promise<GetProductByIdResponse> => {
+    const response = await productClient.get<GetProductByIdResponse>(`/detail/${productId}`);
 
     return response.data;
 

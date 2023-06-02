@@ -30,7 +30,7 @@ export default function BaseLayout() {
                     </div>
                 </div>
             </div>
-            <div className='border-[0.5px] border-border-color' />
+            <div className='border-t-[1px] border-b-0 border-border-color' />
             <div className='flex flex-row flex-1 overflow-auto'>
                 <div className='max-w-[16.67%] basis-1/12 min-w-fit hidden md:block'>
                     <SideBar />

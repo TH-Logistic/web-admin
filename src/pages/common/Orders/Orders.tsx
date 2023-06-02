@@ -3,12 +3,27 @@ import ProductType from "../../ProductPage/Product/ProductType";
 import ProductTypeItem from "../../ProductPage/Product/ProductTypeItem";
 import * as OrderService from "../../../services/order/order-service";
 import { OrderItem } from "./OrderItem";
+import { Order } from "../../../entities/order";
 
-export default function Orders() {
+export type OrdersProps = {
+    loadNewOrders?: boolean,
+    orders?: Order[]
+}
+export default function Orders({
+    loadNewOrders = true,
+    orders = []
+}: OrdersProps) {
     const { data, error, isLoading } = useQuery({
         queryKey: ['getOrders'],
         queryFn: () => OrderService.getOrders({}),
+        enabled: loadNewOrders,
+        placeholderData: ({
+            total: orders.length,
+            content: orders,
+            totalPage: 1
+        })
     });
+
     return (
         <div className="h-full overflow-auto border rounded-md border-border-color">
             <table className="w-full m-4 table-auto">

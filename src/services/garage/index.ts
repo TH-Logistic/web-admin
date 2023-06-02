@@ -1,0 +1,1 @@
+export * as GarageService from "./garage-service";
