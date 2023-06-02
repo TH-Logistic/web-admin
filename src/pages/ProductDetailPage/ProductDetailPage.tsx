@@ -1,5 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { Doughnut } from "react-chartjs-2";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Filter from "../../components/Filter/Filter";
@@ -9,19 +9,36 @@ import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
 import Edit from '../../assets/edit.svg';
 import Product from "../../entities/product";
 import OrderView from "../common/Orders/OrderView";
+import { useQuery } from "@tanstack/react-query";
+import * as ProductService from "../../services/product/product-service";
+import { ROUTES } from "../../utils/routes";
+import LoadingDialog from "../../components/Dialog/LoadingDialog";
+import InfoDialog from "../../components/Dialog/InfoDialog";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ProductDetailPage() {
     const { productId } = useParams();
     const navigate = useNavigate();
-    const location = useLocation();
-    const product: Product = location.state;
+
+    const { data: product, error, isLoading } = useQuery({
+        queryKey: ['getProductById'],
+        queryFn: productId ? () => ProductService.getProductById(productId) : undefined
+    });
+
+    if (!productId) {
+        return <Navigate to={ROUTES.PRODUCTS} />
+    }
+
     return (
-        <div>
-            <DetailHeader header="Product" id={productId!} />
-            <div className="flex flex-row px-8 mt-16">
-                <div className="flex flex-col items-center flex-1">
+        isLoading ?
+            <LoadingDialog open /> :
+            product ?
+                (
+                    <div>
+                        <DetailHeader header="Product" id={productId} />
+                        <div className="flex flex-row px-8 mt-8">
+                            {/* <div className="flex flex-col items-center flex-1">
                     <div className="w-[60%]">
                         <Doughnut options={{
                             plugins: {
@@ -82,67 +99,74 @@ export default function ProductDetailPage() {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex-1">
-                    <div className="flex flex-col gap-8">
-                        <div>
-                            <div className="flex flex-row gap-2 mb-4">
-                                <p className="font-bold">Product's Information</p>
-                                <img src={Edit} alt="Edit Product" onClick={() => {
-                                    navigate(`/products/create/${productId}`, {
-                                        state: product
-                                    })
-                                }} />
-                            </div>
-                            <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
-                                <div className="flex justify-between">
-                                    <p>Product name</p>
-                                    <p>Frames</p>
+                </div> */}
+                            <div className="flex flex-row flex-1 gap-8">
+                                <div className="flex flex-col flex-1 gap-4">
+                                    <div className="flex flex-row gap-2">
+                                        <p className="font-bold">Product's Information</p>
+                                        <img src={Edit} alt="Edit Product" onClick={() => {
+                                            navigate(`/products/create/${productId}`, {
+                                                state: product
+                                            })
+                                        }} />
+                                    </div>
+                                    <div className="flex flex-col h-full gap-4 p-4 border rounded-md border-border-color ">
+                                        <div className="flex justify-between">
+                                            <p>Product name</p>
+                                            <p>{product.name}</p>
+                                        </div>
+
+                                        <div className="flex justify-between">
+                                            <p>Unit</p>
+                                            <p>{product.unit}</p>
+                                        </div>
+
+                                        <div className="flex justify-between">
+                                            <p>Base Price</p>
+                                            <p>{product.basePrice}đ (kg/km)</p>
+                                        </div>
+
+                                        <div className="flex justify-between">
+                                            <p>Product type</p>
+                                            <ProductTypeItem type={product.types[0]} />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div className="flex justify-between">
-                                    <p>Unit</p>
-                                    <p>Ton</p>
-                                </div>
+                                <div className="flex flex-col flex-1 gap-4">
+                                    <p className="font-bold">Statistic</p>
+                                    <div className="flex flex-col h-full gap-4 p-4 border rounded-md border-border-color ">
+                                        <div className="flex justify-between">
+                                            <p className="font-semibold">Number of trips</p>
+                                            <p>23</p>
+                                        </div>
 
-                                <div className="flex justify-between">
-                                    <p>Base Price</p>
-                                    <p>200đ (kg/km)</p>
-                                </div>
+                                        <div className="flex justify-between">
+                                            <p className="font-semibold">Total distance</p>
+                                            <p>200 (km)</p>
+                                        </div>
 
-                                <div className="flex justify-between">
-                                    <p>Product type</p>
-                                    <ProductTypeItem type={ProductType.Fragile} />
+                                        <div className="flex justify-between">
+                                            <p className="font-semibold">Total weight</p>
+                                            <p>200 (unit)</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <p className="mb-4 font-bold">Statistic</p>
-                            <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
-                                <div className="flex justify-between">
-                                    <p className="font-semibold">Number of trips</p>
-                                    <p>23</p>
-                                </div>
-
-                                <div className="flex justify-between">
-                                    <p className="font-semibold">Total distance</p>
-                                    <p>200 (km)</p>
-                                </div>
-
-                                <div className="flex justify-between">
-                                    <p className="font-semibold">Total weight</p>
-                                    <p>200 (unit)</p>
-                                </div>
-                            </div>
+                        <div className="mx-8 my-16">
+                            <OrderView />
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="mx-8 my-16">
-                <OrderView />
-            </div>
-        </div>
+                ) :
+                <InfoDialog
+                    success={false}
+                    open
+                    onProceedClicked={() => {
+                        navigate(-1)
+                    }}
+                    message={error?.toString()}
+                />
     )
 }

@@ -28,6 +28,13 @@ const getProducts = async ({
     return response.data
 }
 
+const getProductById = async (productId: string): Promise<Product | undefined> => {
+    const response = await productClient.get<Product>(`/${productId}`);
+
+    return response.data;
+
+}
+
 
 const createProduct = async (product: Omit<Product, 'id'>): Promise<{ id: string }> => {
     const response = await productClient.post<{ id: string }>('', camelizeKeys(product));
@@ -35,4 +42,8 @@ const createProduct = async (product: Omit<Product, 'id'>): Promise<{ id: string
     return response.data;
 }
 
-export { getProducts, createProduct }
+export {
+    getProducts,
+    getProductById,
+    createProduct
+}

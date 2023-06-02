@@ -22,7 +22,7 @@ export default function ProductItem({
             <div className="p-4" onClick={() => {
                 onClick?.();
                 if (navigateOnClick) {
-                    navigate(`/products/${item.id}`, { state: item })
+                    navigate(`/products/${item.id}`)
                 }
             }
             } >

@@ -61,6 +61,12 @@ const orderClient = withInterceptors(
     })
 )
 
+const billingClient = withInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_BACKEND_URL + '/billing',
+    })
+)
+
 
 
 export {
@@ -72,6 +78,7 @@ export {
     routeClient,
     staffClient,
     driverClient,
+    billingClient,
     authClient,
     orderClient
 }

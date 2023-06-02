@@ -5,8 +5,9 @@ import { OrderDetail, OrderStatus } from "../../entities/order";
 import ActionButton from "../../components/ActionButton/ActionButton";
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import Map from "../../components/Map/Map";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as OrderService from "../../services/order/order-service";
+import * as BillingService from "../../services/billing/billing-service";
 import { useEffect, useState } from "react";
 import { ROUTES } from "../../utils/routes";
 import { useDialog } from "../../hooks/use-dialog";
@@ -22,14 +23,15 @@ import moment from "moment";
 import { Gender } from "../../entities/staff";
 import AppDialog from "../../components/Dialog/AppDialog";
 import OrderDetailAddTransportationDialog from "./components/OrderDetailAddTransportationDialog";
+import InfoDialog from "../../components/Dialog/InfoDialog";
 
 
 type OrderDetailPageProps = object;
 type OrderDetailSectionProps = {
     order: OrderDetail
 }
-const OrderDetailPage = (props: OrderDetailPageProps) => {
-    const { showInfoDialog, showLoadingDialog, hideDialog } = useDialog();
+const OrderDetailPage = () => {
+    const { showInfoDialog } = useDialog();
     const navigate = useNavigate();
     const { orderId } = useParams();
 
@@ -136,7 +138,17 @@ const OrderDetailItemContainer = ({
 
 const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
     const navigate = useNavigate();
+    const { showInfoDialog } = useDialog();
     const [openTransportationPicker, setOpenTransportationPicker] = useState(false);
+
+    const {
+        mutate: addTransportationToOrderMutate,
+        isLoading: addTransportationToOrderLoading,
+    } = useMutation({
+        mutationKey: ["addTransportationToOrder"],
+        mutationFn: OrderService.addTransportationToOrder,
+    })
+
     return (
         <OrderDetailItemContainer title="Transportation">
             {
@@ -165,9 +177,29 @@ const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
                             className="px-8"
                             onClick={() => setOpenTransportationPicker(true)}
                         />
+                        <LoadingDialog open={addTransportationToOrderLoading} />
                         <OrderDetailAddTransportationDialog
                             onPrimaryClicked={(transportation) => {
                                 setOpenTransportationPicker(false);
+
+                                addTransportationToOrderMutate({
+                                    jobId: order.id,
+                                    transportationId: transportation.id
+                                }, {
+                                    onError: (err) => {
+                                        showInfoDialog({
+                                            success: false,
+                                            message: err?.toString()
+                                        })
+                                    },
+                                    onSuccess: () => {
+                                        showInfoDialog({
+                                            success: true,
+                                            message: "Add transportation success!",
+                                            onProceedClicked: () => window.location.reload(),
+                                        })
+                                    }
+                                })
                             }}
                             onSecondaryClicked={() => {
                                 setOpenTransportationPicker(false);
@@ -181,9 +213,18 @@ const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
 }
 
 const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
-    const transportationGarage = order.transportation?.garage;
-
-    if (transportationGarage) {
+    const navigate = useNavigate();
+    const { showInfoDialog } = useDialog();
+    const [openEndingGaragePicker, setOpenEndingGaragePicker] = useState(false);
+    const {
+        mutate: addEndingGarageToOrderMutate,
+        error: addEndingGarageToOrderError,
+        isLoading: addEndingGarageToOrderLoading
+    } = useMutation({
+        mutationKey: ['addEndingGarageToOrder'],
+        mutationFn: OrderService.addEndingGarageToOrder,
+    });
+    if (order.endingGarage) {
         return (
             <OrderDetailItemContainer title="Destination Garage">
                 <div className="flex flex-col w-full h-full gap-2 p-4">
@@ -232,6 +273,35 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
                 <div className="flex flex-col items-center justify-center h-full gap-2">
                     <p>Click to add destination garage</p>
                     <ActionButton title="Add" className="px-8" />
+
+                    <LoadingDialog open={addEndingGarageToOrderLoading} />
+                    <OrderDetailAddTransportationDialog
+                        onPrimaryClicked={(garage) => {
+                            setOpenEndingGaragePicker(false);
+
+                            addEndingGarageToOrderMutate({
+                                jobId: order.id,
+                                endingGarageId: garage.id
+                            }, {
+                                onError: (err) => {
+                                    showInfoDialog({
+                                        success: false,
+                                        message: err?.toString()
+                                    })
+                                },
+                                onSuccess: () => {
+                                    showInfoDialog({
+                                        success: true,
+                                        message: "Add ending garage success!",
+                                        onProceedClicked: () => window.location.reload(),
+                                    })
+                                }
+                            })
+                        }}
+                        onSecondaryClicked={() => {
+                            setOpenEndingGaragePicker(false);
+                        }}
+                        open={openEndingGaragePicker} />
                 </div>
             </OrderDetailItemContainer>
         )
@@ -617,6 +687,17 @@ const OrderDetailContact = ({ order }: OrderDetailSectionProps) => {
 
 
 const OrderDetailRequestBilling = ({ order }: OrderDetailSectionProps) => {
+
+    const {
+        // mutate: getBillingByJobMutate,
+        data: getBillingByJobData,
+        error: getBillingByJobError,
+        isLoading: getBillingByJob
+    } = useQuery({
+        queryKey: ['getBillingByJob'],
+        queryFn: () => BillingService.getBillingByJob(order.id)
+    });
+
     return (
         <OrderDetailItemContainer
             title="Request Billing"

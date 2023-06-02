@@ -2,6 +2,8 @@ import { Order, OrderDetail, OrderStatus, mapNumberToOrderStatus } from "../../e
 import { Pagination } from "../../entities/pagination";
 import { orderClient } from "../../ports/clients"
 import { QueryParams } from "../common/query-params"
+import { AddEndingGarageToOrderRequest } from "./dto/add-ending-garage-request";
+import { AddTransportationToOrderRequest } from "./dto/add-transportation-request";
 import { CreateOrderRequest } from "./dto/create-order-request"
 import { GetOrdersParams } from "./dto/get-orders-params";
 
@@ -34,7 +36,7 @@ const getOrders = async ({
 }
 
 const getOrderDetail = async (orderId: string): Promise<OrderDetail> => {
-    const response = await orderClient.get<OrderDetail>(`/${orderId}`)
+    const response = await orderClient.get<OrderDetail>(`/${orderId}`);
 
     return {
         ...response.data,
@@ -43,9 +45,27 @@ const getOrderDetail = async (orderId: string): Promise<OrderDetail> => {
 }
 
 const createOrder = async (createOrderRequest: CreateOrderRequest) => {
-    const response = await orderClient.post<{ id: string }>("", createOrderRequest)
+    const response = await orderClient.post<{ id: string }>("", createOrderRequest);
 
-    return response.data
+    return response.data;
 }
 
-export { getOrders, getOrderDetail, createOrder }
+const addTransportationToOrder = async (addTransportationToOrderRequest: AddTransportationToOrderRequest): Promise<any> => {
+    const response = await orderClient.post<{}>("/add-transportation", addTransportationToOrderRequest);
+
+    return response.data;
+}
+
+const addEndingGarageToOrder = async (addEndingGarageToOrderRequest: AddEndingGarageToOrderRequest) => {
+    const response = await orderClient.post<{}>("/add-ending-garage", addEndingGarageToOrder);
+
+    return response.data;
+}
+
+export {
+    getOrders,
+    getOrderDetail,
+    createOrder,
+    addTransportationToOrder,
+    addEndingGarageToOrder
+}
