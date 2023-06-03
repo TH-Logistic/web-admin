@@ -45,6 +45,11 @@ export default function StaffDetailPage() {
                             <p className="font-bold">Driver's Information</p>
                             <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
                                 <div className="flex justify-between">
+                                    <p className="font-semibold text-secondary-dark">Name</p>
+                                    <p>{driver.name}</p>
+                                </div>
+
+                                <div className="flex justify-between">
                                     <p className="font-semibold text-secondary-dark">Phone number</p>
                                     <p>{driver.phoneNumber}</p>
                                 </div>

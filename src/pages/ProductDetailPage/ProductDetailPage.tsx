@@ -9,6 +9,7 @@ import * as ProductService from "../../services/product/product-service";
 import { ROUTES } from "../../utils/routes";
 import LoadingDialog from "../../components/Dialog/LoadingDialog";
 import InfoDialog from "../../components/Dialog/InfoDialog";
+import { StatisticsItem } from "../common/StatisticItem/StatisticsItem";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -130,42 +131,7 @@ export default function ProductDetailPage() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col flex-1 gap-4">
-                                <p className="font-bold">Statistic</p>
-                                <div className="flex flex-col h-full gap-4 p-4 border rounded-md border-border-color ">
-                                    <div className="flex flex-col justify-between gap-2">
-                                        <div className="flex items-center justify-between">
-                                            <p className="font-semibold">Number of trips</p>
-                                            <p>{productDetail.statistic.totalTripBasedJob + productDetail.statistic.totalTonBasedJob}</p>
-                                        </div>
-                                        <ul className="list-disc [&>li]:ml-6 [&>li]:font-extralight">
-                                            <li>
-                                                <div className="flex flex-row justify-between">
-                                                    <p>Trip based</p>
-                                                    <p>{productDetail.statistic.totalTripBasedJob}</p>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div className="flex flex-row justify-between">
-                                                    <p>Trip based</p>
-                                                    <p>{productDetail.statistic.totalTonBasedJob}</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <p className="font-semibold">Total distance</p>
-                                        <p>200 <i>(km)</i></p>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <p className="font-semibold">Total weight</p>
-                                        <p>200 <i>(unit)</i></p>
-                                    </div>
-                                </div>
-                            </div>
+                            <StatisticsItem statistic={productDetail.statistic} />
                         </div>
                     </div>
 

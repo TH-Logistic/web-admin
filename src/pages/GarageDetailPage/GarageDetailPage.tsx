@@ -35,7 +35,7 @@ const GarageDetailPage = (props: GarageDetailPageProps) => {
                     <div className="flex flex-row gap-8">
                         <div className="flex flex-col justify-end flex-1 gap-4">
                             <p className="font-bold">Garage's Manager</p>
-                            <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
+                            <div className="flex flex-col h-full gap-4 p-4 border rounded-md border-border-color ">
                                 <div className="flex flex-row items-center gap-2">
                                     <img src={FemaleIcon} alt="Avatar" className="w-16 rounded-full " />
                                     <p className="text-lg">Le Hoang Thinh</p>

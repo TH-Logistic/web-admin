@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LocationService } from "../../services/location";
 import LoadingDialog from "../../components/Dialog/LoadingDialog";
 import InfoDialog from "../../components/Dialog/InfoDialog";
+import { StatisticsItem } from "../common/StatisticItem/StatisticsItem";
 
 type DeliveryDetailPageProps = {}
 const DeliveryDetailPage = (props: DeliveryDetailPageProps) => {
@@ -59,32 +60,7 @@ const DeliveryDetailPage = (props: DeliveryDetailPageProps) => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col justify-end flex-1 gap-4">
-                                <p className="font-bold">Statistic</p>
-                                <div className="flex flex-col gap-4 p-4 border rounded-md border-border-color ">
-                                    <div className="flex flex-col justify-between gap-2">
-                                        <div className="flex items-center justify-between">
-                                            <p className="font-semibold">Number of trips</p>
-                                            <p>{deliveryDetail.statistic.totalTripBasedJob + deliveryDetail.statistic.totalTonBasedJob}</p>
-                                        </div>
-                                        <ul className="list-disc [&>li]:ml-6 [&>li]:font-extralight">
-                                            <li>
-                                                <div className="flex flex-row justify-between">
-                                                    <p>Trip based</p>
-                                                    <p>{deliveryDetail.statistic.totalTripBasedJob}</p>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div className="flex flex-row justify-between">
-                                                    <p>Trip based</p>
-                                                    <p>{deliveryDetail.statistic.totalTonBasedJob}</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <StatisticsItem statistic={deliveryDetail.statistic} />
                         </div>
 
                         <OrderView />

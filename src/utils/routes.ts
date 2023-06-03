@@ -20,6 +20,7 @@ export const enum ROUTES {
     GARAGE_DETAIL = "/locations/garage/:garageId",
     TRUCKS = "/trucks",
     CREATE_TRUCK = "/trucks/create",
+    TRUCK_DETAIL = "/trucks/:transportationId",
     ORGANIZATIONS = "/organizations",
     CREATE_ORGANIZATION = "/organizations/create",
     DRIVERS = "/drivers",

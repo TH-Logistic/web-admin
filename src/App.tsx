@@ -37,6 +37,7 @@ import { ROUTES } from './utils/routes';
 import { OrderDetailPage } from './pages/OrderDetailPage/OrderDetailPage';
 import { IntlProvider } from 'react-intl';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import { TransportationDetailPage } from './pages/TransportationDetailPage/TransportationDetailPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -132,6 +133,10 @@ function App() {
         {
           path: ROUTES.CREATE_TRUCK,
           element: <CreateTransportationPage />,
+        },
+        {
+          path: ROUTES.TRUCK_DETAIL,
+          element: <TransportationDetailPage />,
         },
         {
           path: ROUTES.ORGANIZATIONS,
