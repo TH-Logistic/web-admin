@@ -32,22 +32,18 @@ const OrderDetailAddEndingGarageDialog = ({
                     </div>
 
                     <div className="flex-1 w-full p-4 overflow-auto rounded-md outline-1 outline outline-border-color">
-                        <table className="w-full table-fixed">
+                        <table className="w-full table-auto">
                             <thead>
-                                <tr>
-                                    <th className="text-start text-primary-table-color">
-                                        Location ID
-                                    </th>
-
+                                <tr className="[&>th]:whitespace-nowrap [&>th]:font-semibold">
                                     <th className="text-start text-primary-table-color">
                                         Location Name
                                     </th>
 
-                                    <th className="text-primary-table-color">
+                                    <th className="text-start text-primary-table-color">
                                         Address
                                     </th>
 
-                                    <th className="text-end text-primary-table-color">
+                                    <th className="text-end text-start text-primary-table-color">
                                         Distance to garage
                                     </th>
                                 </tr>
@@ -57,23 +53,19 @@ const OrderDetailAddEndingGarageDialog = ({
                                 {garages?.content.map(garage =>
                                     <tr
                                         key={garage.id}
-                                        className={`cursor-pointer hover:text-primary-table-color ${chosenGarage?.id === garage.id ? 'font-semibold' : ''}`}
+                                        className={`cursor-pointer [&>td]:pt-2 whitespace-nowrap hover:text-primary-table-color ${chosenGarage?.id === garage.id ? 'font-semibold' : ''}`}
                                         onClick={() => { setChosenGarage(garage) }}
                                     >
-                                        <td className="pt-4 text-sm text-start">
-                                            {garage.id}
-                                        </td>
 
-                                        <td className="flex items-center justify-center pt-4">
+                                        <td className="pt-4 pr-8">
                                             {garage.name}
                                         </td>
 
-
-                                        <td className="flex items-center justify-center pt-4">
+                                        <td className="pt-4 pr-8">
                                             {garage.address}
                                         </td>
 
-                                        <td className="pt-4 text-sm text-end">
+                                        <td className="pt-4 text-sm">
                                             {garage.latitude}
                                         </td>
                                     </tr>

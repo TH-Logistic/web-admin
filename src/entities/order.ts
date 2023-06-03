@@ -69,9 +69,11 @@ export interface OrderDetail {
         garage: Garage;
         mainDriver?: Driver & {
             dateOfBirth: number
+            numberOfTrips: number
         };
         coDriver?: Driver & {
-            dateOfBirth: number
+            dateOfBirth: number;
+            numberOfTrips: number
         };
     };
     startingGarage?: Garage,

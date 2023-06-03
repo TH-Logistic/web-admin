@@ -23,7 +23,7 @@ const getTransportations = async ({
 }
 
 type GetTransportationDetailResponse = {
-    product: TransportationDetail,
+    transportation: TransportationDetail,
     statistic: Statistic,
     jobs: Order[]
 }

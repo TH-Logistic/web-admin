@@ -25,6 +25,7 @@ import OrderDetailAddTransportationDialog from "./components/OrderDetailAddTrans
 import InfoDialog from "../../components/Dialog/InfoDialog";
 import { BillingService } from "../../services/billing";
 import Orders from "../common/Orders/Orders";
+import OrderDetailAddEndingGarageDialog from "./components/OrderDetailAddEndingGarageDialog";
 
 
 type OrderDetailPageProps = object;
@@ -89,11 +90,11 @@ const OrderDetailPage = () => {
                     </div>
 
                     <div className="flex flex-col gap-8 md:flex-row">
-                        <div className="flex-1 w-1/2">
+                        <div className="flex-1 w-full md:w-1/2">
                             <OrderDetailOrderInformation order={order} />
                         </div>
 
-                        <div className="flex flex-col flex-1 w-1/2 gap-8">
+                        <div className="flex flex-col flex-1 w-full gap-8 md:w-1/2 sm:w-full">
                             <OrderDetailProducts order={order} />
                             <OrderDetailContact order={order} />
                             <OrderDetailRequestBilling order={order} />
@@ -155,7 +156,7 @@ const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
             {
                 order.transportation ?
                     (
-                        <div className="flex flex-row items-center justify-between flex-1 w-full gap-4 py-4 pl-4" onClick={() => navigate(`/transportations/${order.transportation?.id}`)}>
+                        <div className="flex flex-row items-center justify-between flex-1 w-full gap-4 py-4 pl-4" onClick={() => navigate(`/trucks/${order.transportation?.id}`)}>
                             <div className="flex flex-col gap-8">
                                 <div>
                                     <p className="font-semibold">License plate</p>
@@ -214,12 +215,10 @@ const OrderDetailTransportation = ({ order }: OrderDetailSectionProps) => {
 }
 
 const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
-    const navigate = useNavigate();
     const { showInfoDialog } = useDialog();
     const [openEndingGaragePicker, setOpenEndingGaragePicker] = useState(false);
     const {
         mutate: addEndingGarageToOrderMutate,
-        error: addEndingGarageToOrderError,
         isLoading: addEndingGarageToOrderLoading
     } = useMutation({
         mutationKey: ['addEndingGarageToOrder'],
@@ -273,10 +272,10 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
             <OrderDetailItemContainer title="Destination Garage">
                 <div className="flex flex-col items-center justify-center h-full gap-2">
                     <p>Click to add destination garage</p>
-                    <ActionButton title="Add" className="px-8" />
+                    <ActionButton title="Add" className="px-8" onClick={() => setOpenEndingGaragePicker(true)} />
 
                     <LoadingDialog open={addEndingGarageToOrderLoading} />
-                    <OrderDetailAddTransportationDialog
+                    <OrderDetailAddEndingGarageDialog
                         onPrimaryClicked={(garage) => {
                             setOpenEndingGaragePicker(false);
 
@@ -338,8 +337,8 @@ const OrderDetailMainDriver = ({ order }: OrderDetailSectionProps) => {
                         </div>
 
                         <div className="flex flex-row justify-between gap-2">
-                            <p>Number of trip</p>
-                            <p>{120}</p>
+                            <p>Number of trips</p>
+                            <p>{mainDriver.numberOfTrips}</p>
                         </div>
 
                         <div className="flex flex-row justify-between gap-2">
@@ -392,8 +391,7 @@ const OrderDetailCoDriver = ({ order }: OrderDetailSectionProps) => {
 
                         <div className="flex flex-row justify-between gap-2">
                             <p>Number of trips</p>
-                            {/* // TODO ADD NUMBER OF TRIPS */}
-                            <p>{120}</p>
+                            <p>{coDriver.numberOfTrips}</p>
                         </div>
 
                         <div className="flex flex-row justify-between gap-2">

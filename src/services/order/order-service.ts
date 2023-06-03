@@ -57,7 +57,7 @@ const addTransportationToOrder = async (addTransportationToOrderRequest: AddTran
 }
 
 const addEndingGarageToOrder = async (addEndingGarageToOrderRequest: AddEndingGarageToOrderRequest) => {
-    const response = await orderClient.post<{}>("/add-ending-garage", addEndingGarageToOrder);
+    const response = await orderClient.post<{}>("/add-ending-garage", addEndingGarageToOrderRequest);
 
     return response.data;
 }

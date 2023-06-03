@@ -10,7 +10,7 @@ const OrderItem = ({ id, licensePlate, driverInCharge, products, createdAt, pick
     return (
         <tr key={id} className="text-center cursor-pointer" onClick={() => navigate(`/orders/${id}`)}>
             <td className="pt-2 pr-4 text-sm font-semibold underline text-start text-primary-table-color">{id}</td>
-            < td className="">{licensePlate}</td>
+            <td className="">{licensePlate}</td>
             <td className="">{driverInCharge}</td>
             <td>
                 {products.slice(0, 3).map(product => <p>{product}</p>)
