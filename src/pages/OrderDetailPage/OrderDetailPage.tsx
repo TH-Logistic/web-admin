@@ -391,7 +391,8 @@ const OrderDetailCoDriver = ({ order }: OrderDetailSectionProps) => {
                         </div>
 
                         <div className="flex flex-row justify-between gap-2">
-                            <p>Number of trip</p>
+                            <p>Number of trips</p>
+                            {/* // TODO ADD NUMBER OF TRIPS */}
                             <p>{120}</p>
                         </div>
 

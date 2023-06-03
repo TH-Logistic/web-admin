@@ -119,12 +119,18 @@ const TransportationDetailPage = (props: TransportationDetailPageProps) => {
                                     <p className={`px-6 text-sm font-semibold border rounded-full ${transportationDetail.product.deliveryStatus === 1 ? "text-truck-color-idle" : "text-truck-color-delivery"} border-border-color`}>{transportationDetail.product.deliveryStatus === 1 ? "Idle" : "Delivery"}</p>
                                 </div>
 
-                                <div className="flex justify-between gap-4">
+                                <div className={`flex justify-between gap-4 ${transportationDetail.product.deliveryStatus === 2 ? 'collapse' : 'visible'}`}>
+                                    <p className="font-semibold text-secondary-dark">Order</p>
+                                    {/* // TODO ADD ORDER */}
+                                    <p className="text-end">{'ORDER ID'}</p>
+                                </div>
+
+                                <div className={`flex justify-between gap-4 ${transportationDetail.product.deliveryStatus === 1 ? 'collapse' : 'visible'}`}>
                                     <p className="font-semibold text-secondary-dark">Garage</p>
                                     <p className="text-end">{transportationDetail.product.garage.name}</p>
                                 </div>
 
-                                <div className="flex justify-between gap-4">
+                                <div className={`flex justify-between gap-4 ${transportationDetail.product.deliveryStatus === 1 ? 'collapse' : 'visible'}`}>
                                     <p className="font-semibold text-secondary-dark">Address</p>
                                     <p className="text-end">{transportationDetail.product.garage.address}</p>
                                 </div>
