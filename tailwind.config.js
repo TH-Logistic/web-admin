@@ -59,6 +59,8 @@ module.exports = {
       },
       colors: {
         "primary-color": "#00ADB5",
+        "primary-light": "#75CCD0",
+        "primary-dark": "#1C686B",
         "secondary-color": "#0053B5",
         "disabled-color": "#A1D6D9",
         "error-color": "#F33030",
@@ -86,7 +88,18 @@ module.exports = {
         "garage": {
           "starting": "#31B053",
           "ending": "#EA352B",
-        }
+        },
+        "product-color": {
+          "dangerous": "#DD4A48",
+          "fragile": "#00B4D8",
+          "machine": "#139487",
+          "electronic": "#9F5980",
+          "agricultural": "#ECB390",
+          "food": "#EDCB3C",
+          "cosmetic": "#91C483",
+          "medicine": "#524A4E",
+          "others": "#FF5C8D"
+        },
       },
       fontWeight: {
         medium: 800,

@@ -38,6 +38,7 @@ import { OrderDetailPage } from './pages/OrderDetailPage/OrderDetailPage';
 import { IntlProvider } from 'react-intl';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import { TransportationDetailPage } from './pages/TransportationDetailPage/TransportationDetailPage';
+import { DashboardPage } from './pages/DashboardPage/DashboardPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -61,7 +62,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <OrderPage />
+          element: <DashboardPage />
+        },
+        {
+          path: ROUTES.ROOT,
+          element: <DashboardPage />
         },
         {
           path: ROUTES.ORDERS,

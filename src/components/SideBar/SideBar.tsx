@@ -1,5 +1,7 @@
 import LogoutIcon from './../../assets/logout.svg';
 import SideBarItem from '../../components/SideBar/SideBarItem';
+import HomeIcon from "../../assets/home.svg";
+import HomeChoseIcon from "../../assets/home-fill.svg";
 import OrderIcon from './../../assets/order.svg';
 import OrderChoseIcon from './../../assets/order-chose.svg';
 import ProductIcon from './../../assets/product.svg';
@@ -35,6 +37,12 @@ export default function SideBar() {
     const menus: {
         [key: string]: MenuItem
     } = {
+        home: {
+            name: 'Home',
+            icon: HomeIcon,
+            choseIcon: HomeChoseIcon,
+            path: ROUTES.ROOT
+        },
         order: {
             name: 'Order',
             icon: OrderIcon,
@@ -103,7 +111,7 @@ export default function SideBar() {
                         .values(menus)
                         .map((menu) => {
                             // const indexRoute = Object.values(ROUTES.HOME.subroutes!).filter((route) => route.index === true)[0]
-                            const indexRoute = ROUTES.ORDERS
+                            const indexRoute = ROUTES.ROOT
                             const isChose =
                                 // Sublocation is chose
                                 `/${location.pathname.split('/')[1]}` === menu.path ||

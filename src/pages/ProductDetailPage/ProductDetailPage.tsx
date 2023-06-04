@@ -1,4 +1,3 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 import ProductTypeItem from "../ProductPage/Product/ProductTypeItem";
 import DetailHeader from "../../components/Headers/DetailHeader/DetailHeader";
@@ -10,8 +9,6 @@ import { ROUTES } from "../../utils/routes";
 import LoadingDialog from "../../components/Dialog/LoadingDialog";
 import InfoDialog from "../../components/Dialog/InfoDialog";
 import { StatisticsItem } from "../common/StatisticItem/StatisticsItem";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ProductDetailPage() {
     const navigate = useNavigate();
@@ -36,68 +33,6 @@ export default function ProductDetailPage() {
                 <div>
                     <DetailHeader header="Product" id={productId} />
                     <div className="flex flex-row px-8 mt-8">
-                        {/* <div className="flex flex-col items-center flex-1">
-                            <div className="w-[60%]">
-                                <Doughnut options={{
-                                    plugins: {
-                                        legend: {
-                                            display: false,
-                                            position: 'bottom',
-                                        }
-                                    }
-                                }} data={{
-                                    labels: [
-                                        // 'Red',
-                                        'Trip based',
-                                        'Ton based'
-                                    ],
-                                    datasets: [{
-                                        borderWidth: 0,
-                                        data: [80, 120],
-                                        backgroundColor: [
-                                            // 'rgb(255, 99, 132)',
-                                            '#1EB4FD',
-                                            '#FAC02C'
-                                        ],
-                                        hoverOffset: 4
-                                    },
-                                    {
-                                        borderWidth: 0,
-                                        data: [80, 120],
-                                        backgroundColor: [
-                                            // 'rgb(255, 99, 132)',
-                                            '#1EB4FDAA',
-                                            '#FAC02CAA'
-                                        ],
-                                        hoverOffset: 4
-                                    }
-                                    ]
-                                }} />
-
-                                <div className="flex flex-col gap-4 mt-4 " >
-                                    <div className="flex flex-row justify-between">
-                                        <p>Total</p>
-                                        <p>200,000,000đ</p>
-                                    </div>
-
-                                    <div className="flex flex-row justify-between">
-                                        <div className="flex flex-row items-center ">
-                                            <div className="w-5 h-5 mr-2 bg-[#1EB4FD] rounded-md" />
-                                            <p>Trip based</p>
-                                        </div>
-                                        <p>80,000,000đ</p>
-                                    </div>
-
-                                    <div className="flex flex-row justify-between">
-                                        <div className="flex flex-row items-center">
-                                            <div className="w-5 h-5 mr-2 bg-[#FAC02C] rounded-md" />
-                                            <p>Tons based</p>
-                                        </div>
-                                        <p className="break-words">120,000,000đ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="flex flex-row flex-1 gap-8">
                             <div className="flex flex-col flex-1 gap-4">
                                 <div className="flex flex-row gap-2">
