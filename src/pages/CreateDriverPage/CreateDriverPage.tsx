@@ -9,6 +9,8 @@ import { useMutation } from '@tanstack/react-query';
 import * as DriverService from '../../services/driver/driver-service';
 import { CreateDriverRequest } from '../../services/driver/dto/create-driver-request';
 import { useNavigate } from 'react-router-dom';
+import { DateTimePicker } from '../../components/DateTimePicker/DateTimePicker';
+import moment from 'moment';
 
 type CreateDriverInput = CreateDriverRequest & {
     confirmPassword: string
@@ -19,7 +21,7 @@ export default function CreateDriverPage() {
     const navigate = useNavigate();
     const { showInfoDialog, hideDialog, showLoadingDialog } = useDialog();
 
-    const { register, formState: { errors }, control, handleSubmit, setError, setValue } = useForm<CreateDriverInput>({
+    const { register, getValues, formState: { errors }, control, handleSubmit, setError, setValue } = useForm<CreateDriverInput>({
         defaultValues: {
             role: StaffRole.DRIVER,
             avatar: 'www.thinhlh.com'
@@ -30,6 +32,7 @@ export default function CreateDriverPage() {
     });
 
     const onSubmit: SubmitHandler<CreateDriverInput> = (data) => {
+        alert(data.birthday)
         if (data.confirmPassword !== data.password) {
             setError('confirmPassword', {
                 message: 'Confirm password does not match password!',
@@ -88,7 +91,6 @@ export default function CreateDriverPage() {
                     }}
 
                     render={({ field }) =>
-
                         <Select.Root
                             label='Gender'
                             placeholder='Gender'
@@ -111,9 +113,41 @@ export default function CreateDriverPage() {
                     }
                 />
 
+                <Controller
+                    control={control}
+                    name='birthday'
+                    rules={{
+                        required: {
+                            value: true,
+                            message: "Birthday can not be empty"
+                        }
+                    }}
+                    render={({ field }) => (
+                        <div className={`flex flex-row w-full gap-4`}>
+                            <label className='basis-1/5'>Birthday</label>
+                            <div className="flex flex-col w-full gap-2">
+                                <DateTimePicker
+                                    {...field}
+                                    views={["year", "month", "day"]}
+                                    formatDensity="spacious"
+                                    format="DD/MM/YYYY"
+                                    value={getValues('birthday') ? moment(getValues('birthday')) : undefined}
+                                    onChange={(value) => {
+                                        if (value) {
+                                            setValue('birthday', (value as moment.Moment).valueOf())
+                                        }
+                                    }}
+                                />
+                                {errors.birthday?.message && <p className='text-sm text-error-color'>{errors.birthday?.message}</p>}
+                            </div>
+                        </div>
+                    )}
+                />
 
 
-                <Input
+
+                {/* <Input
+                    onClick={() => { }}
                     register={
                         register('birthday', {
                             required: {
@@ -139,7 +173,7 @@ export default function CreateDriverPage() {
                     error={errors.birthday}
                     label='Date of birth'
                     placeholder='Date of birth'
-                />
+                /> */}
 
                 <Input
                     register={

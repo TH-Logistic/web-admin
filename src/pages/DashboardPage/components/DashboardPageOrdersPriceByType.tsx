@@ -15,8 +15,8 @@ const DashboardPageOrdersPriceByType = () => {
                             plugins: {
                                 legend: {
                                     display: false,
-                                }
-                            }
+                                },
+                            },
                         }}
                         data={{
                             labels: [
