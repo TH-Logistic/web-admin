@@ -4,6 +4,7 @@ import { Transportation, TransportationDetail } from "../../entities/transportat
 import { QueryParams } from "../common/query-params"
 import { Statistic } from "../common/dto/statistic"
 import { Order } from "../../entities/order"
+import { CreateTransportationRequest } from "./dto/create-transportation-request"
 
 const getTransportations = async ({
     page = 0,
@@ -22,6 +23,12 @@ const getTransportations = async ({
     return response.data
 }
 
+const createTransportation = async (request: CreateTransportationRequest): Promise<string> => {
+    const response = await transportationClient.post<{ id: string }>("", request)
+
+    return response.data.id;
+}
+
 type GetTransportationDetailResponse = {
     transportation: TransportationDetail,
     statistic: Statistic,
@@ -33,4 +40,8 @@ const getTransportationDetail = async (transportationId: string): Promise<GetTra
     return response.data;
 }
 
-export { getTransportations, getTransportationDetail }
+export {
+    getTransportations,
+    getTransportationDetail,
+    createTransportation
+}
