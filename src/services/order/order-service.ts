@@ -1,5 +1,6 @@
 import { Order, OrderDetail, OrderStatus, mapNumberToOrderStatus } from "../../entities/order";
 import { Pagination } from "../../entities/pagination";
+import { Report } from "../../entities/report";
 import { orderClient } from "../../ports/clients"
 import { QueryParams } from "../common/query-params"
 import { AddEndingGarageToOrderRequest } from "./dto/add-ending-garage-request";
@@ -62,10 +63,21 @@ const addEndingGarageToOrder = async (addEndingGarageToOrderRequest: AddEndingGa
     return response.data;
 }
 
+const getReportDashboard = async (year: number) => {
+    const response = await orderClient.get<Report>("/dashboard", {
+        params: {
+            year
+        }
+    });
+
+    return response.data;
+}
+
 export {
     getOrders,
     getOrderDetail,
     createOrder,
     addTransportationToOrder,
+    getReportDashboard,
     addEndingGarageToOrder
 }

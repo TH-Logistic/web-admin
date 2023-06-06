@@ -10,9 +10,10 @@ import {
     ChartOptions,
     ChartData,
 } from 'chart.js';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 import { Bar } from 'react-chartjs-2';
+import { DashboardContext } from '../DashboardPage';
 
 ChartJS.register(
     CategoryScale,
@@ -24,6 +25,8 @@ ChartJS.register(
 );
 
 const DashboardPageTotalEarning = () => {
+    const report = useContext(DashboardContext);
+
     const options: ChartOptions<"bar"> = {
         responsive: true,
         maintainAspectRatio: false,
@@ -77,15 +80,12 @@ const DashboardPageTotalEarning = () => {
         },
     };
 
-    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-
     const data: ChartData<"bar"> = {
-        labels,
+        labels: report?.lineChart.map(value => value.month),
         datasets: [
             {
                 label: 'Dataset 1',
-                data: labels.map(() => Math.random() * 100),
+                data: report?.lineChart.map(value => value.totalPrice) ?? [],
                 backgroundColor: '#75CCD0',
             }
         ],

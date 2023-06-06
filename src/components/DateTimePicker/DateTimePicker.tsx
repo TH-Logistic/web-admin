@@ -12,7 +12,6 @@ const CustomDateTimePicker = (props: CustomDateTimePickerProps) => {
                     size: "small",
                 },
                 field: {
-                    // className: "bg-"
                 }
             }}
         />

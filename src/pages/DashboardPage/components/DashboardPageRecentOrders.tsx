@@ -1,27 +1,32 @@
+import { useContext } from "react"
 import Divider from "../../../components/Divider/Divider"
-import { OrderStatus } from "../../../entities/order"
 import { OrderStatusItem } from "../../common/Orders/OrderStatusItem"
+import { DashboardContext } from "../DashboardPage"
+import { useNavigate } from "react-router-dom"
+import { ROUTES } from "../../../utils/routes"
 
 const DashboardPageRecentOrders = () => {
+    const report = useContext(DashboardContext);
+    const navigate = useNavigate();
     return (
         <div className="flex flex-col h-full max-h-full gap-4 p-4 border rounded-md border-border-color">
             <div className="sticky flex flex-row items-center justify-between gap-4">
                 <p className="text-lg font-semibold">Recent Orders</p>
-                <p className="text-primary-color">View all orders</p>
+                <p className="cursor-pointer text-primary-color" onClick={() => navigate(ROUTES.ORDERS)}>View all orders</p>
             </div>
 
             <div className="flex flex-col gap-4 overflow-auto">
                 {
-                    Array.from({ length: 10 }).map((value) =>
+                    report?.recentJobs.map((value) =>
                         <div className="flex flex-col gap-2">
                             <div className="flex flex-row justify-between gap-4 break-words">
-                                <p className="underline text-primary-table-color">3abs</p>
-                                <p>23/05/2023</p>
+                                <p className="underline text-primary-table-color">{value.id}</p>
+                                <p>{value.createdAt}</p>
                             </div>
 
                             <div className="flex flex-row justify-between gap-4 break-words">
-                                <p className="max-w-[80%]  md:max-w-[60%] truncate">Product 1's name, Product 1's name, Product 1's name, Product 1's name, ...</p>
-                                <OrderStatusItem status={OrderStatus.COMPLETED} />
+                                <p className="max-w-[80%]  md:max-w-[60%] truncate">{value.products.join(", ")}</p>
+                                <OrderStatusItem status={value.status} />
                             </div>
 
                             <Divider className="my-2" />
