@@ -14,6 +14,7 @@ import { useContext, useMemo } from 'react';
 
 import { Bar } from 'react-chartjs-2';
 import { DashboardContext } from '../DashboardPage';
+import { FormattedNumber } from 'react-intl';
 
 ChartJS.register(
     CategoryScale,
@@ -23,6 +24,24 @@ ChartJS.register(
     Tooltip,
     Legend,
 );
+
+const formatCurrency = (value: any): string => {
+    const numberValue = Number(value);
+
+    if (isNaN(numberValue)) {
+        return value;
+    }
+
+    else {
+        if (numberValue >= 10e9) {
+            return Intl.NumberFormat().format(numberValue / 10e9) + " B";
+        } else if (numberValue >= 10e6) {
+            return Intl.NumberFormat().format(numberValue / 10e6) + " M";
+        } else {
+            return Intl.NumberFormat().format(numberValue) + " VNĐ";
+        }
+    }
+}
 
 const DashboardPageTotalEarning = () => {
     const report = useContext(DashboardContext);
@@ -36,7 +55,7 @@ const DashboardPageTotalEarning = () => {
             },
             tooltip: {
                 callbacks: {
-                    title: (tooltipItems) => tooltipItems.map(item => item.parsed.y.toString()),
+                    title: (tooltipItems) => tooltipItems.map(item => formatCurrency(item.parsed.y)),
                     label: () => "Total earnings"
                 },
                 titleFont: {
@@ -63,7 +82,7 @@ const DashboardPageTotalEarning = () => {
             y: {
                 offset: false,
                 ticks: {
-                    callback: (value: any) => value + "m",
+                    callback: (value: any) => formatCurrency(value),
                     padding: 12,
                     stepSize: 20
                 },

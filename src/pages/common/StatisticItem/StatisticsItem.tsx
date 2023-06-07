@@ -32,12 +32,12 @@ const StatisticsItem = ({ statistic }: StatisticsItemProps) => {
 
                 <div className="flex justify-between">
                     <p className="font-semibold">Total distance</p>
-                    <p>200 <i>(km)</i></p>
+                    <p>{statistic.totalDistance ?? 0} <i>(km)</i></p>
                 </div>
 
                 <div className="flex justify-between">
                     <p className="font-semibold">Total weight</p>
-                    <p>200 <i>(unit)</i></p>
+                    <p>{statistic.totalWeight} <i>(unit)</i></p>
                 </div>
             </div>
         </div>

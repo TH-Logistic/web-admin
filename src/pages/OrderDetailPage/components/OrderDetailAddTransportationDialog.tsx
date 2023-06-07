@@ -44,7 +44,7 @@ const OrderDetailAddTransportationDialog = ({
                                     </th>
 
                                     <th className="text-end text-primary-table-color">
-                                        Distance to pickup
+                                        Load
                                     </th>
                                 </tr>
                             </thead>
@@ -65,7 +65,7 @@ const OrderDetailAddTransportationDialog = ({
                                         </td>
 
                                         <td className="pt-4 text-sm text-end">
-                                            {transportation.garage.latitude}
+                                            {transportation.load} kg
                                         </td>
                                     </tr>
                                 )}

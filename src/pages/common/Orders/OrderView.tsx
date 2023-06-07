@@ -3,7 +3,6 @@ import Orders, { OrdersProps } from "./Orders"
 
 type OrderViewProps = OrdersProps;
 const OrderView = (props: OrderViewProps) => {
-    console.log(props)
     return (
         <div className="flex flex-col gap-8 h-fit">
             <div className="flex items-center gap-4">

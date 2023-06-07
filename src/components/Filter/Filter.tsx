@@ -2,7 +2,7 @@ import FilterIcon from "../../assets/filter.svg";
 import * as Popover from "@radix-ui/react-popover";
 import * as Slider from "@radix-ui/react-slider";
 import * as Checkbox from "@radix-ui/react-checkbox"
-import React, { useState } from "react";
+import { useState } from "react";
 import { ProductStatus } from "../../entities/product";
 import CheckIcon from "../../assets/check.svg";
 

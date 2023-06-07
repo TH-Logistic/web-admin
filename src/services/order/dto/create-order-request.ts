@@ -10,4 +10,5 @@ export interface CreateOrderRequest {
     pickUpContactNo: string;
     unloadContactName: string;
     unloadContactNo: string;
+    notesToDriver?: string;
 }

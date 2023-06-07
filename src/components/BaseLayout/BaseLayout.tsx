@@ -1,8 +1,8 @@
 import NotificationIcon from './../../assets/notification.svg';
 import SideBar from '../SideBar/SideBar';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/use-auth';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ROUTES } from '../../utils/routes';
 import { millisecondToHHMM } from '../../utils/formatter';
 export default function BaseLayout() {

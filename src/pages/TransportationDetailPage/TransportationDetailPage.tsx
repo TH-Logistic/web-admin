@@ -141,7 +141,6 @@ const TransportationDetailPage = (props: TransportationDetailPageProps) => {
                     </div>
 
                     <OrderView
-                        loadNewOrders={false}
                         orders={transportationDetail.jobs}
                     />
                 </div>

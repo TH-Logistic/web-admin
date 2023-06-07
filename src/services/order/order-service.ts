@@ -1,4 +1,4 @@
-import { Order, OrderDetail, OrderStatus, mapNumberToOrderStatus } from "../../entities/order";
+import { Order, OrderDetail, mapNumberToOrderStatus } from "../../entities/order";
 import { Pagination } from "../../entities/pagination";
 import { Report } from "../../entities/report";
 import { orderClient } from "../../ports/clients"

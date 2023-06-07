@@ -310,12 +310,13 @@ const OrderDetailDestinationGarage = ({ order }: OrderDetailSectionProps) => {
 }
 
 const OrderDetailMainDriver = ({ order }: OrderDetailSectionProps) => {
+    const navigate = useNavigate();
     const mainDriver = order.transportation?.mainDriver;
 
     if (mainDriver) {
         return (
             <OrderDetailItemContainer title="Main Driver's Information">
-                <div className="flex flex-col w-full h-full gap-4 p-4">
+                <div className="flex flex-col w-full h-full gap-4 p-4" onClick={() => navigate(`/drivers/${mainDriver.id}`)}>
                     <div className="flex flex-row items-center justify-between gap-2">
                         <div className="flex flex-row items-center gap-4">
                             <img src={mainDriver.gender === Gender.MALE ? MaleIcon : FemaleIcon} alt="avatar" className="w-16 rounded-full outline-1 outline outline-border-color" />
@@ -363,12 +364,13 @@ const OrderDetailMainDriver = ({ order }: OrderDetailSectionProps) => {
 }
 
 const OrderDetailCoDriver = ({ order }: OrderDetailSectionProps) => {
+    const navigate = useNavigate();
     const coDriver = order.transportation?.coDriver;
 
     if (coDriver) {
         return (
             <OrderDetailItemContainer title="Main Driver's Information">
-                <div className="flex flex-col w-full h-full gap-4 p-4">
+                <div className="flex flex-col w-full h-full gap-4 p-4" onClick={() => navigate(`/drivers/${coDriver.id}`)}>
                     <div className="flex flex-row items-center justify-between gap-2">
                         <div className="flex flex-row items-center gap-4">
                             <img src={coDriver.gender === Gender.MALE ? MaleIcon : FemaleIcon} alt="avatar" className="w-16 rounded-full outline-1 outline outline-border-color" />

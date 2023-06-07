@@ -18,7 +18,7 @@ const DashboardPageRecentOrders = () => {
             <div className="flex flex-col gap-4 overflow-auto">
                 {
                     report?.recentJobs.map((value) =>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2" onClick={() => navigate(`/orders/${value.id}`)}>
                             <div className="flex flex-row justify-between gap-4 break-words">
                                 <p className="underline text-primary-table-color">{value.id}</p>
                                 <p>{value.createdAt}</p>

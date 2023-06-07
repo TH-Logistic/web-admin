@@ -108,6 +108,7 @@ const CreateOrderPage = () => {
             pickUpContactNo: data.pickUpContactNumber,
             unloadContactName: data.unloadContactName,
             unloadContactNo: data.unloadContactNumber,
+            notesToDriver: data.note,
         }, {
             onSuccess: (data) => {
                 hideDialog();

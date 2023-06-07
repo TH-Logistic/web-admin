@@ -9,6 +9,8 @@ import { useMutation } from '@tanstack/react-query';
 import * as StaffService from '../../services/staff/staff-service';
 import { CreateStaffRequest } from '../../services/staff/dto/create-staff-request';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { DateTimePicker } from '../../components/DateTimePicker/DateTimePicker';
 
 type CreateStaffInput = CreateStaffRequest & {
     confirmPassword: string
@@ -19,7 +21,7 @@ export default function CreateStaffPage() {
     const navigate = useNavigate();
     const { showInfoDialog, hideDialog, showLoadingDialog } = useDialog();
 
-    const { register, formState: { errors }, control, handleSubmit, setError, setValue } = useForm<CreateStaffInput>({
+    const { register, formState: { errors }, control, handleSubmit, getValues, setError, setValue } = useForm<CreateStaffInput>({
         defaultValues: {
             role: StaffRole.ADMIN,
             avatar: 'www.thinhlh.com'
@@ -111,9 +113,40 @@ export default function CreateStaffPage() {
                     }
                 />
 
+                <Controller
+                    control={control}
+                    name='birthday'
+                    rules={{
+                        required: {
+                            value: true,
+                            message: "Birthday can not be empty!"
+                        }
+                    }}
+                    render={({ field }) => (
+                        <div className={`flex flex-row w-full gap-4`}>
+                            <label className='basis-1/5'>Birthday</label>
+                            <div className="flex flex-col w-full gap-2">
+                                <DateTimePicker
+                                    {...field}
+                                    views={["year", "month", "day"]}
+                                    formatDensity="spacious"
+                                    maxDate={moment().subtract({ year: 18 })}
+                                    format="DD/MM/YYYY"
+                                    value={getValues('birthday') ? moment(getValues('birthday')) : undefined}
+                                    onChange={(value) => {
+                                        if (value) {
+                                            setValue('birthday', (value as moment.Moment).valueOf())
+                                        }
+                                    }}
+                                />
+                                {errors.birthday?.message && <p className='text-sm text-error-color'>{errors.birthday?.message}</p>}
+                            </div>
+                        </div>
+                    )}
+                />
 
 
-                <Input
+                {/* <Input
                     register={
                         register('birthday', {
                             required: {
@@ -139,7 +172,7 @@ export default function CreateStaffPage() {
                     error={errors.birthday}
                     label='Date of birth'
                     placeholder='Date of birth'
-                />
+                /> */}
 
                 <Input
                     register={

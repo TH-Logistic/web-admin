@@ -119,7 +119,7 @@ export default function CreateDriverPage() {
                     rules={{
                         required: {
                             value: true,
-                            message: "Birthday can not be empty"
+                            message: "Birthday can not be empty!"
                         }
                     }}
                     render={({ field }) => (
@@ -129,6 +129,7 @@ export default function CreateDriverPage() {
                                 <DateTimePicker
                                     {...field}
                                     views={["year", "month", "day"]}
+                                    maxDate={moment().subtract({ year: 18 })}
                                     formatDensity="spacious"
                                     format="DD/MM/YYYY"
                                     value={getValues('birthday') ? moment(getValues('birthday')) : undefined}
@@ -143,8 +144,6 @@ export default function CreateDriverPage() {
                         </div>
                     )}
                 />
-
-
 
                 {/* <Input
                     onClick={() => { }}

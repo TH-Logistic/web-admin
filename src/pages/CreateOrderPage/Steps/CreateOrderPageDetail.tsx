@@ -1,8 +1,10 @@
-import { SubmitHandler, UseFormReturn, useForm, useFormContext } from "react-hook-form"
+import { Controller, SubmitHandler, UseFormReturn, useForm, useFormContext } from "react-hook-form"
 import { Input } from "../../../components/Input/Input"
 import { MultilLineInput } from "../../../components/Input/MultilineInput"
 import { CreateOrderDetailInput, CreateOrderInputs } from "./CreateOrderPageTypes"
 import { LegacyRef } from "react"
+import { DateTimePicker } from "../../../components/DateTimePicker/DateTimePicker"
+import moment from "moment"
 
 const FormTitle = (props: React.PropsWithChildren) => {
     return <p className="text-lg font-bold">{props.children}</p>
@@ -17,12 +19,45 @@ const CreateOrderPageDetail = ({
     formRef,
     onSubmit
 }: CreateOrderPageDetailProps) => {
-    const { register, handleSubmit, formState: { errors } }: UseFormReturn<CreateOrderDetailInput> = useForm<CreateOrderDetailInput>();
+    const { register, handleSubmit, control, getValues, setValue, formState: { errors } }: UseFormReturn<CreateOrderDetailInput> = useForm<CreateOrderDetailInput>();
     return (
         <form ref={formRef} className="flex flex-col h-full gap-8 overflow-auto" onSubmit={handleSubmit(onSubmit)} >
             <div className="flex flex-col gap-4">
                 <FormTitle>Need to deliver at</FormTitle>
-                <Input
+
+                <Controller
+                    control={control}
+                    name='deliverTime'
+                    rules={{
+                        required: {
+                            value: true,
+                            message: "Delivery time can not be empty!"
+                        }
+                    }}
+                    render={({ field }) => (
+                        <div className={`flex flex-row w-full gap-4`}>
+                            <label className='basis-1/5'>Delivery Time</label>
+                            <div className="flex flex-col w-full gap-2">
+                                <DateTimePicker
+                                    {...field}
+                                    views={["year", "month", "day", "hours", "minutes"]}
+                                    formatDensity="spacious"
+                                    format="HH:mm - DD/MM/YYYY"
+                                    value={getValues('deliverTime') ? moment(getValues('deliverTime')) : undefined}
+                                    minDateTime={moment().subtract({ year: 1 })}
+                                    onChange={(value) => {
+                                        if (value) {
+                                            setValue('deliverTime', (value as moment.Moment).valueOf())
+                                        }
+                                    }}
+                                />
+                                {errors.deliverTime?.message && <p className='text-sm text-error-color'>{errors.deliverTime?.message}</p>}
+                            </div>
+                        </div>
+                    )}
+                />
+
+                {/* <Input
                     centerLabel
                     register={
                         register('deliverTime', {
@@ -36,7 +71,7 @@ const CreateOrderPageDetail = ({
                     error={errors.deliverTime}
                     label="Deliver time"
                     placeholder="Deliver time"
-                />
+                /> */}
             </div>
 
             <div className="flex flex-col gap-4">

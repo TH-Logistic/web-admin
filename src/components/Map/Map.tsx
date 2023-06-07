@@ -1,13 +1,12 @@
 import GoogleMapReact from "google-map-react";
 import Marker from '../../assets/marker.svg';
-import { LegacyRef } from "react";
 
 type Coordiate = {
     lat: number;
     lng: number;
 };
 
-type MarkerProps = Coordiate & {
+export type MarkerProps = Coordiate & {
     title?: string
 }
 const MarkerItem = ({ lat, lng, title }: MarkerProps) =>

@@ -6,22 +6,20 @@ import { OrderItem } from "./OrderItem";
 import { Order } from "../../../entities/order";
 
 export type OrdersProps = {
-    loadNewOrders?: boolean,
     orders?: Order[]
 }
 export default function Orders({
-    loadNewOrders = true,
-    orders = []
+    orders
 }: OrdersProps) {
     const { data, error, isLoading } = useQuery({
         queryKey: ['getOrders'],
         queryFn: () => OrderService.getOrders({}),
-        enabled: loadNewOrders,
-        placeholderData: ({
+        enabled: orders === undefined,
+        placeholderData: orders ? ({
             total: orders.length,
             content: orders,
             totalPage: 1
-        })
+        }) : undefined
     });
 
     return (
@@ -60,9 +58,10 @@ export default function Orders({
                 </thead>
                 <tbody className="mt-4">
                     {
-                        data?.content.map(value =>
+                        (orders ?? data?.content)?.map(value =>
                             <OrderItem {...value} />
                         )
+
                     }
                 </tbody>
             </table >

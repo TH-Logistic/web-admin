@@ -28,5 +28,9 @@ export interface TransportationDetail {
         dateOfBirth: number,
         numberOfTrips: number
     } | undefined
+}
 
+export enum DeliveryStatus {
+    IDLE = 1,
+    DELIVERY = 2
 }

@@ -2,7 +2,6 @@ import { Driver } from "./driver";
 import { Garage } from "./garage";
 import Product from "./product";
 import { Route } from "./route";
-import { Transportation } from "./transportation";
 
 export enum OrderStatus {
     OPEN = 1,
@@ -51,7 +50,7 @@ export interface Order {
     licensePlate: string;
     driverInCharge: string;
     products: string[];
-    createdAt: string;
+    createdAt: number;
     pickUpAt: string;
     unloadAt: string;
     orderFee: string;

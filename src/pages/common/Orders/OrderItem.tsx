@@ -1,4 +1,5 @@
 import { Order } from "../../../entities/order"
+import { DateTimeFormatter } from "../../../utils";
 import ProductType from "../../ProductPage/Product/ProductType";
 import ProductTypeItem from "../../ProductPage/Product/ProductTypeItem";
 import { OrderStatusItem } from "./OrderStatusItem";
@@ -16,7 +17,7 @@ const OrderItem = ({ id, licensePlate, driverInCharge, products, createdAt, pick
                 {products.slice(0, 3).map(product => <p>{product}</p>)
                 }
             </td>
-            <td className="">{createdAt}</td>
+            <td className="">{DateTimeFormatter.millisecondToHHMMDDmmYYYY(createdAt)}</td>
             <td className="">{pickUpAt}</td>
             <td className="">{unloadAt}</td>
             <td className="">{orderFee}</td>

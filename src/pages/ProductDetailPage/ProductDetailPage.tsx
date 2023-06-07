@@ -71,7 +71,7 @@ export default function ProductDetailPage() {
                     </div>
 
                     <div className="mx-8 my-16">
-                        <OrderView loadNewOrders={false} orders={productDetail.jobs} />
+                        <OrderView orders={productDetail.jobs} />
                     </div>
                 </div>
             ) :

@@ -16,7 +16,7 @@ const DashboardPageProfitDebt = () => {
             <div className="flex flex-row h-[4vh] w-full">
                 {
                     (profitPercentage === 0 && debtPercentage === 0) ?
-                        <p className="self-center w-full font-bold text-center">No Order Created!</p> :
+                        <p className="self-center w-full font-bold text-center">No Debt Or Profit On Orders!</p> :
                         <div className="flex flex-row w-full h-full">
                             <div style={{ width: `${profitPercentage}%` }} className={`h-full bg-primary-light rounded-l-md`} />
                             <div style={{ width: `${debtPercentage}%` }} className={`h-full flex-1 bg-primary-dark rounded-r-md`} />

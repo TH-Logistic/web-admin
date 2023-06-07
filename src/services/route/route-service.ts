@@ -2,8 +2,9 @@ import { Pagination } from "../../entities/pagination"
 import { Route } from "../../entities/route"
 import { routeClient } from "../../ports/clients"
 import { QueryParams } from "../common/query-params"
+import { CreateRouteRequest } from "./dto/create-route-request"
 
-export const getRoutes = async ({
+const getRoutes = async ({
     size = 50,
     page = 0,
     keyword = undefined
@@ -15,6 +16,16 @@ export const getRoutes = async ({
             keyword
         }
     })
-
     return response.data
+}
+
+const createRoute = async (request: CreateRouteRequest): Promise<{ id: string }> => {
+    const response = await routeClient.post<{ id: string }>("", request);
+
+    return response.data;
+}
+
+export {
+    getRoutes,
+    createRoute
 }
