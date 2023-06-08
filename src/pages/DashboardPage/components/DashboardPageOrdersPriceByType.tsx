@@ -65,7 +65,7 @@ const DashboardPageOrdersPriceByType = () => {
                             <div className="w-5 h-5 mr-2 bg-[#1EB4FD] rounded-md" />
                             <p>Trip based</p>
                         </div>
-                        <p>{report?.orderPricePieChart.tripBasedJobPrice}đ</p>
+                        <p>{Intl.NumberFormat().format(report?.orderPricePieChart.tripBasedJobPrice ?? 0)}đ</p>
                     </div>
 
                     <div className="flex flex-row justify-between">
@@ -73,7 +73,7 @@ const DashboardPageOrdersPriceByType = () => {
                             <div className="w-5 h-5 mr-2 bg-[#FAC02C] rounded-md" />
                             <p>Tons based</p>
                         </div>
-                        <p className="break-words">{report?.orderPricePieChart.tonBasedJobPrice}đ</p>
+                        <p>{Intl.NumberFormat().format(report?.orderPricePieChart.tonBasedJobPrice ?? 0)}đ</p>
                     </div>
                 </div>
             </div>

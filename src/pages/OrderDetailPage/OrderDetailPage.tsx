@@ -631,7 +631,6 @@ const OrderDetailProducts = ({ order }: OrderDetailSectionProps) => {
                                 </td>
                             </tr>
                         )}
-
                     </tbody>
                 </table>
             </div>

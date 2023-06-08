@@ -31,12 +31,11 @@ const formatCurrency = (value: any): string => {
     if (isNaN(numberValue)) {
         return value;
     }
-
     else {
-        if (numberValue >= 10e9) {
-            return Intl.NumberFormat().format(numberValue / 10e9) + " B";
-        } else if (numberValue >= 10e6) {
-            return Intl.NumberFormat().format(numberValue / 10e6) + " M";
+        if (numberValue >= 1e9) {
+            return Intl.NumberFormat().format(numberValue / 1e9) + " B";
+        } else if (numberValue >= 1e6) {
+            return Intl.NumberFormat().format(numberValue / 1e6) + " M";
         } else {
             return Intl.NumberFormat().format(numberValue) + " VNĐ";
         }

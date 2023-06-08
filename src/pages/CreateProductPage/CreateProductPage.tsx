@@ -115,8 +115,8 @@ const CreateProductForm = ({
                         message: 'Product base price can not be empty!'
                     },
                     min: {
-                        value: 10000,
-                        message: 'Product base price must larger then 10,000'
+                        value: 0,
+                        message: 'Product base price must larger then 0'
                     },
                     valueAsNumber: true
                 })}
