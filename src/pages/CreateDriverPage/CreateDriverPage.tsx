@@ -32,7 +32,6 @@ export default function CreateDriverPage() {
     });
 
     const onSubmit: SubmitHandler<CreateDriverInput> = (data) => {
-        alert(data.birthday)
         if (data.confirmPassword !== data.password) {
             setError('confirmPassword', {
                 message: 'Confirm password does not match password!',

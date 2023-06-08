@@ -191,10 +191,10 @@ export default function CreateRoutePage() {
                     (chosenFromLocation || chosenToLocation) ?
                         <Map
                             center={{
-                                lat: ((chosenFromLocation?.latitude ?? 0) + (chosenFromLocation?.latitude ?? 0)) / 2,
-                                lng: ((chosenFromLocation?.longitude ?? 0) + (chosenFromLocation?.longitude ?? 0)) / 2
-
+                                lat: ((chosenFromLocation?.latitude ?? 0) + (chosenToLocation?.latitude ?? 0)) / 2,
+                                lng: ((chosenFromLocation?.longitude ?? 0) + (chosenToLocation?.longitude ?? 0)) / 2
                             }}
+                            zoom={12}
                             markers={markers}
                         /> :
                         <MapComponent />

@@ -31,7 +31,6 @@ const BaseCreateLocationPage = ({
 
     const [location, setLocation] = useState<Coordinate | undefined>(undefined);
 
-
     const { register, formState: { errors }, handleSubmit, setValue, trigger, reset } = useForm<CreateLocationPageInputs>();
 
     useEffect(() => {
@@ -66,7 +65,6 @@ const BaseCreateLocationPage = ({
                         <MapAutoComplete
                             onChange={(value) => {
                                 setValue('address', value.target.value);
-                                alert(value.target.value)
                                 trigger('address');
                             }}
                             error={errors.address}
