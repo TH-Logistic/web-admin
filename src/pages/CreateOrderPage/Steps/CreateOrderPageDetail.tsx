@@ -44,7 +44,7 @@ const CreateOrderPageDetail = ({
                                     formatDensity="spacious"
                                     format="HH:mm - DD/MM/YYYY"
                                     value={getValues('deliverTime') ? moment(getValues('deliverTime')) : undefined}
-                                    minDateTime={moment().subtract({ year: 1 })}
+                                    minDateTime={moment()}
                                     onChange={(value) => {
                                         if (value) {
                                             setValue('deliverTime', (value as moment.Moment).valueOf())

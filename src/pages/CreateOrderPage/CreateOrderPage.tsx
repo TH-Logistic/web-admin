@@ -170,6 +170,7 @@ const CreateOrderPage = () => {
             <CreatePage
                 header="Create new order"
                 divider={false}
+                centerHeaderItems={false}
                 primaryTitle={currentStep !== steps.length - 1 ? 'Next' : 'Save'}
                 secondaryTitle={currentStep === 0 ? 'Cancel' : 'Previous'}
                 headerChildren={

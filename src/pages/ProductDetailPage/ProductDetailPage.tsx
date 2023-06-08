@@ -56,7 +56,7 @@ export default function ProductDetailPage() {
 
                                     <div className="flex justify-between">
                                         <p>Base Price</p>
-                                        <p>{productDetail.product.basePrice}đ (kg/km)</p>
+                                        <p>{Intl.NumberFormat().format(productDetail.product.basePrice)}đ (kg/km)</p>
                                     </div>
 
                                     <div className="flex justify-between">

@@ -16,12 +16,13 @@ export type CreatePageProps = React.PropsWithChildren<{
     shouldNavigateBackWhenSecondaryClicked?: boolean,
     onPrimaryButtonClicked?: () => void;
     onSecondaryButtonClicked?: () => void;
-}>;
+}> & { centerHeaderItems?: boolean };
 
 const CreatePage = ({
     header,
     title,
     children,
+    centerHeaderItems = true,
     divider = true,
     headerChildren,
     primaryTitle = "Save",
@@ -33,7 +34,7 @@ const CreatePage = ({
     const navigate = useNavigate();
     return (
         <div className="flex flex-col gap-4">
-            <CreateHeader header={header}>
+            <CreateHeader centerItems={centerHeaderItems} header={header}>
                 {headerChildren}
             </CreateHeader>
 

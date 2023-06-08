@@ -29,7 +29,7 @@ export default function ProductItem({
                 <p className="underline break-all decoration-primary-color text-primary-color underline-offset-2" >{item.id}</p>
                 <div className="flex justify-between my-2">
                     <p className="text-lg">{item.name}</p>
-                    <p className="text-lg text-end">{item.basePrice}</p>
+                    <p className="text-lg text-end">{Intl.NumberFormat().format(item.basePrice)}</p>
                 </div>
                 <div className="flex justify-between">
                     <p>Unit type</p>
