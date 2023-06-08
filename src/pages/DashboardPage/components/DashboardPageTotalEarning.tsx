@@ -64,6 +64,8 @@ const DashboardPageTotalEarning = () => {
                 bodyFont: {
                     size: 14
                 },
+                yAlign: "top",
+                titleAlign: "center",
                 bodyAlign: "center",
                 displayColors: false,
             }
