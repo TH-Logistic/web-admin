@@ -14,6 +14,3 @@ RUN npm run build
 
 RUN npm i -g serve
 CMD [ "npx", "serve", "-s", "build" ]
-
-
-
